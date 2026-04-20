@@ -13,7 +13,9 @@
 
 ### Social Aspect Ideas
 -Many players like the social aspect of gambling and casinos. There is potential to meet and make friends at casinos rather than online slot machines. 
+
 -Make and refer friends online 
+
 -Notifications when friends start gamble 
 -More your friends play, the more rewards you get 
 
