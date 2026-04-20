@@ -13,7 +13,7 @@
 - **Bonus:** A special feature triggered by certain winning combinations that could lead to free spins, multipliers, changed symbol frequencies, "hold and respins," or selection of hidden rewards.
 - **Wild Symbol:** A symbol that can substitute for other symbols (usually with the exception of jackpot and scatter symbols).
 
-## Casion And Slot Machine Psychology
+## Casino And Slot Machine Psychology
 
 ### Variable Rewards
 - Skinner Box
