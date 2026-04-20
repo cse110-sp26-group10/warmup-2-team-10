@@ -7,7 +7,7 @@
 * **Age:** 38
 * **Occupation:** Sales Manager
 * **Tech Proficiency:** Moderate. Highly proficient with mobile gambling apps and online casino platforms.
-* **Context:** Marcus exhibits behaviors consistent with gambling addiction. He plays slot machines daily, chasing the psychological thrill and dopamine release associated with high-volatility games. He is drawn to highly stimulating, fast-paced environments.
+* **Context:** Bob exhibits behaviors consistent with gambling addiction. He plays slot machines daily, chasing the psychological thrill and dopamine release associated with high-volatility games. He is drawn to highly stimulating, fast-paced environments.
 
 ### Goals
 * To experience continuous, rapid-fire gameplay without artificial delays.
