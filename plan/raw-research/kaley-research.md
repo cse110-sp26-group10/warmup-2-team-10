@@ -24,9 +24,10 @@
 - These people come for fun and entertainment/come for comapny
 
 ### Depression & "Dark Flow"
-- There is a link between those with depression and slot machine addiction. There is a concept called “dark flow,” where depressed individuals will be occupied by the game and forget everything else.
-- "Our key results were that mindfulness problems outside of the gambling context were positively correlated with depression, problem gambling status, and most importantly, dark flow within the gambling context. Dark flow was positively correlated with positive affect during play and the combination of dark flow and depression predicted gambling problems. The picture that emerges is that individuals with mindfulness problems in everyday life find their attention locked in by slot machines inducing dark flow, which in turn leads to a state of positive affect. For depressed players especially, this state may be enjoyable because it provides an escape from the negative mentation linked to depression that characterizes the everyday lives of these troubled players."
 -Emotions play a role in addition. The negative emotions of guilt, shame, and sadness can be apparent, especially after large hits of dopamine.
+- There is a link between those with depression and slot machine addiction. There is a concept called “dark flow,” where depressed individuals will be occupied by the game and forget everything else.
+- "Dark flow was positively correlated with positive affect during play and the combination of dark flow and depression predicted gambling problems."
+- For depressed individuals, these machines are an escape from negative reality that linked with their depression.   
 
 ## Summary
 - The goal of casinos and slot machines is keep players in the zone where they are fixated on the game rather than reality and real life. 
