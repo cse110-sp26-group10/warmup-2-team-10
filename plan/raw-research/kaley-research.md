@@ -1,3 +1,59 @@
+# Research Artifact: Slot Machine Visual Themes + UI 
+**Researcher:** Kaley Chung
+
+## Visual Themes 
+
+- **Popular Themes:** classic fruit machines, mythology, adventure, branded content, horror, and nature
+- **Colors:** 
+- **Misc** bonus rounds, symbol design, animations, and sound effects
+- **Volatility/Variance:** A measure of risk associated with playing the slot machine, with higher volatility indicating lower frequency of winning but bigger wins.
+- **Paytable:** A table that explains the ways to win on the slot machine.
+- **Scatter:** A pay combination based on the frequency of certain symbols rather than having to land on a payline. Scatters are commonly used for triggering bonus games or spins.
+- **Free Spin:** A spin that is played at no charge to the player's wager, usually as a reward from a scatter.
+- **Bonus:** A special feature triggered by certain winning combinations that could lead to free spins, multipliers, changed symbol frequencies, "hold and respins," or selection of hidden rewards.
+- **Wild Symbol:** A symbol that can substitute for other symbols (usually with the exception of jackpot and scatter symbols).
+
+## Casino And Slot Machine Psychology
+
+### Variable Rewards
+- Skinner Box
+  - Psychologist B.F. Skinner once conducted an experiment where he placed pigeons in a box and gave them food rewards for pecking a button.
+  - Skinner found that pigeons were more incentivized to peck the button when food were given in random intervals rather than predictable ones.
+- In a related manner, this anticipation of variable rewards drives human behavior. This serves as the underlying mechanism that makes slot machines so addictive.
+
+### Casino Floor Design
+- The entry to casinos are made as effortless as possible.
+- Walkways in the casino are narrow enough that makes it easy for people to walk off into gaming areas.
+- The curvature of walkways as opposed to sharp turns makes the place more welcoming.
+- Gambling equipment is constantly in the face of visitors.
+
+### Visual Stimulation
+- Casinos minimizes stress from lighting by keeping a steady and even lighting.
+- The gambling room is kept dark and isolated from the outside lighting.
+- Colors on slot machines are engineered in a way to be pleasant to look at.
+- Screens are curved to reduce eye strain.
+
+### Sounds
+  - Background music is positive for players unless the sound bounces off interior surfaces that overwhelms the auditory sense.
+  - The best background music depends on the time of day and demographics of players there.
+  - Hundreds of unique sound effects are used to keep players playing while staying in the background, though there is a lack of "losing" sounds.
+
+### Tactile Feedback
+- The frequency emitted from the screen upon pressing buttons along with the visual graphics help the player develop reflexes that encourage them to play for longer.
+
+### Play Speed
+- Other gambling alternatives often have wait times between rounds (e.g. card shuffling in Blackjack, ball spins in roulette), but slot machines are not bound by this limit.
+- Allowing players to use cards or turn bills into immediate credits makes the process even more seamless, further pushing players into the realm of addiction.
+
+## Summary
+- The goal of casinos and slot machines are to keep players in the "machine zone" to maximize their "time on device" (TOD) and "revenue per available customer" (REVPAC).
+- So the slot machine should be designed in a way to achieve these goals.
+
+## Useful Resources
+
+- **Wikipedia:** [Slot Machine Themes](https://sdlccorp.com/post/slot-machine-themes-explained-complete-guide/#:~:text=Popular%20themes%20include%20classic%20fruit,%2C%20animations%2C%20and%20sound%20effects.)
+- **Trung Phan:** [The (Ludicrous) Psychology of Slot Machines](https://www.readtrung.com/p/the-ludicrous-psychology-of-slot)
+
 CSE 110 Tech Warmup II Research
 Visual Themes + UI 
 Researcher: Kaley Chung
