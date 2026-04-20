@@ -19,6 +19,7 @@ To effectively prompt the AI, we need to map casino jargon directly to data stru
 * **Multipliers & Bonus Rounds:** * *Logic Implication:* Requires a robust state management system (e.g., `gameState.isBonusRound = true`, `gameState.currentMultiplier = 2`).
 
 ## 2. Visual Themes & Design Philosophy
+Here are some key points to think about in terms of where we want to take the website visually.
 * **Competitor Analysis (Web-based Slots):** Most HTML5 slots (like those on traditional online casinos) use `<canvas>` or WebGL. They are heavily cluttered with neon graphics, complex animations, and dense UI overlays. 
     * We need to prompt the AI to make sure the visuals match similar ones found online and is not too cluttered.
 * **Our Visual Direction:** A **minimalist, clear design language**. 
@@ -36,13 +37,13 @@ To maintain clean code and ensure testability (for Playwright/Jest), we must avo
     * A static, highly visible Paytable for user reference.
 
 ## 4. Accessibility Considerations
-This is a critical failure point for most web games. If we use standard DOM elements instead of `<canvas>`, we can easily enforce these via AI prompts:
+We should definitely consider how accessible our website will be. If we use standard DOM elements instead of `<canvas>`, we can easily enforce these via AI prompts:
 * **Keyboard Navigation:** The "Spin" action must be tied to the `Spacebar` and `Enter` keys. Bet adjustment must be accessible via `Tab` indexing and arrow keys.
 * **Semantic HTML & ARIA:** * The main game board should use `aria-live="polite"` to announce spin results to screen readers (e.g., "Spin complete. You won 50 credits.").
     * Buttons must have clear `aria-labels` (not just an icon of a coin).
 * **Visual Access:** Ensure the minimalist design adheres to WCAG AAA contrast ratios. Avoid relying purely on color to indicate a win (e.g., add a bold border or a specific text readout alongside the highlighted payline).
 
 ## Useful Reference Links & Docs
-* [MDN Web Docs: CSS Grid Layout](https://developer.mozilla.org/en-US/docs/Web/CSS/CSS_Grid_Layout) (Crucial for prompting the 3x5 reel layout)
+* [MDN Web Docs: CSS Grid Layout](https://developer.mozilla.org/en-US/docs/Web/CSS/CSS_Grid_Layout) (Good for prompting the 3x5 reel layout)
 * [W3C Web Accessibility Guidelines (WCAG) 2.1](https://www.w3.org/TR/WCAG21/)
 * [Understanding Math in Slot Machines (RTP & RNG)](https://www.casinonewsdaily.com/slots/mathematics/)
