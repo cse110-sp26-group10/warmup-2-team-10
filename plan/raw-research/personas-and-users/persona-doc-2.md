@@ -1,7 +1,7 @@
 # Persona Docs: Project Slot Machine
 **Document Purpose:** To define personas for our AI-assisted slot machine application, ensuring our prompt engineering and architectural decisions remain user-centric, specifically prioritizing accessibility and minimalist design.
 
-## Persona 2: Elena - Casual & Responsible College Student
+## Persona 2: Elena - The Casual & Responsible College Student
 
 ### Demographics & Background
 * **Age:** 21

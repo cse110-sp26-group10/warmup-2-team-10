@@ -128,7 +128,7 @@ All detailed notes and source materials can be found in: `raw-research/`
 - Suggested **optional features** (free spins, autoplay, bonuses)
 - Emphasized learning from competitors while avoiding duplication
 
-### Evan
+### Evan Marriott
 - Performed **deep industry analysis** of slot formats and mechanics
 - Compared major games (Starburst, Book of Dead, Slotomania)
 - Identified **feature gaps (accessibility)** as differentiation opportunities
