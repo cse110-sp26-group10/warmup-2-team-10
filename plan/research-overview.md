@@ -128,7 +128,7 @@ All detailed notes and source materials can be found in: `raw-research/`
 - Suggested **optional features** (free spins, autoplay, bonuses)
 - Emphasized learning from competitors while avoiding duplication
 
-### Evan
+### Evan Marriott
 - Performed **deep industry analysis** of slot formats and mechanics
 - Compared major games (Starburst, Book of Dead, Slotomania)
 - Identified **feature gaps (accessibility)** as differentiation opportunities
@@ -151,6 +151,12 @@ All detailed notes and source materials can be found in: `raw-research/`
 - Analyzed **how themes influence gameplay and engagement**
 - Identified **reward systems and player incentives**
 - Conducted **user behavior research** (social aspects, addiction, demographics)
+
+### Prakhar Shah
+- Researched **strategic gameplay mechanics** (Holds and Nudges) to move beyond pure luck.
+- Analyzed the **psychology of player agency**, specifically the "Illusion of Control" and "Competence Hits."
+- Explained the **Near-Miss Effect** and its neurological impact on player engagement.
+- Provided a framework for balancing **System 1 and System 2 thinking** in game design.
 
 ---
 
