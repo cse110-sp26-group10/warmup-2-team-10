@@ -27,8 +27,11 @@ Slot machines allow players to place massive amounts of bets very quickly. The v
 - Digital Soundtrack to simulate cascading coins
 - Service requests? If something's wrong give the player a place to complain
 - Speed is key, increase play speed or maybe have options where players can increase the speed
+- Increase level tiers as people play, second screens, visual effects that change the longer people play
+- Add a bonus payout that happens after a certain number of spins with a visual cue
+- High probability of desirable outcomes, celebrate wins that are loses (like 10 cent spins with 1 cent wins)
 
 
 ## Sources
 * [https://www.readtrung.com/p/the-ludicrous-psychology-of-slot]
-
+* [https://cdcgaming.com/commentary/frank-floor-talk-the-psychology-of-the-slot-player/]
