@@ -1,25 +1,25 @@
 # Persona Docs: Project Slot Machine
 **Document Purpose:** To define personas for our AI-assisted slot machine application, ensuring our prompt engineering and architectural decisions remain user-centric, specifically prioritizing accessibility and minimalist design.
 
-## Persona 1: Bob - The High-Frequency Thrill-Seeker
+## Persona 1: Bob - The Thrill-Seeker College Student
 
 ### Demographics & Background
-* **Age:** 38
-* **Occupation:** Sales Manager
-* **Tech Proficiency:** Moderate. Highly proficient with mobile gambling apps and online casino platforms.
-* **Context:** Bob exhibits behaviors consistent with gambling addiction. He plays slot machines daily, chasing the psychological thrill and dopamine release associated with high-volatility games. He is drawn to highly stimulating, fast-paced environments.
+* **Age:** 20
+* **Occupation:** Undergraduate Student in Computer Science
+* **Tech Proficiency:** High. Extremely proficient with mobile games, Discord bots, and fast-paced web apps.
+* **Context:** Bob is a highly caffeinated student who uses gaming to blow off steam and distract himself from the 500 rejections he's had from internship hunting. He loves to gamble with real money, he is fiercely competitive and loves chasing the psychological thrill of a high-risk, high-reward system. 
 
 ### Goals
-* To experience continuous, rapid-fire gameplay without artificial delays.
-* To be visually and audibly stimulated; he associates bright, bold colors and explosive animations with winning and excitement.
-* To have access to high variance/volatility mechanics where massive (though rare) payouts are possible.
+* To experience continuous, rapid-fire gameplay without artificial delays between spins.
+* To be visually and audibly stimulated; he associates bright, chaotic colors (like energy drink branding) and explosive CSS animations with winning.
+* To have access to high variance/volatility mechanics where he can risk a massive amount of his money for a rare, massive payout.
 
 ### Pain Points
-* **Slow Pacing:** Mandatory delays between spins or unskippable animations frustrate him.
-* **"Boring" Aesthetics:** Minimalist or muted designs feel unrewarding and fail to trigger the desired psychological excitement.
-* **Bet Limits:** Restrictive maximum bet caps prevent him from chasing losses or scaling his risk.
+* **Slow Pacing:** Mandatory delays, slow reel animations, or unskippable transitions ruin his momentum and frustrate him.
+* **"Boring" Aesthetics:** Overly muted or "corporate" designs feel unrewarding. If he hits a jackpot, he wants the screen to reflect that excitement.
+* **Bet Limits:** Restrictive maximum bet caps prevent him from doing a simulated "all-in" with his meal plan swipes.
 
 ### Software Engineering & AI Prompt Implications
-* **State Management (Turbo Mode):** The application architecture must support a "Turbo Spin" state that bypasses standard animation delays, requiring efficient DOM updates.
-* **Visual Engine:** The AI must be prompted to include bold, high-contrast CSS design elements (e.g., gold accents, neon highlights, vibrating animations on wins) to cater to this user's need for intense visual feedback.
-* **Math Model:** The underlying RTP/Volatility algorithms (even if simulated) must allow for a "High Volatility" toggle to satisfy the desire for infrequent but massive simulated payouts.
+* **State Management (Turbo Mode):** The application architecture must support a "Turbo Spin" state that bypasses standard setTimeout animation delays, requiring the AI to write highly efficient DOM updates for instant results.
+* **Visual Engine:** The AI must be prompted to include bold, high-contrast CSS design elements utilizing our chosen vibrant accent colors (Neon Green, Safety Orange, Electric Yellow). When a win occurs, the JS should trigger classes like `.flash-excitement` for maximum visual pop.
+* **Math Model:** The underlying RTP/Volatility algorithms must allow for a "High Volatility" toggle. The prompt needs to ensure the math logic supports rare, massive simulated payouts (e.g., hitting 5 'Wild Diplomas' in a row) to satisfy the desire for a massive Dining Dollar win.
