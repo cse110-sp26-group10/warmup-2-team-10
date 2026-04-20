@@ -18,8 +18,8 @@
 -More your friends play, the more rewards you get 
 
 ### Main Types of Users
--"Young and Upbeat Salary Earning Players"
--These are people in the corporate world/ 20-30 years with day jobs/ fresh from school/ do not see the need for savings
+**"Young and Upbeat Salary Earning Players"**
+* *These are people in the corporate world/ 20-30 years with day jobs/ fresh from school/ do not see the need for savings
 -"Grannies"
 -These people come for fun and entertainment/come for comapny
 
