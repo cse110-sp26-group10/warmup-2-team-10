@@ -4,7 +4,7 @@
 ## Persona 1: Bob - The Thrill-Seeker College Student
 
 ### Demographics & Background
-* **Age:** 20
+* **Age:** 24
 * **Occupation:** Undergraduate Student in Computer Science
 * **Tech Proficiency:** High. Extremely proficient with mobile games, Discord bots, and fast-paced web apps.
 * **Context:** Bob is a highly caffeinated student who uses gaming to blow off steam and distract himself from the 500 rejections he's had from internship hunting. He loves to gamble with real money, he is fiercely competitive and loves chasing the psychological thrill of a high-risk, high-reward system. 
