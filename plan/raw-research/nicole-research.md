@@ -4,7 +4,7 @@
 Below are some considerations for when we start prompting the AI and useful links!
 
 ## 1. Industry Jargon & State Logic Mapping
-To effectively prompt the AI, we need to map casino jargon directly to data structures and logic.
+To effectively prompt the AI, we need to map casino jargon directly to data structures and logic (so it understands what they mean).
 
 * **RTP (Return to Player):** The theoretical percentage of wagered money paid back over time.
     * *Logic Implication:* We aren't building a true gambling engine, but our RNG (Random Number Generator) needs a weighted probability distribution array rather than a simple `Math.random()`.
@@ -27,7 +27,7 @@ To effectively prompt the AI, we need to map casino jargon directly to data stru
     * Reference the web accessibility link!
 
 ## 3. Architecture & Expected Features
-To maintain clean code and ensure testability (for Playwright/Jest), we must avoid monolithic functions.
+To maintain clean code and ensure testability (for Playwright/Jest), we must avoid monolithic functions -> where everything resides in one code base.
 
 * **Expected Features:**
     * Dynamic Credit Balance (`balance -= bet`, `balance += winAmount`).
@@ -35,7 +35,7 @@ To maintain clean code and ensure testability (for Playwright/Jest), we must avo
     * Spin mechanism with a simulated delay (Promise-based `setTimeout` to mimic reel spinning).
     * A static, highly visible Paytable for user reference.
 
-## 4. Accessibility (A11y) Considerations
+## 4. Accessibility Considerations
 This is a critical failure point for most web games. If we use standard DOM elements instead of `<canvas>`, we can easily enforce these via AI prompts:
 * **Keyboard Navigation:** The "Spin" action must be tied to the `Spacebar` and `Enter` keys. Bet adjustment must be accessible via `Tab` indexing and arrow keys.
 * **Semantic HTML & ARIA:** * The main game board should use `aria-live="polite"` to announce spin results to screen readers (e.g., "Spin complete. You won 50 credits.").
