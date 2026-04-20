@@ -12,4 +12,4 @@
 
 6. As a college student, I want the slot symbols to use student-life themed assets like ramen, textbooks, job application and loose change so that the game feels unique and relatable.
 
-7. As a casual player, I want the controls to be simple and easy to understand so that I can start playing immediately without needing extra explanation (keep the game mechanics basic and subtle effects-not too colorful).
+7. As a casual player, I want the controls to be simple and easy to understand so that I can start playing immediately without needing extra explanation (keep the game mechanics basic and effects subtle-not too colorful or have too much red-herring).
