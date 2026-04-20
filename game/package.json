@@ -1,0 +1,26 @@
+{
+  "name": "warmup-2-team-10",
+  "version": "1.0.0",
+  "description": "CSE 110 Slot Machine - Team 10",
+  "type": "module",
+  "scripts": {
+    "validate:html": "html-validate \"iteration-*/*.html\"",
+    "lint:css": "stylelint \"iteration-*/**/*.css\"",
+    "lint:js": "eslint \"iteration-*/**/*.js\"",
+    "lint": "npm run lint:css && npm run lint:js",
+    "test:unit": "vitest run",
+    "test:e2e": "playwright test",
+    "test": "npm run test:unit && npm run test:e2e",
+    "check": "npm run validate:html && npm run lint && npm run test"
+  },
+  "devDependencies": {
+    "@playwright/test": "^1.44.0",
+    "eslint": "^9.0.0",
+    "eslint-plugin-jsdoc": "^50.0.0",
+    "html-validate": "^9.0.0",
+    "jsdom": "^25.0.0",
+    "stylelint": "^16.0.0",
+    "stylelint-config-standard": "^36.0.0",
+    "vitest": "^2.0.0"
+  }
+}
