@@ -1,5 +1,5 @@
 # Research Artifact: Slot Machine UI, Features, and User Flow
-**Researcher:** Benedict Luis
+**Researcher:** Benedict Lui
 
 Below are some notes I put together on slot machine mechanics, interface ideas and specific features to consider when we start designing and prompting the AI.
 
