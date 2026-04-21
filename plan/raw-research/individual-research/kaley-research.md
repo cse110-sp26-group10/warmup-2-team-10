@@ -59,7 +59,7 @@ Slot machine systems are designed to maximize engagement through visual design, 
 - **Return to Player (RTP)** - percentage figure showing how much cash the slot game pays back
 
 
-### User Types
+## User Types
 
 **1. Young Working Professionals**
 - Salaried employees or recent graduates
