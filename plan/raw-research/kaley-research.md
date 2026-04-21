@@ -1,6 +1,8 @@
 # Research Artifact: Slot Machine Visual Themes + UI 
 
 **Researcher:** Kaley Chung
+
+Below are some facts and links about slot machine visual designs/themes, UI, and how these choices impact users. 
 ---
 
 ## Overview 
