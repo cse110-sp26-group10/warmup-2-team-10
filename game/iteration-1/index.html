@@ -1,15 +1,50 @@
-<!DOCTYPE html>
-<html lang="en">
-  <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Broke College Slots</title>
-    <link rel="stylesheet" href="style.css">
-  </head>
-  <body>
-    <main id="app" aria-label="Slot machine game">
-      <!-- slot machine UI will be built here -->
-    </main>
-    <script type="module" src="game.js"></script>
-  </body>
-</html>
+<header>
+  <h1>Broke College Student Slot Machine</h1>
+  <p>Try your luck with the essentials of student life.</p>
+</header>
+<main>
+  <section
+    id="reels"
+    aria-label="Slot machine reels"
+    aria-describedby="results-announcer"
+  >
+    <h2>Reels</h2>
+    <!-- @typedef {"instant-noodles" | "textbook" | "coffee" | "laundry-quarters" | "overdue-fee" | "ramen-coupon"} SlotSymbol -->
+    <section aria-label="Reel 1">
+      <h3>Reel 1</h3>
+      <p aria-label="Current symbol on reel 1">Instant Noodles</p>
+    </section>
+    <section aria-label="Reel 2">
+      <h3>Reel 2</h3>
+      <p aria-label="Current symbol on reel 2">Coffee</p>
+    </section>
+    <section aria-label="Reel 3">
+      <h3>Reel 3</h3>
+      <p aria-label="Current symbol on reel 3">Laundry Quarters</p>
+    </section>
+  </section>
+
+  <aside id="controls" aria-label="Game controls">
+    <h2>Controls</h2>
+    <button type="button" aria-label="Spin the slot machine">
+      Spin
+    </button>
+    <button
+      type="button"
+      aria-pressed="false"
+      aria-label="Toggle game sound between muted and unmuted"
+    >
+      Mute
+    </button>
+  </aside>
+
+  <section
+    id="results-announcer"
+    aria-live="polite"
+    aria-atomic="true"
+    aria-label="Spin results"
+  >
+    <h2>Results</h2>
+    <p>No spin yet.</p>
+  </section>
+</main>
