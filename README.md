@@ -8,25 +8,28 @@ This repository contains our team's structured plan for integrating AI tooling i
 ```
 warmup-2-team-10/
 ├── game/
-│   ├── iteration-1/         # AI batch 1 — slot machine source code
-│   ├── iteration-2/         # AI batch 2
-│   ├── iteration-3/         # AI batch 3
-│   ├── iteration-4/         # AI batch 4
+│   ├── iteration-1/             # AI batch 1 — slot machine source code
+│   ├── iteration-2/             # AI batch 2
+│   ├── iteration-3/             # AI batch 3
+│   ├── iteration-4/             # AI batch 4
 │   ├── tests/
-│   │   ├── unit/            # Vitest unit tests
-│   │   └── e2e/             # Playwright end-to-end tests
-│   ├── eslint.config.js     # JS linter (ESLint + JSDoc enforcement)
-│   ├── .stylelintrc.json    # CSS linter
-│   ├── .htmlvalidate.json   # HTML validator
-│   ├── vitest.config.js     # Unit test runner config
-│   ├── playwright.config.js # E2E test runner config
-│   └── package.json         # npm scripts and dependencies
+│   │   ├── unit/                # Vitest unit tests
+│   │   └── e2e/                 # Playwright end-to-end tests
+│   ├── eslint.config.js         # JS linter (ESLint + JSDoc enforcement)
+│   ├── .stylelintrc.json        # CSS linter
+│   ├── .htmlvalidate.json       # HTML validator
+│   ├── vitest.config.js         # Unit test runner config
+│   ├── playwright.config.js     # E2E test runner config
+│   └── package.json             # npm scripts and dependencies
 ├── plan/
-│   ├── raw-research/        # Raw notes and research artifacts
-│   ├── research-overview.md # Summary of AI tool research
-│   ├── ai-plan.md           # Chosen tool, model, and justification
-│   └── ai-use-log.md        # Running log of AI interactions
-└── final-report/            # Final deliverable (to be completed)
+│   ├── raw-research/            # Raw notes and research artifacts
+│   │   ├── individual-research  # Individual contributions
+│   │   ├── personas-and-users   # Persona docs + User stories
+│   │   ├── visuals              # Visuals for reference
+│   ├── research-overview.md     # Summary of research
+│   ├── ai-plan.md               # Tool/model, justification and project features/strategy
+│   └── ai-use-log.md            # Running log of AI interactions
+└── final-report/                # Final deliverable (to be completed)
 ```
 
 ## Running the Linter and Tests
