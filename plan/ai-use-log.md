@@ -203,3 +203,45 @@ Constraints:
 
 **Hand-Edits Required? (Yes/No):**
 * No.
+
+### Iteration 6: Build weighted RNG logic for slot symbols
+
+**The Prompt:**
+> Act as a strict senior software engineer focused on clean code, DRY principles, and maintainability.
+>
+> I am working on Iteration 6 of a slot machine project. Your task is to build only the invisible RNG logic in pure JavaScript, completely detached from the UI.
+>
+> Goal:
+> Implement a weighted random symbol selection algorithm using weighted probability arrays from our slot machine research.
+>
+> Requirements:
+> - Do not write any DOM, HTML, CSS, or UI-related code.
+> - Keep everything in the JavaScript model only.
+> - Before writing code, briefly explain the weighted probability approach in plain English comments.
+> - Use small functions with meaningful names.
+> - Include complete JSDoc type annotations for all inputs and outputs.
+> - Avoid duplicate logic.
+> - Reuse existing symbol definitions if they already exist in the repo. If they do not, create a clean symbol definition structure.
+> - Add basic validation for invalid input, such as empty arrays or missing/invalid weights.
+> - The output should support later use in generating slot spin results for a 3x5 grid.
+> - Export functions cleanly using the project’s existing module style.
+> - Do not commit anything.
+>
+> Please first inspect the existing repository structure and then implement only the RNG-related code needed for weighted symbol selection. After editing, tell me:
+> 1. which files you changed,
+> 2. what functions you added or modified,
+> 3. any assumptions you made.
+
+**The Result (What happened?):**
+* Codex inspected the repo and found that Iteration 5 had a monolithic `game.js` with existing `SYMBOLS`, a `state` object, and placeholder uniform-random spin logic. It created a new file, `slot-rng.js`(I replace the name to game.js just like iteration 5), instead of modifying the UI code directly. The new file stayed fully detached from the UI and included weighted symbol definitions, validation helpers, `selectWeightedSymbol()`, and `createWeightedSymbolGrid()` for generating a future 3x5 grid. The code used meaningful names, small helper functions, and JSDoc comments throughout. It did not hallucinate in a way that mattered.
+*
+* The main assumption Codex made was the weight distribution, since our research did not specify exact values. It used a clean 100-point distribution: ramen 35, change 30, energy 20, book 10, wild 5. It also preserved the existing symbol IDs from Iteration 5 and assumed the future spin output should be a 3x5 grid.
+*
+* Verification: `node --check` passed. ESLint initially could not run because the Iteration 6 workspace did not yet have installed dependencies, so we copied the lint configuration setup into Iteration 6, ran `npm.cmd install`, and then `npx.cmd eslint .` passed successfully. This satisfied the requirement to run linters after the AI batch before moving on.
+*
+* What worked: the RNG logic was modular, readable, and fully detached from the UI. The validation and helper structure make it reusable for later iterations.
+*
+* What didn’t: the module is not yet integrated into the visible game flow, so the current browser version still uses earlier logic until later iterations connect the new model.
+
+**Hand-Edits Required? (Yes/No):**
+* No.
