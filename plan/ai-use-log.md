@@ -130,3 +130,40 @@ Constraints:
 
 **Hand-Edits Required? (Yes/No):**
 * No.
+
+### Iteration 4: Build the foundational Vanilla JS file structure
+
+**The Prompt:**
+> Act as a strict, senior software engineer obsessed with clean code and the DRY principle.
+
+Context:
+- You are designing a slot machine themed around a broke college student.
+- Symbols on a slot machine reel will include items like ramen packages, generic energy drinks, textbooks, loose change, and maybe a single "Wild" diploma.
+- There will be a dual currency system that allows the player to switch between "Real Currency" and "Dining Dollars/Tokens."
+
+Current State:
+- There are a 3x5 slot machine structure, spin and reset buttons, currency switch buttons, and a mute/unmute button.
+- Static visual elements including a dynamic balanace display, bet size controls, and a static paytable are implemented.
+- There is basic styling in the CSS file.
+
+Task: Start building the foundational Vanilla JS file structure.
+
+Requirements:
+- Preserve the current UI layout.
+- Build the foundational Vanilla JS file structure.
+- You must include complete JSDoc type annotations for all inputs and outputs.
+
+Constraints:
+- DO NOT delete or edit the existing HTML and CSS files.
+- Use ONLY Vanilla JS and native browser APIs. DO NOT use frameworks or external libraries. The code must be able to run directly in modern browsers without a build step.
+- Adhere to the DRY principle.
+- Before writing code, explain your structural logic in a plain text comment.
+
+Prompt 2:
+> Link the JS file to the page.
+
+**The Result (What happened?):**
+* The code compiled successfully. As instructed, Codex only modified the JS file without making any changes on the HTML and CSS files, which also means that the JS file is not yet linked to the HTML page, so a second prompt was needed to do so. JSDoc type annotations are included for all inputs and outputs. The spin, reset, currency switch, and bet size changing functions already seem to be working, though without the spin animation. The mute/unmute button also changes text when clicked. It was interesting how just the initial structure of the JS file already has more lines of code than the JS file of the final candidate in the previous research assignment. The JS file did not pass linting, showing errors that HTMLElement, HTMLButtonElement, document, and HTMLDivElement are not defined. It did not hallucinate in a way that matters.
+
+**Hand-Edits Required? (Yes/No):**
+* No.
