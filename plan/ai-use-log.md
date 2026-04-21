@@ -208,14 +208,13 @@ Constraints:
 
 **The Prompt:**
 > Act as a strict senior software engineer focused on clean code, DRY principles, and maintainability.
->
 > I am working on Iteration 6 of a slot machine project. Your task is to build only the invisible RNG logic in pure JavaScript, completely detached from the UI.
 >
 > Goal:
 > Implement a weighted random symbol selection algorithm using weighted probability arrays from our slot machine research.
 >
 > Requirements:
-> - Do not write any DOM, HTML, CSS, or UI-related code.
+> - Do not write any DOM, HTML, CSS or UI-related code.
 > - Keep everything in the JavaScript model only.
 > - Before writing code, briefly explain the weighted probability approach in plain English comments.
 > - Use small functions with meaningful names.
