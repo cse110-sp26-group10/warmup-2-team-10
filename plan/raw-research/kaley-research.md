@@ -17,19 +17,19 @@ Slot machine systems are designed to maximize engagment through visual design, s
 - Horror
 - Nature
 
-### Color Psychology
+**Color Psychology:**
 - **Red** — urgency and attention trigger  
 - **Orange** — action and spin initiation  
 - **Yellow** — attention and excitement  
 - **Black** — luxury and premium feel  
 - **Gold** — wealth and reward association
 
-## Interactive Features
+**Interactive Features:**
 - Mini-games
 - Animated cut-scenes
 - Dynamic reel motion and transitions
   
-## Rewards
+**Rewards:**
 - Free spins
 - Multipliers
 - Wild and scatter symbols
@@ -41,21 +41,21 @@ Slot machine systems are designed to maximize engagment through visual design, s
 - Leaderboards
 - VIP ladders
 
-## Misc
+**Misc:**
 - Symbol design
 - Sound effects
 - Difference of "rare" and "common" colors and animations
 
 ### User Types
 
-**Young Working Professionals **
+**1. Young Working Professionals**
 - Salaried employees or recent graduates
 - Typically 20-30s
 - Use slot machines as entertainment  
 - Have disposable income  
 - Engage for excitement and relaxation rather than profit  
 
-**Casual / Social Players**
+**2. Casual / Social Players**
 - Play primarily for entertainment
 - Typically 60-70s  
 - Value companionship and leisure  
