@@ -18,11 +18,11 @@ Slot machine systems are designed to maximize engagment through visual design, s
 - Nature
 
 **Color Psychology:**
-- **Red** — urgency and attention 
-- **Orange** — action and spin trigger  
-- **Yellow** — attention 
-- **Black** — luxury  
-- **Gold** — wealth and reward
+- **Red** - urgency and attention 
+- **Orange** - action and spin trigger  
+- **Yellow** - attention 
+- **Black** - luxury  
+- **Gold** - wealth and reward
 
 **Interactive Features:**
 - Mini-games
