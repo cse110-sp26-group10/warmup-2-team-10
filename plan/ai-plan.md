@@ -1,6 +1,6 @@
 # AI Plan
 
-**Document Purpose:** To define our initial strategy for utilizing generative AI, outline key engagement features, and establish our prompt engineering protocols for the CSE110 slot machine de-risk activity.
+**Document Purpose:** To define our initial strategy for utilizing generative AI, outline key engagement features, and establish our prompt engineering protocols for the CSE110 slot machine de-risk activity. This is a dynamic document meaning that we can change it as we begin developing our project.
 
 ## Tools & Models
 - **Tool:** OpenAI Codex (via CLI)
@@ -25,7 +25,7 @@ To ensure the AI generates clean, maintainable, and predictable code, we will em
 
 We are building for high engagement ("Game Feel" / "Juice") without crossing into malicious dark patterns or real-money gambling.
 
-* **Dining Dollars Economy (Safe Environment):** The economy is strictly simulated. The `gameState` will manage a virtual "Dining Dollars" or "Meal Plan Swipes" balance, allowing players to test risk (bet sizing) without real-world consequences.
+* **Dual-Mode Economy System (State Management):** Implement a top-level state toggle (e.g., `isRealMoneyMode`) to switch between a high-stakes "Real Currency" visual mode and a low-stakes "Dining Dollars/Tokens" mode, allowing us to test how the AI handles dynamic state and UI context switching.
 * **High-Appeal Audio Engine:** We will utilize the browser's Web Audio API to trigger satisfying sound effects (a mechanical "clink" for token bets, an ascending melodic cascade for wins). *Constraint: We must prompt the AI to include a "Mute/Unmute" toggle to comply with browser auto-play policies and user preferences.*
 * **Asset-Driven Visuals:** We will strictly ban the AI from using cross-platform emojis (which render inconsistently). Instead, we will map game symbols to CC0 (public domain) assets representing college student life: **Ramen packages, generic energy drinks, textbooks, loose change, and maybe a single 'Wild' diploma.**
 * **CSS-Driven Excitement:** To cater to thrill-seeking users while maintaining clean architecture, we will not use complex JavaScript animations. Instead, the AI will build CSS keyframes (`.win-pulse`, `.flash-excitement`). The JS logic will simply toggle these CSS classes upon a win.
