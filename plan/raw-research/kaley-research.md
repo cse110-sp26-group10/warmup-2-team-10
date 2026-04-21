@@ -46,8 +46,6 @@ Slot machine systems are designed to maximize engagment through visual design, s
 - Sound effects
 - Difference of "rare" and "common" colors and animations
 
----
-
 ### User Types
 
 **Young Working Professionals **
@@ -61,9 +59,7 @@ Slot machine systems are designed to maximize engagment through visual design, s
 - Play primarily for entertainment
 - Typically 60-70s  
 - Value companionship and leisure  
-- Less focused on financial outcomes  
-
----
+- Less focused on financial outcomes
 
 ## Psychological Insights: Depression & “Dark Flow”
 
@@ -76,13 +72,9 @@ Slot machine systems are designed to maximize engagment through visual design, s
 - Associated with both enjoyment and problematic gambling behavior  
 - May act as an escape mechanism for individuals experiencing depression
 
----
-
 ## Summary
 -The goal of casinos and slot machines is keep players in the zone where they are fixated on the game rather than reality and real life. 
 -The decisions behind color, themes, and sounds are aspects that designers consider.
-
----
 
 ## Useful Resources
 
