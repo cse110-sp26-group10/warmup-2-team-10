@@ -3,12 +3,9 @@
 **Researcher:** Kaley Chung
 
 Below are some facts and links about slot machine visual designs/themes, UI, and how these choices impact users. 
----
 
 ## Overview 
 Slot machine systems are designed to maximize engagment through visual design, styling, reward mechanics, and sounds. This artifact breaks down the visual themes and UI such as themes, user behavior, and emotional effects. 
-
----
 
 ## Visual Themes 
 
