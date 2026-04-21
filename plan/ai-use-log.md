@@ -168,7 +168,7 @@ Prompt 2:
 **Hand-Edits Required? (Yes/No):**
 * No.
 
-### Iteration [Number]: [Short Description of Task]
+### Iteration 5: Create a CI/CD configuration
 
 **The Prompt:**
 > Act as a strict, senior software engineer obsessed with clean code and the DRY principle.
