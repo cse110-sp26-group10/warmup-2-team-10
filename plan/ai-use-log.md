@@ -4,7 +4,7 @@
 ---
 ## Logging Template
 *Please copy and paste this template for every iteration you run.*
-### Iteration [1]: Create HTML Skeleton
+### Iteration 1: Create HTML Skeleton
 
 **The Prompt:**
 > Act as a strict senior software engineer focused on clean code, DRY principles, and accessibility.
