@@ -1,37 +1,89 @@
 # Research Artifact: Slot Machine Visual Themes + UI 
+
 **Researcher:** Kaley Chung
+---
+
+## Overview 
+Slot machine systems are designed to maximize engagment through visual design, styling, reward mechanics, and sounds. This artifact breaks down the visual themes and UI such as themes, user behavior, and emotional effects. 
+
+---
 
 ## Visual Themes 
 
-- **Popular Themes:** classic fruit machines, mythology, adventure, branded content, horror, and nature
-- **Colors:** red (stop signal to focus), orange (spin), yellow (grabs attention), black (luxury), and gold (wealth)
-- **Interactive Features:** mini-games, animated cut-scenes, and dynamic reels
-- **Rewards:** free spins, multipliers, wild and scatter symbols; bonuses for social media shares (Refer-a-friend); multipliers for real cash deposits; mobile bonuses; reload bonuses; loyalty points; leaderboards, VIP ladders.
-- **Misc** bonus rounds, symbol design, animations, and sound effects
+**Popular Themes:**
+- Classic fruit machines
+- Mythology
+- Adventure
+- Branded content
+- Horror
+- Nature
 
-## User Research 
+### Color Psychology
+- **Red** — urgency and attention trigger  
+- **Orange** — action and spin initiation  
+- **Yellow** — attention and excitement  
+- **Black** — luxury and premium feel  
+- **Gold** — wealth and reward association
 
-### Social Aspect Ideas
--Many players like the social aspect of gambling and casinos. There is potential to meet and make friends at casinos rather than online slot machines. 
--Make and refer friends online 
--Notifications when friends start gamble 
--More your friends play, the more rewards you get 
+## Interactive Features
+- Mini-games
+- Animated cut-scenes
+- Dynamic reel motion and transitions
+  
+## Rewards
+- Free spins
+- Multipliers
+- Wild and scatter symbols
+- Bonuses for social media shares (Refer-a-friend)
+- Multipliers for real cash deposits
+- Mobile bonuses
+- Reload bonuses
+- Loyalty points
+- Leaderboards
+- VIP ladders
 
-### Main Types of Users
-**"Young and Upbeat Salary Earning Players"**
-* *These are people in the corporate world/ 20-30 years with day jobs/ fresh from school/ do not see the need for savings
--"Grannies"
--These people come for fun and entertainment/come for comapny
+## Misc
+- Symbol design
+- Sound effects
+- Difference of "rare" and "common" colors and animations
 
-### Depression & "Dark Flow"
--Emotions play a role in addition. The negative emotions of guilt, shame, and sadness can be apparent, especially after large hits of dopamine.
--There is a link between those with depression and slot machine addiction. There is a concept called “dark flow,” where depressed individuals will be occupied by the game and forget everything else.
--"Dark flow was positively correlated with positive affect during play and the combination of dark flow and depression predicted gambling problems."
--For depressed individuals, these machines are an escape from negative reality that linked with their depression.   
+---
+
+### User Types
+
+**Young Working Professionals **
+- Salaried employees or recent graduates
+- Typically 20-30s
+- Use slot machines as entertainment  
+- Have disposable income  
+- Engage for excitement and relaxation rather than profit  
+
+**Casual / Social Players**
+- Play primarily for entertainment
+- Typically 60-70s  
+- Value companionship and leisure  
+- Less focused on financial outcomes  
+
+---
+
+## Psychological Insights: Depression & “Dark Flow”
+
+- Emotional states strongly influence gambling behavior  
+- Negative emotions (guilt, sadness, stress) can increase vulnerability  
+- Research links depression with higher risk of slot machine addiction  
+
+### Dark Flow Concept
+- A deeply immersive state where players lose awareness of time  
+- Associated with both enjoyment and problematic gambling behavior  
+- May act as an escape mechanism for individuals experiencing depression
+
+---
 
 ## Summary
 -The goal of casinos and slot machines is keep players in the zone where they are fixated on the game rather than reality and real life. 
 -The decisions behind color, themes, and sounds are aspects that designers consider.
+
+---
 
 ## Useful Resources
 
@@ -39,6 +91,11 @@
 -**Global Brand Awards** [Casino Colors Psychology: Lucky Gambling Colors](https://www.globalbrandsmagazine.com/casino-colors-psychology-lucky-gambling-colors/)
 -**Psychology Today** [The Real Reason Some People Get Hooked on Slot Machines](https://www.psychologytoday.com/us/blog/why-bad-looks-good/201907/the-real-reason-some-people-get-hooked-slot-machines)
 -**NIH NLM** [Mindfulness problems and depression symptoms in everyday life predict dark flow during slots play: Implications for gambling as a form of escape](https://pubmed.ncbi.nlm.nih.gov/30614718/)
+
+
+
+
+
 
 
 
