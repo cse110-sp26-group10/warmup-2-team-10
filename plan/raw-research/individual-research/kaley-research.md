@@ -18,11 +18,11 @@ Slot machine systems are designed to maximize engagment through visual design, s
 - Nature
 
 **Color Psychology:**
-- **Red** — urgency and attention trigger  
-- **Orange** — action and spin initiation  
-- **Yellow** — attention and excitement  
-- **Black** — luxury and premium feel  
-- **Gold** — wealth and reward association
+- **Red** — urgency and attention 
+- **Orange** — action and spin trigger  
+- **Yellow** — attention 
+- **Black** — luxury  
+- **Gold** — wealth and reward
 
 **Interactive Features:**
 - Mini-games
@@ -74,6 +74,7 @@ Slot machine systems are designed to maximize engagment through visual design, s
 
 ## Summary
 -The goal of casinos and slot machines is keep players in the zone where they are fixated on the game rather than reality and real life. 
+
 -The decisions behind color, themes, and sounds are aspects that designers consider.
 
 ## Useful Resources
