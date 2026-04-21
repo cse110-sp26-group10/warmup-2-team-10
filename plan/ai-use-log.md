@@ -7,28 +7,7 @@
 ### Iteration [1]: [Short Description of Task]
 
 **The Prompt:**
-> Act as a strict senior software engineer focused on clean code, dry principles, and accessibility.
-
-Your task is to generate ONLY the semantic HTML skeleton for a browser-based slot machine game.
-
-The theme is: “Broke College Student Slot Machine.”
-
-Requirements:
-
-* Use semantic HTML elements only: <header>, <main>, <section id="reels">, <aside id="controls">
-* Include a visible Mute/Unmute toggle button (UI only, no JS implementation yet)
-* Include an ARIA live region (aria-live="polite") for announcing spin results 
-* Ensure ARIA attributes are included.
-* Ensure all interactive elements are accessible (ARIA labels where appropriate)
-
-Constraints:
-
-* Do NOT include CSS or JavaScript
-* Do NOT implement logic or Web Audio API yet
-* Include JSDoc-style type annotations ONLY as HTML comments where relevant (if applicable)
-* Keep structure modular and clean for future expansion
-
-Output ONLY the HTML code. 
+> [Act as a strict senior software engineer focused on clean code, dry principles, and accessibility. Your task is to generate ONLY the semantic HTML skeleton for a browser-based slot machine game. The theme is: “Broke College Student Slot Machine.” Requirements: * Use semantic HTML elements only: <header>, <main>, <section id="reels">, <aside id="controls"> * Include a visible Mute/Unmute toggle button (UI only, no JS implementation yet) * Include an ARIA live region (aria-live="polite") for announcing spin results * Ensure ARIA attributes are included. * Ensure all interactive elements are accessible (ARIA labels where appropriate) Constraints: * Do NOT include CSS or JavaScript * Do NOT implement logic or Web Audio API yet * Include JSDoc-style type annotations ONLY as HTML comments where relevant (if applicable) * Keep structure modular and clean for future expansion Output ONLY the HTML code.]
 
 **The Result (What happened?):**
 * [Did it compile? Any interesting findings? Did it pass linting? Did it hallucinate? Describe the output briefly.]
