@@ -7,7 +7,7 @@
 ### Iteration [1]: [Short Description of Task]
 
 **The Prompt:**
-> [Act as a strict senior software engineer focused on clean code, DRY principles, and accessibility.
+> Act as a strict senior software engineer focused on clean code, DRY principles, and accessibility.
 
 Generate ONLY a semantic HTML skeleton for a browser-based slot machine game.
 
@@ -26,7 +26,7 @@ Constraints:
 - Use HTML comments only if needed for JSDoc-style annotations
 - Keep structure clean and modular
 
-Output ONLY HTML code.]
+Output ONLY HTML code.
 
 **The Result (What happened?):**
 * [Did it compile? Any interesting findings? Did it pass linting? Did it hallucinate? Describe the output briefly.]
