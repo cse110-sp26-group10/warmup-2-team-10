@@ -46,6 +46,11 @@ Slot machine systems are designed to maximize engagement through visual design, 
 - Sound effects
 - Difference of "rare" and "common" colors and animations
 
+## UI 
+- Demand for personalization (from adjusting the sound and brightness to selecting specific game themes)
+- Intuitive and user-friendly interfaces (larger buttons and uncluttered screen)
+- Responsiveness of touch screens
+
 ## Jargon Used in Slot Machines 
 - **Bonus features** - extra symbols like wilds, scatters, and free spins that can prompt the start of a bonus game
 - **Expanding wilds** - expand to cover the whole reel, widening your chance of a win
