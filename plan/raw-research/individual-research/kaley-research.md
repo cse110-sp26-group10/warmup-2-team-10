@@ -46,6 +46,14 @@ Slot machine systems are designed to maximize engagement through visual design, 
 - Sound effects
 - Difference of "rare" and "common" colors and animations
 
+## Jargon Used in Slot Machines 
+- **Bonus features** - extra symbols like wilds, scatters, and free spins that can prompt the start of a bonus game
+- **Expanding wilds** - expand to cover the whole reel, widening your chance of a win
+- **High or low variance** - low variance pay out less but often/ high varaince pay out more but few times
+- **Multiplier** - your winnings can be multiplied
+- **Return to Player (RTP)** - percentage figure showing how much cash the slot game pays back
+
+
 ### User Types
 
 **1. Young Working Professionals**
