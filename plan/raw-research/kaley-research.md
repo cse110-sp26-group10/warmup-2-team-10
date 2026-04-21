@@ -88,8 +88,11 @@ Slot machine systems are designed to maximize engagment through visual design, s
 ## Useful Resources
 
 -**sdlccorp:** [Slot Machine Themes](https://sdlccorp.com/post/slot-machine-themes-explained-complete-guide/#:~:text=Popular%20themes%20include%20classic%20fruit,%2C%20animations%2C%20and%20sound%20effects.)
+
 -**Global Brand Awards** [Casino Colors Psychology: Lucky Gambling Colors](https://www.globalbrandsmagazine.com/casino-colors-psychology-lucky-gambling-colors/)
+
 -**Psychology Today** [The Real Reason Some People Get Hooked on Slot Machines](https://www.psychologytoday.com/us/blog/why-bad-looks-good/201907/the-real-reason-some-people-get-hooked-slot-machines)
+
 -**NIH NLM** [Mindfulness problems and depression symptoms in everyday life predict dark flow during slots play: Implications for gambling as a form of escape](https://pubmed.ncbi.nlm.nih.gov/30614718/)
 
 
