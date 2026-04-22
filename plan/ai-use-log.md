@@ -389,7 +389,7 @@ Act as a strict, senior software engineer obsessed with clean code and the DRY p
 
 ### Iteration 8: payline traversal logic that checks the 3x5 matrix for matching symbols across defined lines
 
-    Context:
+      Context:
   - You are working on a browser-based "Broke College Student Slot Machine."
   - Use game/iteration-7/ as the baseline for this iteration.
   - This prompt is for Iteration 8, and the result must become a new game/iteration-8/ folder that is a direct continuation of Iteration 7.
