@@ -8,7 +8,7 @@
   --accent: #ffd166;
   --gap: 1rem;
   --radius: 0.5rem;
-  --shadow: 0 0 0 1px rgba(255, 255, 255, 0.08);
+  --shadow: 0 0 0 1px rgba(255, 255, 255 / 8%);
 }
 
 * {
@@ -108,6 +108,12 @@ main {
 #controls p {
   margin: 0.25rem 0 0;
   color: var(--muted);
+}
+
+@media (width <= 768px) {
+  .layout {
+    flex-direction: column;
+  }
 }
 
 @media (max-width: 720px) {
