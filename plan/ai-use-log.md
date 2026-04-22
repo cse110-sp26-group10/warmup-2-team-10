@@ -776,3 +776,88 @@ Act as a strict, senior software engineer obsessed with clean code and the DRY p
 
 **Hand-Edits Required? (Yes/No):**
 * No. No manual logic changes were made in `game/iteration-11/game.js`. The reviewed limitations were documented rather than corrected in this iteration.
+
+### Iteration 12: 
+
+Act as a strict, senior software engineer obsessed with clean code and the DRY principle.
+
+      Context:
+      - You are working on a browser-based "Broke College Student Slot Machine."
+      - Use `game/iteration-11/` as the baseline for this iteration.
+      - This prompt is for Iteration 12, and the result must become a new `game/iteration-12/` folder that is a direct continuation of Iteration 11.
+      - Phase 3 is for connecting the work done in Phase 1 (UI) and Phase 2 (Logic) to create a playable game.
+      - Use the project research context from `plan/research-overview.md` and the raw research notes in `plan/raw-research/individual-research/nicole-research.md` as background constraints.
+      - The current Iteration 11 code already has:
+        - a typed `state` object
+        - symbol configuration in `SYMBOLS`
+        - ordered symbol weights in `SYMBOL_WEIGHT_ENTRIES`
+        - a validated weighted RNG layer via `WEIGHTED_SYMBOL_TABLE`
+        - weighted symbol selection helpers
+        - a reel matrix stored as `reelMatrix[reelIndex][slotIndex]`
+        - a clean intermediate spin-result layer
+        - pure helpers that generate per-reel symbol sequences
+        - pure helpers that convert spin results into the final 3x5 reel matrix
+        - a payline-evaluation layer that reads the current matrix and returns structured payline results
+        - a payout-calculation layer that uses bet size and matched paylines to update balance
+        - Wild and Scatter logic helper functions that modify payline evaluation
+        - DOM manipulation functions that connect the HTML grid and the JavaScript 2D array
+      - Iteration 12 should trigger game logic connecting the Spin button and the Bet increase/decrease mechanic.
+
+      Task:
+      Create `game/iteration-12/` by building directly on top of `game/iteration-11/`.
+
+      Folder requirements:
+      - Treat `game/iteration-11/` as the source of truth.
+      - Create `game/iteration-12/` as a continuation of Iteration 11.
+      - Copy the non-generated files from `game/iteration-11/` into `game/iteration-12/` unchanged unless a minimal change is absolutely required.
+      - This includes the HTML, CSS, JavaScript, lint/config files, and package manifest files already present in Iteration 11.
+      - Do NOT duplicate generated artifacts or dependency directories such as `node_modules`.
+      - Update only `game/iteration-12/game.js` with the Iteration 12 logic changes.
+      - Do NOT rewrite the project from scratch.
+      - Refactor the existing Iteration 11 code in place. Do not replace the current architecture with a new one.
+      - Iteration 12 must preserve the current progress from Iteration 11 and add the new connections between the Spin and Bet mechanics on top of it.
+
+      Scope and file constraints:
+      - Do NOT edit HTML or CSS content unless absolutely required, and avoid changing them for this iteration.
+      - Do NOT add external libraries.
+      - Do NOT convert the file to modules or a framework.
+      - Do NOT add import/export statements, test harness code, or a separate headless module.
+      - Preserve the existing browser-script structure.
+      - Preserve unrelated existing functions, top-level constants, and DOM behavior unless a minimal change is required.
+
+      Architecture constraints:
+      - Keep UI-facing spin code thin.
+      - Keep the weighted RNG helpers, spin-result/matrix helpers, payline helpers, payout helpers, Wild/Scatter helpers, and DOM manipulation functions from Iterations 6 through 11 and build on top of them instead of replacing them.
+      - Keep the pure Wild/Scatter evaluation layer and helpers that work with the current `reelMatrix[reelIndex][slotIndex]`.
+      - Do NOT implement bonus rounds, autoplay, or animations yet.
+
+      Rules for this iteration:
+      - Write the game logic that connects the Spin mechanic if the Bet increase/decrease mechanic is used 
+      - When the Spin mechanic is used, it should take into account the most recent bet amount
+      - Keep the logic explicit and easy to extend later
+
+      Implementation requirements:
+      - Add pure helper functions for updating the game logic to connect the spin and bet mechanics if necessary
+      - Update the code so the spin and bet mechanics are connected. 
+      - Validate any implemented helper functions with clear errors where appropriate.
+      - Use small, well-named functions with no duplicate logic.
+      - Include complete JSDoc type annotations for all inputs and outputs.
+      - Before writing code, explain your function logic in a plain text comment.
+
+      Compatibility requirements:
+      - Preserve the existing `state` variable name, state shape, and current field names unless a minimal additive change is clearly necessary.
+      - If a minimal additive field is needed, keep it focused only on storing Wild/Scatter evaluation output or updated payline result information.
+      - Preserve the existing `SYMBOLS` record as the UI metadata source.
+      - Preserve the existing weighted RNG layer, spin-result/matrix generation flow, payline evaluation flow, payout flow, Wild/Scatter logic and DOM manipulation functions from Iterations 6 through 11.
+      - After making the changes, run `npm run lint:js` from `game/` and fix any issues introduced by Iteration 12 before finishing.
+      - Do not add tests in this iteration unless absolutely required to preserve the existing setup.
+
+      Output rules:
+      - Apply the changes directly in the workspace under `game/iteration-12/`.
+  
+**The Result (What happened?):**
+* Codex built `game/iteration-12/` as a continuation of Iteration 11 and preserved the existing browser-script architecture. The substantive iteration change lives in `game/iteration-12/game.js`, where the Spin and Bet mechanics are now more synchronized to make the game logic work. 
+* The new Iteration 12 logic refactors game.js and added helper functions that handle both the active bet amount and new bet amounts if changed. 
+* Plan fit: This iteration aligns with the goal for Phase 3 because it increased the accessibility of the game while maintaining the overall plan of the project. 
+* Verification: project specific lint passed, but the repo-wide run still fails because of pre-existing no-undef errors in iteration-4 through iteration-6, not because of Iteration 12. A focused ESLint run against iteration-12/game.js passes cleanly. All the other files matched byte for byte with iteration 11.
+* What worked: The prompt was able to convey the core changes expected for this iteration, code changes look clean and logic checks out. 
