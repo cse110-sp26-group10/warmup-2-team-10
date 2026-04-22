@@ -386,3 +386,40 @@ Act as a strict, senior software engineer obsessed with clean code and the DRY p
 
 **Hand-Edits Required? (Yes/No):**
 * Yes. A manual cleanup was required to remove the copied `game/iteration-7/node_modules/` directory after the initial Iteration 7 folder creation so the result matched the prompt’s non-generated-file requirement. No manual logic changes were needed in `game/iteration-7/game.js`.
+
+### Iteration 8: payline traversal logic that checks the 3x5 matrix for matching symbols across defined lines
+
+Context:
+  - You are working on a browser-based "Broke College Student Slot Machine."
+  - Use `game/iteration-7/` as the baseline for this iteration.
+  - This prompt is for Iteration 8, and the result must become a new `game/iteration-8/` folder that is a direct continuation of Iteration 7.
+  - Phase 2 is for invisible math and logic only.
+  - Use the project research context from `plan/research-overview.md` and the raw research notes in `plan/raw-research/individual-research/nicole-research.md` as background constraints.
+  - The current Iteration 7 code already has:
+    - a typed `state` object
+    - symbol configuration in `SYMBOLS`
+    - ordered symbol weights in `SYMBOL_WEIGHT_ENTRIES`
+    - a validated weighted RNG layer via `WEIGHTED_SYMBOL_TABLE`
+    - weighted symbol selection helpers
+    - a reel matrix stored as `reelMatrix[reelIndex][slotIndex]`
+    - a clean intermediate spin-result layer
+    - pure helpers that generate per-reel symbol sequences
+    - pure helpers that convert spin results into the final 3x5 reel matrix
+  - The current Iteration 7 implementation already preserves the matrix orientation as `reelMatrix[reelIndex][slotIndex]`.
+  - Iteration 8 should introduce a clean, reusable payline evaluation layer that reads the existing 3x5 matrix and checks for matching symbols across defined paylines.
+
+Task:
+Create `game/iteration-8/` by building directly on top of `game/iteration-7/`.
+
+**The Result (What happened?):**
+* Codex built `game/iteration-8/` as a continuation of Iteration 7 and preserved the existing browser-script architecture. The substantive iteration change lives in `game/iteration-8/game.js`, where a new payline-evaluation layer was added on top of the existing weighted RNG, spin-result, and matrix-generation flow.
+* The new Iteration 8 logic introduces explicit payline definitions and pure helpers for extracting a symbol sequence from a payline, evaluating one payline, and evaluating all paylines against the current `reelMatrix[reelIndex][slotIndex]`. This makes the relationship explicit between the existing 3x5 matrix structure and the newly added win-detection layer for matching symbols across defined lines.
+* The implementation preserved the existing `state` variable name and overall state flow, while adding a minimal payline-results layer for storing structured evaluation output. It kept the `SYMBOLS` record as the UI metadata source and did not add payout calculation, balance rewards, wild substitution, scatter behavior, bonus logic, autoplay, animations, or new DOM features.
+* Validation was added around the payline logic layer. The code checks payline definitions, coordinate shape, matrix structure, and symbol-sequence extraction before evaluating matches, with clear errors for malformed paylines or invalid matrix access. However, one limitation remained: the generated payline validator is stricter than necessary because it assumes a tighter reel-index ordering than future payline patterns may require.
+* Plan fit: this iteration matches the Iteration 6-10 plan for Phase 2 because it adds invisible math and logic only, keeps the work detached from the UI at the logic level, and builds a reusable payline-evaluation layer that prepares the project for payout calculation in Iteration 9 and wild/scatter handling in Iteration 10.
+* Verification: targeted linting for `iteration-8/game.js` passed, and the file remained isolated to the Iteration 8 folder. Running the full repo-level JavaScript lint command from `game/` still did not fully pass because there are inherited lint issues in earlier iteration folders. Those failures were baseline issues and not introduced by Iteration 8.
+* What worked: the prompt goal for Phase 2 invisible math and logic was met cleanly. The new helpers are small, clearly named, and reusable, and the logic stays focused on payline traversal only without leaking into payout or special-symbol behavior.
+* What didn’t: the generated validator ended up more rigid than ideal for future paylines, and that limitation was left in place for now. There was also an unrelated root `package-lock.json` change flagged during review, which should be reverted separately because it was outside the intended Iteration 8 scope.
+
+**Hand-Edits Required? (Yes/No):**
+* No. No manual logic changes were made in `game/iteration-8/game.js`. A documentation/JSDoc cleanup was performed, but the flagged validator limitation was not corrected in this iteration.
