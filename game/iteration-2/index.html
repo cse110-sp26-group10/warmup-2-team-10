@@ -3,35 +3,37 @@
 </header>
 
 <main>
-  <section id="reels" aria-label="Broke college student slot machine reels" aria-live="polite">
-    <div class="reel" aria-label="Reel 1">
-      <div class="symbol-slot" aria-label="Reel 1, slot 1">RAMEN</div>
-      <div class="symbol-slot" aria-label="Reel 1, slot 2">COFFEE</div>
-      <div class="symbol-slot" aria-label="Reel 1, slot 3">RENT</div>
-      <div class="symbol-slot" aria-label="Reel 1, slot 4">NOODLES</div>
-      <div class="symbol-slot" aria-label="Reel 1, slot 5">TUITION</div>
+  <section id="reels-container" aria-labelledby="reels-heading" aria-live="polite">
+    <h2 id="reels-heading">Broke College Student Slot Machine Reels</h2>
+    <div class="reel" role="group" aria-label="Reel 1">
+      <div class="symbol-slot">RAMEN</div>
+      <div class="symbol-slot">COFFEE</div>
+      <div class="symbol-slot">RENT</div>
+      <div class="symbol-slot">NOODLES</div>
+      <div class="symbol-slot">TUITION</div>
     </div>
 
-    <div class="reel" aria-label="Reel 2">
-      <div class="symbol-slot" aria-label="Reel 2, slot 1">WIFI</div>
-      <div class="symbol-slot" aria-label="Reel 2, slot 2">RAMEN</div>
-      <div class="symbol-slot" aria-label="Reel 2, slot 3">COUPON</div>
-      <div class="symbol-slot" aria-label="Reel 2, slot 4">TEXTBOOK</div>
-      <div class="symbol-slot" aria-label="Reel 2, slot 5">RENT</div>
+    <div class="reel" role="group" aria-label="Reel 2">
+      <div class="symbol-slot">WIFI</div>
+      <div class="symbol-slot">RAMEN</div>
+      <div class="symbol-slot">COUPON</div>
+      <div class="symbol-slot">TEXTBOOK</div>
+      <div class="symbol-slot">RENT</div>
     </div>
 
-    <div class="reel" aria-label="Reel 3">
-      <div class="symbol-slot" aria-label="Reel 3, slot 1">TUITION</div>
-      <div class="symbol-slot" aria-label="Reel 3, slot 2">BUS PASS</div>
-      <div class="symbol-slot" aria-label="Reel 3, slot 3">RAMEN</div>
-      <div class="symbol-slot" aria-label="Reel 3, slot 4">WIFI</div>
-      <div class="symbol-slot" aria-label="Reel 3, slot 5">COFFEE</div>
+    <div class="reel" role="group" aria-label="Reel 3">
+      <div class="symbol-slot">TUITION</div>
+      <div class="symbol-slot">BUS PASS</div>
+      <div class="symbol-slot">RAMEN</div>
+      <div class="symbol-slot">WIFI</div>
+      <div class="symbol-slot">COFFEE</div>
     </div>
   </section>
 
-  <aside id="controls" aria-label="Slot machine controls">
+  <aside id="controls" aria-labelledby="controls-heading">
+    <h2 id="controls-heading" class="visually-hidden">Controls</h2>
     <button type="button" aria-label="Spin reels">Spin</button>
     <button type="button" aria-label="Reset machine">Reset</button>
-    <p aria-live="polite" aria-label="Game status">Budget status: one meal away from overdraft.</p>
+    <p aria-live="polite">Budget status: one meal away from overdraft.</p>
   </aside>
 </main>
