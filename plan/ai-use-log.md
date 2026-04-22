@@ -45,7 +45,7 @@ Output ONLY HTML code.
 **The Result (What happened?):**
 * The code compiled successfully. It includes a clean structure, ARIA attributes, and a result region that uses aria-live. An interesting finding is that the reels are hardcoded. This code would not pass linting since it is missing the full HTML boilerplate. It did not hallucinate in a way that mattered. It made minor assumptions, such as not making the reel symbolize flexible or exactly three reels. 
 
-The output is a static HTML layout for a slot machine game. It is clean and readable, but not interactive yet. 
+The output is a static, plain HTML layout for a slot machine game. It is clean and readable, but not interactive. 
 
 **Hand-Edits Required? (Yes/No):**
 * No
@@ -88,9 +88,9 @@ Output Rule:
 Return ONLY updated HTML followed by CSS.
 
 **The Result (What happened?):**
-* The code compiled successfully. An interesting finding was that Codex intercepts “high-contrast” styling as a black background and white outlines. Personally, I interpret “high-constrast” as bright colors on the opposite sides of the color wheel. It would pass linting, but there may be minor warnings, such as redundant attributes. It did not hallucinate in a way that matters. Similar to Iteration 1, it showcases minor assumptions such as styling details.
+* The code compiled successfully.  An interesting finding was that the Codex did not consider or address how the CSS and HTML files would be linked, despite being a critical step in ensuring the CSS styling is applied. The code would pass linting. There may be minor warnings, such as repeating similar attributes. Codex did not hallucinate. Similar to Iteration 1, it showcases minor assumptions. 
 
-The output was a static slot machine UI using HTML and CSS Grid. It features a 3x5 reel layout and high-contrast styling. 
+The output can be described as an unstyled, unresponsive slot-machine layout with the elements stacked vertically. 
 
 **Hand-Edits Required? (Yes/No):**
 * No
