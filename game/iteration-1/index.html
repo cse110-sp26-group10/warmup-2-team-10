@@ -1,38 +1,34 @@
-<header>
-  <h1>Broke College Student Slot Machine</h1>
-  <p>Try your luck with the essentials of student life.</p>
-</header>
 <main>
   <section
     id="reels"
-    aria-label="Slot machine reels"
+    aria-labelledby="reels-heading"
     aria-describedby="results-announcer"
   >
-    <h2>Reels</h2>
-    <!-- @typedef {"instant-noodles" | "textbook" | "coffee" | "laundry-quarters" | "overdue-fee" | "ramen-coupon"} SlotSymbol -->
-    <section aria-label="Reel 1">
-      <h3>Reel 1</h3>
-      <p aria-label="Current symbol on reel 1">Instant Noodles</p>
+    <h2 id="reels-heading">Reels</h2>
+    <section aria-labelledby="reel-1-heading">
+      <h3 id="reel-1-heading">Reel 1</h3>
+      <p>Instant Noodles</p> </section>
+
+    <section aria-labelledby="reel-2-heading">
+      <h3 id="reel-2-heading">Reel 2</h3>
+      <p>Coffee</p>
     </section>
-    <section aria-label="Reel 2">
-      <h3>Reel 2</h3>
-      <p aria-label="Current symbol on reel 2">Coffee</p>
-    </section>
-    <section aria-label="Reel 3">
-      <h3>Reel 3</h3>
-      <p aria-label="Current symbol on reel 3">Laundry Quarters</p>
+
+    <section aria-labelledby="reel-3-heading">
+      <h3 id="reel-3-heading">Reel 3</h3>
+      <p>Laundry Quarters</p>
     </section>
   </section>
 
-  <aside id="controls" aria-label="Game controls">
-    <h2>Controls</h2>
+  <aside id="controls" aria-labelledby="controls-heading">
+    <h2 id="controls-heading">Controls</h2>
     <button type="button" aria-label="Spin the slot machine">
       Spin
     </button>
     <button
       type="button"
       aria-pressed="false"
-      aria-label="Toggle game sound between muted and unmuted"
+      aria-label="Toggle game sound"
     >
       Mute
     </button>
@@ -42,9 +38,9 @@
     id="results-announcer"
     aria-live="polite"
     aria-atomic="true"
-    aria-label="Spin results"
+    aria-labelledby="results-heading"
   >
-    <h2>Results</h2>
+    <h2 id="results-heading">Results</h2>
     <p>No spin yet.</p>
   </section>
 </main>
