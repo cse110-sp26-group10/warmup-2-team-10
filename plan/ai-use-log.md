@@ -864,7 +864,6 @@ Act as a strict, senior software engineer obsessed with clean code and the DRY p
 **Hand-Edits Required? (Yes):**
 * Yes. Manual logic changes were made in `game/iteration-12/game.js` to fix validator, linter and test failure problems. 
 
-
 ### Iteration 13: 
 
 Act as a strict, senior software engineer obsessed with clean code and the DRY principle.
@@ -981,3 +980,123 @@ Make changes solely to the html, css and js in iteration 13 to fix the failures.
 * What worked: The prompt was able to convey to the agent to create bindings to keys that allow the user to interact with the game physically.  
 **Hand-Edits Required? (No):**
 * No. No manual logic changes were made in `game/iteration-13/game.js`
+
+### Iteration 14: 
+
+Act as a strict, senior software engineer obsessed with clean code and the DRY principle.
+
+      Context:
+      - You are working on a browser-based "Broke College Student Slot Machine."
+      - Use `game/iteration-13/` as the baseline for this iteration.
+      - This prompt is for Iteration 14, and the result must become a new `game/iteration-14/` folder that is a direct continuation of Iteration 13.
+      - Phase 3 is for connecting the work done in Phase 1 (UI) and Phase 2 (Logic) to create a playable game.
+      - Use the project research context from `plan/research-overview.md` and the raw research notes in `plan/raw-research/individual-research/nicole-research.md` as background constraints.
+      - The current Iteration 12 code already has:
+        - a typed `state` object
+        - symbol configuration in `SYMBOLS`
+        - ordered symbol weights in `SYMBOL_WEIGHT_ENTRIES`
+        - a validated weighted RNG layer via `WEIGHTED_SYMBOL_TABLE`
+        - weighted symbol selection helpers
+        - a reel matrix stored as `reelMatrix[reelIndex][slotIndex]`
+        - a clean intermediate spin-result layer
+        - pure helpers that generate per-reel symbol sequences
+        - pure helpers that convert spin results into the final 3x5 reel matrix
+        - a payline-evaluation layer that reads the current matrix and returns structured payline results
+        - a payout-calculation layer that uses bet size and matched paylines to update balance
+        - Wild and Scatter logic helper functions that modify payline evaluation
+        - DOM manipulation functions that connect the HTML grid and the JavaScript 2D array
+        - responsive connections between spin and bet wager mechanics
+        - keyboard bindings to spin mechanism
+      - Iteration 14 should add reactive CSS state changes for whenever something happens to the state of the game (ex. adding positive visual effects if there is a win) while keeping a minimalist effect in mind.
+
+      Task:
+      Create `game/iteration-14/` by building directly on top of `game/iteration-13/`.
+
+      Folder requirements:
+      - Treat `game/iteration-13/` as the source of truth.
+      - Create `game/iteration-14/` as a continuation of Iteration 13.
+      - Copy the non-generated files from `game/iteration-13/` into `game/iteration-14/` unchanged unless a minimal change is absolutely required.
+      - This includes the HTML, CSS, JavaScript, lint/config files, and package manifest files already present in Iteration 14.
+      - Do NOT duplicate generated artifacts or dependency directories such as `node_modules`.
+      - Update only `game/iteration-14/game.js` with the Iteration 14 logic changes.
+      - Do NOT rewrite the project from scratch.
+      - Refactor the existing Iteration 13 code in place. Do not replace the current architecture with a new one.
+      - Iteration 14 must preserve the current progress from Iteration 13 and add reactive CSS state changes when something happens with a minimalist effect in mind.
+
+      Scope and file constraints:
+      - Do NOT edit HTML or CSS content unless absolutely required, and avoid changing them for this iteration.
+      - Do NOT add external libraries.
+      - Do NOT convert the file to modules or a framework.
+      - Do NOT add import/export statements, test harness code, or a separate headless module.
+      - Preserve the existing browser-script structure.
+      - Preserve unrelated existing functions, top-level constants, and DOM behavior unless a minimal change is required.
+
+      Architecture constraints:
+      - Keep UI-facing spin code thin.
+      - Keep the weighted RNG helpers, spin-result/matrix helpers, payline helpers, payout helpers, Wild/Scatter helpers, DOM manipulation functions, game logic, and keyboard functionality from Iterations 6 through 13 and build on top of them instead of replacing them.
+      - Keep the pure Wild/Scatter evaluation layer and helpers that work with the current `reelMatrix[reelIndex][slotIndex]`.
+      - Do NOT implement bonus rounds, autoplay, or animations yet.
+
+      Rules for this iteration:
+      - Write the code such that the game is more reactive if something happens to the state of the game.
+      - Reactive CSS states (ex. positive visuals if users wins money) and changes and minimalist effects in mind. 
+      - Keep the logic explicit and easy to extend later
+
+      Implementation requirements:
+      - Write the code to add reactions to user actions through CSS state changes with minimalist effects in mind.
+      - Use helper functions only if necessary to acheive the goal of reactive, minimalist effect design through changes in CSS states.
+      - Validate any implemented helper functions with clear errors where appropriate.
+      - Use small, well-named functions with no duplicate logic.
+      - Include complete JSDoc type annotations for all inputs and outputs.
+      - Before writing code, explain your function logic in a plain text comment.
+
+      Compatibility requirements:
+      - Preserve the existing `state` variable name, state shape, and current field names unless a minimal additive change is clearly necessary.
+      - If a minimal additive field is needed, keep it focused only on storing Wild/Scatter evaluation output or updated payline result information.
+      - Preserve the existing `SYMBOLS` record as the UI metadata source.
+      - Preserve the existing weighted RNG layer, spin-result/matrix generation flow, payline evaluation flow, payout flow, Wild/Scatter logic, DOM manipulation functions, game logic and keyboard functionalities from Iterations 6 through 13.
+      - After making the changes, run `npm run lint:js` from `game/` and fix any issues introduced by Iteration 14 before finishing.
+      - Do not add tests in this iteration unless absolutely required to preserve the existing setup.
+
+      Output rules:
+      - Apply the changes directly in the workspace under `game/iteration-14/`.
+1. Static Analysis (Linters & Validators)
+
+HTML Validation: Run npx html-validate "iteration-14/*.html" to check for aria-label-misuse, whitespace in IDs, and structural errors.
+CSS Linting: Run npx stylelint "iteration-14/**/*.css" to ensure your styles follow modern color and range notations.
+JavaScript Linting: Run npx eslint "iteration-14/**/*.js" to check for style issues and ensure your JSDoc annotations match the eslint.config.js requirements.
+Full Lint Check: Execute both CSS and JS linters simultaneously.
+
+
+1. Logic Testing (Unit Tests)
+
+Run Unit Tests: Execute npm run test:unit.
+Validate Symbols: Confirm that your VALID_SYMBOLS array in tests/unit/game.test.js matches the case and count of the symbols currently in your HTML.
+Unit tests can continued to be changed depending on the iteration -> Be sure to update them if needed.
+
+
+4. UI Testing (End-to-End Tests)
+
+Make sure Local Server is available: run npx kill-port 3000 to ensure the local server can run the tests.
+Start Local Server: Open a separate terminal and run npx serve iteration-X -p 3000 (replacing X with your current iteration number).
+Run E2E Tests: In your primary terminal, execute npm run test:e2e.
+Verify Roles: Ensure your Playwright selectors match the aria-label or aria-labelledby attributes defined in your latest HTML iteration.
+
+
+5. Final "Safe to Commit" Check
+
+Run All-in-One: Execute an all in one checker.
+Review Output: It should run the HTML validator, all linters, and all tests in sequence.
+Verification: If any step fails, the script will stop, indicating that the code does not yet meet the required engineering quality for a commit.
+
+Make changes solely to the html, css and js in iteration 14 to fix the failures. Do not edit any other files besides the ones in iteration 14. 
+  
+**The Result (What happened?):**
+* Codex built `game/iteration-14/` as a continuation of Iteration 13 and preserved the existing browser-script architecture. The substantive iteration change lives in `game/iteration-14/game.js`, where there are now visual indicators for different game outcomes. 
+* The new Iteration 14 logic adds visual indicators to the slot machine by taking in data from game outcomes and modifying the css state. 
+* Plan fit: This iteration aligns with the goal for Phase 3 because it combines the ui and the underlying logic to update the ui appropriately.
+* Verification: passes all linting, validation and tests
+* What worked: The agent was able to create minimalist CSS state changes for user wins
+* What didn't work: CSS state changes really only exist for the win and nothing else. 
+**Hand-Edits Required? (No):**
+* No. No manual logic changes were made in `game/iteration-14/game.js`
