@@ -687,3 +687,92 @@ Act as a strict, senior software engineer obsessed with clean code and the DRY p
 
 **Hand-Edits Required? (Yes/No):**
 * No. No manual logic changes were made in `game/iteration-10/game.js`. The reviewed limitations were documented rather than corrected in this iteration.
+
+
+### Iteration 11: Update HTML to reflect JS Changes
+
+Act as a strict, senior software engineer obsessed with clean code and the DRY principle.
+
+      Context:
+      - You are working on a browser-based "Broke College Student Slot Machine."
+      - Use `game/iteration-10/` as the baseline for this iteration.
+      - This prompt is for Iteration 11, and the result must become a new `game/iteration-11/` folder that is a direct continuation of Iteration 10.
+      - Phase 3 is for connecting the work done in Phase 1 (UI) and Phase 2 (Logic) to create a playable game.
+      - Use the project research context from `plan/research-overview.md` and the raw research notes in `plan/raw-research/individual-research/nicole-research.md` as background constraints.
+      - The current Iteration 10 code already has:
+        - a typed `state` object
+        - symbol configuration in `SYMBOLS`
+        - ordered symbol weights in `SYMBOL_WEIGHT_ENTRIES`
+        - a validated weighted RNG layer via `WEIGHTED_SYMBOL_TABLE`
+        - weighted symbol selection helpers
+        - a reel matrix stored as `reelMatrix[reelIndex][slotIndex]`
+        - a clean intermediate spin-result layer
+        - pure helpers that generate per-reel symbol sequences
+        - pure helpers that convert spin results into the final 3x5 reel matrix
+        - a payline-evaluation layer that reads the current matrix and returns structured payline results
+        - a payout-calculation layer that uses bet size and matched paylines to update balance
+        - Wild and Scatter logic helper functions that modify payline evaluation
+      - Iteration 11 should connect the HTML grid to the underlying JavaScript 2D array through the DOM manipulation functions
+
+      Task:
+      Create `game/iteration-11/` by building directly on top of `game/iteration-10/`.
+
+      Folder requirements:
+      - Treat `game/iteration-10/` as the source of truth.
+      - Create `game/iteration-11/` as a continuation of Iteration 10.
+      - Copy the non-generated files from `game/iteration-10/` into `game/iteration-11/` unchanged unless a minimal change is absolutely required.
+      - This includes the HTML, CSS, JavaScript, lint/config files, and package manifest files already present in Iteration 10.
+      - Do NOT duplicate generated artifacts or dependency directories such as `node_modules`.
+      - Update only `game/iteration-11/game.js` with the Iteration 11 logic changes.
+      - Do NOT rewrite the project from scratch.
+      - Refactor the existing Iteration 10 code in place. Do not replace the current architecture with a new one.
+      - Iteration 11 must preserve the current progress from Iteration 10 and add the DOM manipulation functions on top of it.
+
+      Scope and file constraints:
+      - Do NOT edit HTML or CSS content unless absolutely required, and avoid changing them for this iteration.
+      - Do NOT add external libraries.
+      - Do NOT convert the file to modules or a framework.
+      - Do NOT add import/export statements, test harness code, or a separate headless module.
+      - Preserve the existing browser-script structure.
+      - Preserve unrelated existing functions, top-level constants, and DOM behavior unless a minimal change is required.
+
+      Architecture constraints:
+      - Keep UI-facing spin code thin.
+      - Keep the weighted RNG helpers, spin-result/matrix helpers, payline helpers, payout helpers, and Wild/Scatter helpers from Iterations 6 through 10 and build on top of them instead of replacing them.
+      - Keep the pure Wild/Scatter evaluation layer and helpers that work with the current `reelMatrix[reelIndex][slotIndex]`.
+      - Do NOT implement bonus rounds, autoplay, or animations yet.
+
+      Rules for this iteration:
+      - Write the DOM manipulation functions that update the HTML grid after a spin
+      - The HTML grid must reflect the underlying JavaScript Matrix
+      - Keep the logic explicit and easy to extend later.
+
+      Implementation requirements:
+      - Add pure helper functions for:
+        - Updating the DOM to match the underlying JavaScript Matrix
+      - Validate any implemented helper functions with clear errors where appropriate.
+      - Use small, well-named functions with no duplicate logic.
+      - Include complete JSDoc type annotations for all inputs and outputs.
+      - Before writing code, explain your function logic in a plain text comment.
+
+      Compatibility requirements:
+      - Preserve the existing `state` variable name, state shape, and current field names unless a minimal additive change is clearly necessary.
+      - If a minimal additive field is needed, keep it focused only on storing Wild/Scatter evaluation output or updated payline result information.
+      - Preserve the existing `SYMBOLS` record as the UI metadata source.
+      - Preserve the existing weighted RNG layer, spin-result/matrix generation flow, payline evaluation flow, payout flow, and Wild/Scatter logic from Iterations 6 through 10.
+      - After making the changes, run `npm run lint:js` from `game/` and fix any issues introduced by Iteration 11 before finishing.
+      - Do not add tests in this iteration unless absolutely required to preserve the existing setup.
+
+      Output rules:
+      - Apply the changes directly in the workspace under `game/iteration-11/`.
+
+**The Result (What happened?):**
+* Codex built `game/iteration-11/` as a continuation of Iteration 10 and preserved the existing browser-script architecture. The substantive iteration change lives in `game/iteration-11/game.js`, where the HTML grid is explicitly synced to the JS code
+* The new Iteration 11 logic modifies the render logic to use helpers that interface with the underlying JS code
+* Plan fit: this iteration doesn't really match the plan too well because nothing about the UI changed too much, only the render logic was abstracted out to a few more functions
+* Verification: project specific lint passed, but the repo-wide run still fails because of pre-existing no-undef errors in iteration-4 through iteration-6, not because of Iteration 11. A focused ESLint run against iteration-11/game.js passes cleanly. All the other files matched byte for byte with iteration 10.
+* What worked: **TODO**
+* What didn’t: Not sure if this abstraction was entirely required
+
+**Hand-Edits Required? (Yes/No):**
+* No. No manual logic changes were made in `game/iteration-11/game.js`. The reviewed limitations were documented rather than corrected in this iteration.
