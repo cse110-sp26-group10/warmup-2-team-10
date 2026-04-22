@@ -4,7 +4,21 @@
 ---
 ## Logging Template
 *Please copy and paste this template for every iteration you run.*
-### Iteration [1]: [Short Description of Task]
+### Iteration [Number]: [Short Description of Task]
+
+**The Prompt:**
+> [Paste your exact prompt here. If you fed it previous files for context, note that here too.]
+
+**The Result (What happened?):**
+* [Did it compile? Any interesting findings? Did it pass linting? Did it hallucinate? Describe the output briefly.]
+
+**Hand-Edits Required? (Yes/No):**
+* [If yes, explain exactly what you touched in the code because the AI failed after two correction attempts. Example: "AI kept hallucinating array indices, had to manually fix the out-of-bounds error on line 42."]
+
+---
+## Iteration History
+
+### Iteration 1: Create HTML Skeleton
 
 **The Prompt:**
 > Act as a strict senior software engineer focused on clean code, DRY principles, and accessibility.
@@ -29,26 +43,245 @@ Constraints:
 Output ONLY HTML code.
 
 **The Result (What happened?):**
-* The code compiled successfully and produced a static HTML layout for a slot machine game. It includes a clean structure, ARIA attributes, and a result region that uses aria-live. An interesting finding is that the reels are hardcoded. This code would not pass linting since it is missing the full HTML boilerplate (<head>, <body>, <html>). It did not hallucinate in a way that mattered. It made minor assumptions, such as not making the reel symbolize flexible or exactly three reels. 
+* The code compiled successfully. It includes a clean structure, ARIA attributes, and a result region that uses aria-live. An interesting finding is that the reels are hardcoded. This code would not pass linting since it is missing the full HTML boilerplate (<head>, <body>, <html>). It did not hallucinate in a way that mattered. It made minor assumptions, such as not making the reel symbolize flexible or exactly three reels. 
 
-The output is clean and readable, but not interactive yet. 
+The output is a static HTML layout for a slot machine game. It is clean and readable, but not interactive yet. 
 
 **Hand-Edits Required? (Yes/No):**
 * No
 
----
-## Logging Template
-*Please copy and paste this template for every iteration you run.*
-### Iteration [Number]: [Short Description of Task]
+### Iteration 2: HTML and CSS Grid implementing a 3×5 reel layout with a high-contrast design.
 
 **The Prompt:**
-> [Paste your exact prompt here. If you fed it previous files for context, note that here too.]
+>Act as a strict senior software engineer focused on clean code, DRY principles, and accessibility.
+
+Task: Refactor and extend the existing slot machine UI using semantic HTML + minimalist CSS.
+
+Goal: Create a clean, accessible layout using CSS Grid for a 3x5 slot machine structure. The theme is: “Broke College Student Slot Machine.” 
+
+HTML Requirements:
+
+* Use only semantic structure: header, main, section#reels, aside#controls
+* Reels must support a 3-column layout
+* Each reel must contain 5 stacked symbol slots
+* Preserve ARIA attributes including aria-live and aria-labels
+* Do not add JavaScript
+
+CSS Requirements:
+
+* Use CSS Grid for layout:
+  * 3 columns for reels
+  * 5 rows per reel
+* High contrast minimalist design
+* Clear spacing and alignment
+* No animations or transitions
+* No external frameworks
+* Basic responsive behavior allowed
+
+Constraints:
+
+* No JavaScript
+* No complex animations
+* Keep code clean, modular, and non-overengineered
+
+Output Rule:
+Return ONLY updated HTML followed by CSS.
 
 **The Result (What happened?):**
-* [Did it compile? Any interesting findings? Did it pass linting? Did it hallucinate? Describe the output briefly.]
+* The code compiled successfully. An interesting finding was that Codex intercepts “high-contrast” styling as a black background and white outlines. Personally, I interpret “high-constrast” as bright colors on the opposite sides of the color wheel. It would pass linting, but there may be minor warnings, such as redundant attributes. It did not hallucinate in a way that matters. Similar to Iteration 1, it showcases minor assumptions such as styling details.
+
+The output was a static slot machine UI using HTML and CSS Grid. It features a 3x5 reel layout and high-contrast styling. 
 
 **Hand-Edits Required? (Yes/No):**
-* [If yes, explain exactly what you touched in the code because the AI failed after two correction attempts. Example: "AI kept hallucinating array indices, had to manually fix the out-of-bounds error on line 42."]
+* No
 
----
-## Iteration History
+### Iteration 3: Set up the static visual elements
+
+**The Prompt:**
+> Act as a strict, senior software engineer obsessed with clean code and the DRY principle.
+
+Context:
+- You are designing a slot machine themed around a broke college student.
+- Symbols on a slot machine reel will include items like ramen packages, generic energy drinks, textbooks, loose change, and maybe a single "Wild" diploma.
+- There will be a dual currency system that allows the player to switch between "Real Currency" and "Dining Dollars/Tokens."
+
+Current State:
+- There is a 3x5 slot machine structure, play and reset buttons, and basic CSS.
+- The theme has not been incorporated yet.
+
+Task: Refactor and extend the UI to implement static visual elements using HTML and CSS.
+
+Requirements:
+- Preserve the layout of 3 reels with 5 stacked symbols per reel.
+- Set up the static visual elements for the slot machine. These include the dynamic balance display, bet size controls, a static paytable.
+- Include a "Mute/Unmute" toggle to comply with browser auto-play policies and user preferences.
+- Preserve ARIA attributes including aria-live and aria-labels.
+
+Constraints:
+- DO NOT add JavaScript.
+- Restrict to only editing the HTML and CSS files.
+- Adhere to the DRY principle.
+- Before writing code, explain your formatting logic in a plain text comment.
+
+**The Result (What happened?):**
+* The code compiled successfully. Codex deleted both the HTML and CSS files and replaced them with new ones as opposed to editing on the original files. The basic static visual elements in the slot machine are all implemented, and the theme that was removed from Iteration 2 is readded. It was interesting how even though the files were completely remade, the basic structure of the slot machine on the left and controls on the right still remained. However, due to forgetting to add the context of keeping a minimalist CSS framework, the CSS file is noticeably longer than Iteration 2. The CSS file passed linting, but the HTML file did not, showing errors that aria-label cannot be used on certain elements. It did not hallucinate in a way that matters.
+
+**Hand-Edits Required? (Yes/No):**
+* No.
+
+### Iteration 4: Build the foundational Vanilla JS file structure
+
+**The Prompt:**
+> Act as a strict, senior software engineer obsessed with clean code and the DRY principle.
+
+Context:
+- You are designing a slot machine themed around a broke college student.
+- Symbols on a slot machine reel will include items like ramen packages, generic energy drinks, textbooks, loose change, and maybe a single "Wild" diploma.
+- There will be a dual currency system that allows the player to switch between "Real Currency" and "Dining Dollars/Tokens."
+
+Current State:
+- There are a 3x5 slot machine structure, spin and reset buttons, currency switch buttons, and a mute/unmute button.
+- Static visual elements including a dynamic balanace display, bet size controls, and a static paytable are implemented.
+- There is basic styling in the CSS file.
+
+Task: Start building the foundational Vanilla JS file structure.
+
+Requirements:
+- Preserve the current UI layout.
+- Build the foundational Vanilla JS file structure.
+- You must include complete JSDoc type annotations for all inputs and outputs.
+
+Constraints:
+- DO NOT delete or edit the existing HTML and CSS files.
+- Use ONLY Vanilla JS and native browser APIs. DO NOT use frameworks or external libraries. The code must be able to run directly in modern browsers without a build step.
+- Adhere to the DRY principle.
+- Before writing code, explain your structural logic in a plain text comment.
+
+Prompt 2:
+> Link the JS file to the page.
+
+**The Result (What happened?):**
+* The code compiled successfully. As instructed, Codex only modified the JS file without making any changes on the HTML and CSS files, which also means that the JS file is not yet linked to the HTML page, so a second prompt was needed to do so. JSDoc type annotations are included for all inputs and outputs. The spin, reset, currency switch, and bet size change functions already seem to be working, though without the spin animation. The mute/unmute button also changes text when clicked. It was interesting how just the initial structure of the JS file already has more lines of code than the JS file of the final candidate in the previous research assignment. The JS file passed linting. It did not hallucinate in a way that matters.
+
+**Hand-Edits Required? (Yes/No):**
+* No.
+
+### Iteration 5: Create a CI/CD configuration
+
+**The Prompt:**
+> Act as a strict, senior software engineer obsessed with clean code and the DRY principle.
+
+Context:
+- You are designing a slot machine themed around a broke college student.
+- Symbols on a slot machine reel will include items like ramen packages, generic energy drinks, textbooks, loose change, and maybe a single "Wild" diploma.
+- There will be a dual currency system that allows the player to switch between "Real Currency" and "Dining Dollars/Tokens."
+
+Current State:
+- There are a 3x5 slot machine structure, spin and reset buttons, currency switch buttons, and a mute/unmute button.
+- Static visual elements including a dynamic balanace display, bet size controls, and a static paytable are implemented.
+- There is basic styling in the CSS file.
+- The foundational Vanilla JS file structure has been created, with basic functionalities including spinning, resetting, currency switching, and bet size changing already working.
+
+Task: Create a CI/CD configuration to enforce "Clean Code" requirements immediately.
+
+Requirements:
+- Create a CI/CD configuration for ESLint and Prettier.
+- Use modern formats like eslint.config.js and .prettierrc.json.
+- Have ESLint focus strictly on code quality and Prettier handle all formatting.
+- Include a package.json file.
+- You must include complete JSDoc type annotations for all inputs and outputs.
+
+Constraints:
+- DO NOT delete or edit any existing files.
+- Adhere to the DRY principle.
+- Before writing code, explain your structural logic in a plain text comment.
+
+**The Result (What happened?):**
+* The code compiled successfully. Four new files (ci.yml, .prettierrc.json, eslint.config.js, package.json) were created. The new files passed linting. It did not hallucinate in a way that matters.
+
+**Hand-Edits Required? (Yes/No):**
+* No.
+
+
+### Iteration 6: build the RNG algorithm
+
+Act as a strict, senior software engineer obsessed with clean code and the DRY principle.
+
+    Context:
+    - You are working on a browser-based "Broke College Student Slot Machine."
+    - Use `game/iteration-5/` as the baseline for this iteration.
+    - This prompt is for Iteration 6, and the result must become a new `game/iteration-6/` folder that is a direct continuation of Iteration 5.
+    - Phase 2 is for invisible math and logic only.
+    - Use the project research context from `plan/research-overview.md` and the raw research notes on weighted randomness as background constraints.
+    - The current code already has:
+      - a typed `state` object
+      - symbol configuration
+      - a temporary spin flow
+      - a reel matrix stored as `reelMatrix[reelIndex][slotIndex]`
+      - 3 outer arrays (reels) and 5 inner entries per reel (slots)
+    - The current random symbol selection is too naive because it uses uniform randomness.
+    - The research requires weighted randomness and provides example weight structures, but it does NOT define final project-specific weights.
+    - You must define clean placeholder weights in code.
+
+    Task:
+    Create `game/iteration-6/` by building directly on top of `game/iteration-5/`.
+
+    Folder requirements:
+    - Treat `game/iteration-5/` as the source of truth.
+    - Copy the non-JavaScript files from `game/iteration-5/` into `game/iteration-6/` unchanged unless a minimal change is absolutely required.
+    - Update only `game/iteration-6/game.js` with the Iteration 6 logic changes.
+    - Do NOT rewrite the project from scratch.
+    - Iteration 6 must preserve the current progress from Iteration 5 and add the weighted RNG refactor on top of it.
+
+    Scope and file constraints:
+    - Do NOT edit HTML or CSS content unless absolutely required, and avoid changing them for this iteration.
+    - Do NOT add external libraries.
+    - Do NOT convert the file to modules or a framework.
+    - Do NOT add import/export statements, test harness code, or a separate headless module.
+    - Preserve the existing browser-script structure.
+    - Preserve unrelated existing functions, top-level constants, and DOM behavior unless a minimal change is required.
+
+    Architecture constraints:
+    - Keep UI-facing spin code thin.
+    - Refactor the existing spin path so randomness is delegated to pure helper functions.
+    - Keep the new RNG helpers pure and reusable, but preserve the existing single-file browser-script architecture.
+    - Do not add new DOM queries, DOM mutations, or UI features beyond the minimal wiring needed to preserve the existing spin flow.
+    - Do NOT implement paylines, payouts, wild substitution behavior, scatter behavior, bonus logic, autoplay, or animations yet.
+
+    Implementation requirements:
+    - Replace uniform symbol selection with weighted symbol selection.
+    - Define a centralized placeholder weight definition for all current symbols:
+      - ramen
+      - energy
+      - book
+      - change
+      - wild
+    - Use non-uniform placeholder values.
+    - Wild must have a low spawn weight, but do NOT implement wild behavior yet.
+    - Define the source weights as an ordered array of entries first, then validate that array, then derive any lookup or cumulative table you need from it.
+    - Every symbol in the existing `SYMBOLS` config must appear exactly once in that ordered weight-entry array.
+    - Throw clear errors for:
+      - missing configured symbols
+      - duplicate symbols
+      - unknown symbols
+      - non-numeric or non-finite weights
+      - zero-or-negative total weight
+    - Before writing code, explain your structural logic in a plain text comment.
+
+    Compatibility requirements:
+    - Keep the current matrix generation behavior temporarily, but ensure symbol selection now flows through the weighted RNG helpers.
+    - Prefer a structure that later iterations can reuse for matrix population, payline evaluation, payout calculation, and wild/scatter handling.
+
+    Output rules:
+    - Apply the changes directly in the workspace under `game/iteration-6/`.
+
+**The Result (What happened?):**
+* Codex built `game/iteration-6/` as a continuation of Iteration 5 and kept the non-JavaScript files unchanged. The only substantive code change for the iteration was in `game/iteration-6/game.js`, where the previous uniform symbol selection was refactored into a weighted RNG flow that still feeds the existing `reelMatrix[reelIndex][slotIndex]` generation path.
+* The new logic added a centralized ordered weight-entry array for all current symbols (`ramen`, `energy`, `book`, `change`, `wild`), used non-uniform placeholder values, and gave `wild` a low spawn weight. It also validated the source weight array before building the cumulative weighted table and throws clear errors for missing configured symbols, duplicate symbols, unknown symbols, invalid weights, and non-positive total weight.
+* The implementation stayed within the existing single-file browser-script architecture. It preserved the typed `state` object, the `SYMBOLS` metadata record, the current temporary spin flow, and the matrix orientation `reelMatrix[reelIndex][slotIndex]`. It did not add paylines, payouts, wild/scatter behavior, autoplay, animations, or new DOM features, so it stayed aligned with the “invisible math and logic only” scope for this iteration.
+* Verification: `node --check game/iteration-6/game.js` passed. After running `npm install` in `game/iteration-6`, `npm run lint` passed. `npm run format:check` initially reported formatting issues in `game.js`, `index.html`, and `style.css`; however, `index.html` and `style.css` were unchanged from Iteration 5, so those warnings were inherited baseline formatting issues rather than Iteration 6 regressions. We then ran `npx prettier game.js --write`, followed by `npm run lint` and `npx prettier game.js --check`, and `game.js` passed both lint and formatting checks.
+* What worked: the weighted RNG refactor matched the Iteration 6 prompt closely, kept UI-facing spin logic thin, and introduced reusable pure helper functions that later iterations can build on for matrix population, payline traversal, payout calculation, and wild/scatter handling.
+* What didn’t: the code is still integrated into the browser script rather than extracted into a separate headless model, so it is not fully “detached from the UI” in a strict architectural sense. That said, the new RNG helpers themselves are pure and reusable, so this did not block the iteration goals.
+
+**Hand-Edits Required? (Yes/No):**
+* No. No manual code edits were needed to fix logic. The only follow-up step was running Prettier on `game/iteration-6/game.js` to satisfy formatting checks.

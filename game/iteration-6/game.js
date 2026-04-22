@@ -1,6 +1,7 @@
-// Structural logic: this file is split into stable configuration, a single source-of-truth state object,
-// DOM caching, small reusable helpers, render functions, and event bindings so the current UI stays intact
-// while the game logic remains DRY and easy to extend with payouts, paylines, animations, and audio later.
+// Structural logic: this file keeps stable UI metadata and state at the top, defines ordered placeholder
+// symbol weights, validates them once, derives a reusable weighted lookup table, and then lets the
+// existing spin flow populate `reelMatrix[reelIndex][slotIndex]` through pure RNG helpers so later payout,
+// payline, wild, and scatter work can reuse the same math layer without bloating DOM-facing code.
 
 /**
  * @module game
@@ -66,6 +67,26 @@
  * @property {ReelSlotElement[]} reelSlots Flattened reel slot list in DOM order.
  */
 
+/**
+ * @typedef {object} SymbolWeightEntry
+ * @property {SymbolId} symbolId Internal symbol identifier.
+ * @property {number} weight Relative spawn weight for the symbol.
+ */
+
+/**
+ * @typedef {object} WeightedSymbolEntry
+ * @property {SymbolId} symbolId Internal symbol identifier.
+ * @property {number} weight Relative spawn weight for the symbol.
+ * @property {number} cumulativeWeight Running cumulative weight threshold.
+ */
+
+/**
+ * @typedef {object} WeightedSymbolTable
+ * @property {Readonly<Record<SymbolId, number>>} weightBySymbol Symbol-to-weight lookup.
+ * @property {Readonly<WeightedSymbolEntry[]>} entries Ordered weighted entries with cumulative thresholds.
+ * @property {number} totalWeight Total weight across all configured symbols.
+ */
+
 /** @type {Readonly<Record<CurrencyMode, CurrencyConfig>>} */
 const CURRENCIES = Object.freeze({
   real: Object.freeze({
@@ -98,6 +119,15 @@ const SYMBOLS = Object.freeze({
 /** @type {Readonly<SymbolId[]>} */
 const SYMBOL_ORDER = Object.freeze(/** @type {SymbolId[]} */ (Object.keys(SYMBOLS)));
 
+/** @type {Readonly<SymbolWeightEntry[]>} */
+const SYMBOL_WEIGHT_ENTRIES = Object.freeze([
+  Object.freeze({ symbolId: "ramen", weight: 40 }),
+  Object.freeze({ symbolId: "energy", weight: 30 }),
+  Object.freeze({ symbolId: "book", weight: 18 }),
+  Object.freeze({ symbolId: "change", weight: 10 }),
+  Object.freeze({ symbolId: "wild", weight: 2 })
+]);
+
 /** @type {Readonly<SymbolId[][]>} */
 const INITIAL_REEL_MATRIX = Object.freeze([
   Object.freeze(["ramen", "energy", "book", "change", "wild"]),
@@ -120,6 +150,9 @@ const SYMBOL_CLASS_LOOKUP = Object.freeze(
     {}
   )
 );
+
+/** @type {WeightedSymbolTable} */
+const WEIGHTED_SYMBOL_TABLE = createWeightedSymbolTable(SYMBOL_WEIGHT_ENTRIES, SYMBOLS);
 
 /**
  * Creates the initial mutable game state.
@@ -302,7 +335,10 @@ function getReelSlots() {
  */
 function bindEvents(dom) {
   dom.realCurrencyButton.addEventListener("click", handleCurrencyChange.bind(null, dom, "real"));
-  dom.diningCurrencyButton.addEventListener("click", handleCurrencyChange.bind(null, dom, "dining"));
+  dom.diningCurrencyButton.addEventListener(
+    "click",
+    handleCurrencyChange.bind(null, dom, "dining")
+  );
   dom.muteButton.addEventListener("click", handleMuteToggle.bind(null, dom));
   dom.decreaseBetButton.addEventListener("click", handleBetAdjustment.bind(null, dom, -1));
   dom.increaseBetButton.addEventListener("click", handleBetAdjustment.bind(null, dom, 1));
@@ -434,9 +470,15 @@ function render(dom) {
 function renderBalance(dom) {
   const currencyMode = state.currencyMode;
   dom.balanceValue.textContent = formatAmount(state.balances[currencyMode], currencyMode);
-  dom.balanceValue.setAttribute("aria-label", `Current balance amount ${formatAmount(state.balances[currencyMode], currencyMode)}`);
+  dom.balanceValue.setAttribute(
+    "aria-label",
+    `Current balance amount ${formatAmount(state.balances[currencyMode], currencyMode)}`
+  );
   dom.balanceMeta.textContent = CURRENCIES[currencyMode].label;
-  dom.balanceMeta.setAttribute("aria-label", `Current currency mode ${CURRENCIES[currencyMode].label}`);
+  dom.balanceMeta.setAttribute(
+    "aria-label",
+    `Current currency mode ${CURRENCIES[currencyMode].label}`
+  );
 }
 
 /**
@@ -494,7 +536,10 @@ function renderReels(dom) {
       resetSymbolClasses(slot.element);
       slot.element.classList.add(symbol.className);
       slot.element.textContent = symbol.label;
-      slot.element.setAttribute("aria-label", `Reel ${reelNumber}, slot ${slotNumber}, ${symbol.label}`);
+      slot.element.setAttribute(
+        "aria-label",
+        `Reel ${reelNumber}, slot ${slotNumber}, ${symbol.label}`
+      );
     }
   );
 }
@@ -592,12 +637,190 @@ function createRandomMatrix(reelCount, slotsPerReel) {
 }
 
 /**
- * Returns a random symbol identifier.
- * @returns {SymbolId} Random symbol identifier.
+ * Validates ordered symbol weight entries and derives the weighted lookup data used by spins.
+ * @param {readonly SymbolWeightEntry[]} weightEntries Ordered source weight entries.
+ * @param {Readonly<Record<SymbolId, SymbolConfig>>} symbolConfig UI symbol configuration.
+ * @returns {WeightedSymbolTable} Validated weighted symbol table.
+ * @throws {Error} Throws when the weight configuration is incomplete or invalid.
+ */
+function createWeightedSymbolTable(weightEntries, symbolConfig) {
+  const validatedEntries = validateSymbolWeightEntries(weightEntries, symbolConfig);
+  const weightBySymbol = buildWeightLookup(validatedEntries);
+
+  return buildWeightedSymbolTable(validatedEntries, symbolConfig, weightBySymbol);
+}
+
+/**
+ * Validates that every configured symbol has exactly one finite weight entry.
+ * @param {readonly SymbolWeightEntry[]} weightEntries Ordered source weight entries.
+ * @param {Readonly<Record<SymbolId, SymbolConfig>>} symbolConfig UI symbol configuration.
+ * @returns {SymbolWeightEntry[]} Validated mutable copy of the ordered entries.
+ * @throws {Error} Throws when a symbol is missing, duplicated, unknown, or has an invalid weight.
+ */
+function validateSymbolWeightEntries(weightEntries, symbolConfig) {
+  /** @type {SymbolId[]} */
+  const configuredSymbolIds = /** @type {SymbolId[]} */ (Object.keys(symbolConfig));
+  /** @type {Set<SymbolId>} */
+  const seenSymbols = new Set();
+  const validatedEntries = weightEntries.map(
+    /**
+     * @param {SymbolWeightEntry} entry Source weight entry.
+     * @returns {SymbolWeightEntry} Validated weight entry.
+     */
+    (entry) => {
+      const { symbolId, weight } = entry;
+
+      if (!Object.hasOwn(symbolConfig, symbolId)) {
+        throw new Error(`Unknown symbol in weight configuration: ${String(symbolId)}`);
+      }
+
+      if (seenSymbols.has(symbolId)) {
+        throw new Error(`Duplicate symbol in weight configuration: ${symbolId}`);
+      }
+
+      if (typeof weight !== "number" || !Number.isFinite(weight)) {
+        throw new Error(`Weight must be a finite number for symbol: ${symbolId}`);
+      }
+
+      seenSymbols.add(symbolId);
+
+      return { symbolId, weight };
+    }
+  );
+
+  const missingSymbols = configuredSymbolIds.filter(
+    /**
+     * @param {SymbolId} symbolId Configured symbol identifier.
+     * @returns {boolean} Whether the symbol is missing from the weight configuration.
+     */
+    (symbolId) => !seenSymbols.has(symbolId)
+  );
+
+  if (missingSymbols.length > 0) {
+    throw new Error(
+      `Missing configured symbols in weight configuration: ${missingSymbols.join(", ")}`
+    );
+  }
+
+  return validatedEntries;
+}
+
+/**
+ * Builds a normalized symbol-to-weight lookup after validation.
+ * @param {readonly SymbolWeightEntry[]} validatedEntries Ordered validated weight entries.
+ * @returns {Readonly<Record<SymbolId, number>>} Frozen weight lookup keyed by symbol.
+ */
+function buildWeightLookup(validatedEntries) {
+  /** @type {Record<SymbolId, number>} */
+  const weightBySymbol = /** @type {Record<SymbolId, number>} */ ({});
+
+  validatedEntries.forEach(
+    /**
+     * @param {SymbolWeightEntry} entry Validated weight entry.
+     * @returns {void}
+     */
+    (entry) => {
+      weightBySymbol[entry.symbolId] = entry.weight;
+    }
+  );
+
+  return Object.freeze(weightBySymbol);
+}
+
+/**
+ * Builds the cumulative weighted table used for symbol selection.
+ * @param {readonly SymbolWeightEntry[]} validatedEntries Ordered validated weight entries.
+ * @param {Readonly<Record<SymbolId, SymbolConfig>>} symbolConfig UI symbol configuration.
+ * @param {Readonly<Record<SymbolId, number>>} weightBySymbol Frozen symbol-to-weight lookup.
+ * @returns {WeightedSymbolTable} Frozen weighted symbol table.
+ * @throws {Error} Throws when configured symbols are missing or the total weight is not positive.
+ */
+function buildWeightedSymbolTable(validatedEntries, symbolConfig, weightBySymbol) {
+  /** @type {SymbolId[]} */
+  const configuredSymbolIds = /** @type {SymbolId[]} */ (Object.keys(symbolConfig));
+  const missingSymbols = configuredSymbolIds.filter(
+    /**
+     * @param {SymbolId} symbolId Configured symbol identifier.
+     * @returns {boolean} Whether the symbol is missing from the weight configuration.
+     */
+    (symbolId) => !Object.hasOwn(weightBySymbol, symbolId)
+  );
+
+  if (missingSymbols.length > 0) {
+    throw new Error(
+      `Missing configured symbols in weight configuration: ${missingSymbols.join(", ")}`
+    );
+  }
+
+  let totalWeight = 0;
+  const entries = validatedEntries.map(
+    /**
+     * @param {SymbolWeightEntry} entry Validated weight entry.
+     * @returns {WeightedSymbolEntry} Weighted entry with a cumulative threshold.
+     */
+    (entry) => {
+      totalWeight += entry.weight;
+
+      return Object.freeze({
+        symbolId: entry.symbolId,
+        weight: entry.weight,
+        cumulativeWeight: totalWeight
+      });
+    }
+  );
+
+  if (totalWeight <= 0) {
+    throw new Error("Total symbol weight must be greater than zero.");
+  }
+
+  return Object.freeze({
+    weightBySymbol,
+    entries: Object.freeze(entries),
+    totalWeight
+  });
+}
+
+/**
+ * Returns a weighted random symbol identifier using the shared symbol table.
+ * @returns {SymbolId} Weighted random symbol identifier.
  */
 function getRandomSymbolId() {
-  const randomIndex = Math.floor(Math.random() * SYMBOL_ORDER.length);
-  return SYMBOL_ORDER[randomIndex];
+  return selectWeightedSymbolId(WEIGHTED_SYMBOL_TABLE, Math.random());
+}
+
+/**
+ * Selects a symbol from a weighted table using a normalized random input.
+ * @param {WeightedSymbolTable} weightedTable Weighted symbol table.
+ * @param {number} randomValue Normalized random input in the range [0, 1).
+ * @returns {SymbolId} Selected symbol identifier.
+ * @throws {Error} Throws when the random value is invalid or the weighted table cannot resolve a symbol.
+ */
+function selectWeightedSymbolId(weightedTable, randomValue) {
+  if (
+    typeof randomValue !== "number" ||
+    !Number.isFinite(randomValue) ||
+    randomValue < 0 ||
+    randomValue >= 1
+  ) {
+    throw new Error(
+      `Random value must be a finite number in the range [0, 1): ${String(randomValue)}`
+    );
+  }
+
+  const targetWeight = randomValue * weightedTable.totalWeight;
+  const matchingEntry = weightedTable.entries.find(
+    /**
+     * @param {WeightedSymbolEntry} entry Weighted symbol entry.
+     * @returns {boolean} Whether the entry covers the generated target weight.
+     */
+    (entry) => targetWeight < entry.cumulativeWeight
+  );
+
+  if (!matchingEntry) {
+    throw new Error("Weighted symbol selection failed to resolve a symbol.");
+  }
+
+  return matchingEntry.symbolId;
 }
 
 /**
