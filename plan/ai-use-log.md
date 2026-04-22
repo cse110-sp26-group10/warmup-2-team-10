@@ -484,3 +484,100 @@ Act as a strict, senior software engineer obsessed with clean code and the DRY p
 
 **Hand-Edits Required? (Yes/No):**
 * No. No manual logic changes were made in `game/iteration-8/game.js`. A documentation/JSDoc cleanup was performed, but the flagged validator limitation was not corrected in this iteration.
+
+### Iteration 9: payout calculation logic that updates the game state balance based on the bet size and winning paylines
+
+Act as a strict, senior software engineer obsessed with clean code and the DRY principle.
+
+      Context:
+      - You are working on a browser-based "Broke College Student Slot Machine."
+      - Use `game/iteration-8/` as the baseline for this iteration.
+      - This prompt is for Iteration 9, and the result must become a new `game/iteration-9/` folder that is a direct continuation of Iteration 8.
+      - Phase 2 is for invisible math and logic only.
+      - Use the project research context from `plan/research-overview.md` and the raw research notes in `plan/raw-research/individual-research/nicole-research.md` as background constraints.
+      - The current Iteration 8 code already has:
+        - a typed `state` object
+        - symbol configuration in `SYMBOLS`
+        - ordered symbol weights in `SYMBOL_WEIGHT_ENTRIES`
+        - a validated weighted RNG layer via `WEIGHTED_SYMBOL_TABLE`
+        - weighted symbol selection helpers
+        - a reel matrix stored as `reelMatrix[reelIndex][slotIndex]`
+        - a clean intermediate spin-result layer
+        - pure helpers that generate per-reel symbol sequences
+        - pure helpers that convert spin results into the final 3x5 reel matrix
+        - a payline-evaluation layer that reads the current matrix and returns structured payline results
+      - The current Iteration 8 implementation already preserves the matrix orientation as `reelMatrix[reelIndex][slotIndex]`.
+      - Iteration 9 should introduce a clean, reusable payout-calculation layer that updates the game state balance based on the current bet size and winning paylines.
+
+      Task:
+      Create `game/iteration-9/` by building directly on top of `game/iteration-8/`.
+
+      Folder requirements:
+      - Treat `game/iteration-8/` as the source of truth.
+      - Create `game/iteration-9/` as a continuation of Iteration 8.
+      - Copy the non-generated files from `game/iteration-8/` into `game/iteration-9/` unchanged unless a minimal change is absolutely required.
+      - This includes the HTML, CSS, JavaScript, lint/config files, and package manifest files already present in Iteration 8.
+      - Do NOT duplicate generated artifacts or dependency directories such as `node_modules`.
+      - Update only `game/iteration-9/game.js` with the Iteration 9 logic changes.
+      - Do NOT rewrite the project from scratch.
+      - Refactor the existing Iteration 8 code in place. Do not replace the current architecture with a new one.
+      - Iteration 9 must preserve the current progress from Iteration 8 and add the payout-calculation layer on top of it.
+
+      Scope and file constraints:
+      - Do NOT edit HTML or CSS content unless absolutely required, and avoid changing them for this iteration.
+      - Do NOT add external libraries.
+      - Do NOT convert the file to modules or a framework.
+      - Do NOT add import/export statements, test harness code, or a separate headless module.
+      - Preserve the existing browser-script structure.
+      - Preserve unrelated existing functions, top-level constants, and DOM behavior unless a minimal change is required.
+
+      Architecture constraints:
+      - Keep UI-facing spin code thin.
+      - Keep the weighted RNG helpers, spin-result/matrix helpers, and payline helpers from Iterations 6 through 8 and build on top of them instead of replacing them.
+      - Add a pure payout-calculation layer that reads the current bet size and the structured winning payline results.
+      - Keep the new payout helpers pure and reusable where possible.
+      - Do not add new DOM queries, DOM mutations, or UI features beyond the minimal wiring needed to preserve the existing spin flow.
+      - Do NOT implement wild substitution behavior, scatter behavior, bonus logic, autoplay, or animations yet.
+
+      Implementation requirements:
+      - Add pure helper functions for:
+        - calculating the payout for a single winning payline
+        - calculating the total payout across all winning paylines
+        - applying the payout result to the existing state balance
+      - Use the current bet size and winning payline results as the basis for payout calculation.
+      - Keep the payout logic explicit and easy to extend in the next iteration.
+      - Return structured payout results that clearly describe:
+        - which paylines contributed to the payout
+        - each payline’s payout amount
+        - the total payout amount
+        - the updated balance or balance delta
+      - Preserve the current visible behavior temporarily: after a spin, the app should still end up with a valid randomized 3x5 matrix rendered in the same way.
+      - Validate any new payout inputs with clear errors where appropriate.
+      - Use small, well-named functions with no duplicate logic.
+      - Include complete JSDoc type annotations for all inputs and outputs.
+      - Before writing code, explain your payout calculation logic in a plain text comment.
+
+      Compatibility requirements:
+      - Preserve the existing `state` variable name, state shape, and current field names unless a minimal additive change is clearly necessary.
+      - If a minimal additive field is needed, keep it focused only on storing payout output or updated balance information.
+      - Preserve the existing `SYMBOLS` record as the UI metadata source.
+      - Preserve the existing weighted RNG layer, spin-result/matrix generation flow, and payline evaluation flow from Iterations 6 through 8.
+      - Do not implement wild, scatter, or bonus-state fields yet unless a minimal structural field is clearly necessary for representing payout results.
+      - After making the changes, run `npm run lint:js` from `game/` and fix any issues introduced by Iteration 9 before finishing.
+      - Do not add tests in this iteration unless absolutely required to preserve the existing setup.
+
+      Output rules:
+      - Apply the changes directly in the workspace under `game/iteration-9/`.
+
+**The Result (What happened?):**
+* Codex built `game/iteration-9/` as a continuation of Iteration 8 and preserved the existing browser-script architecture. The substantive iteration change lives in `game/iteration-9/game.js`, where a new payout-calculation layer was added on top of the existing weighted RNG, spin-result, matrix-generation, and payline-evaluation flow.
+* The new Iteration 9 logic introduces `calculateSinglePaylinePayout`, `calculateTotalPayout`, and `applyPayoutToBalance`. This makes the relationship explicit between the current bet size, the structured winning payline results, and the resulting balance update after a spin.
+* The implementation preserved the existing `state` variable name and overall state flow, while adding a minimal payout-results layer for storing structured payout output. It kept the `SYMBOLS` record as the UI metadata source and did not add scatter behavior, bonus logic, autoplay, animations, framework changes, or new DOM features.
+* Balance math was handled correctly for this iteration: the spin flow deducts the current bet first, then applies any payout to the post-bet balance. The code also keeps `wild` at a zero payout multiplier for now, which is a temporary design assumption that fits the current scope because wild substitution is not implemented until the next iteration.
+* Plan fit: this iteration matches the Iteration 6-10 plan for Phase 2 because it adds invisible math and logic only, keeps the payout work attached to the existing payline results, and prepares the project for Wild and Scatter handling in Iteration 10.
+* Verification: targeted linting for `iteration-9/game.js` passed, and the file remained isolated to the Iteration 9 folder. Running the full repo-level JavaScript lint command from `game/` still did not fully pass because there are inherited lint issues in earlier iteration folders. Those failures were baseline issues and not introduced by Iteration 9.
+* What worked: the prompt goal for payout calculation was met cleanly. The new helpers are small, clearly named, and reusable, and the balance update logic builds directly on the existing payline-evaluation output without rewriting the project structure.
+* What didn’t: the initial Iteration 9 result exposed payout-specific win/loss text in the visible status message, which went slightly beyond the intended invisible-logic scope. That was manually adjusted to a neutral status message so the iteration stayed closer to the plan.
+
+**Hand-Edits Required? (Yes/No):**
+* Yes. A small manual edit was made in `game/iteration-9/game.js` to replace payout-specific status text with a neutral status message so the iteration stayed closer to invisible math and logic only. No manual changes were made to the payout calculation itself.
