@@ -581,3 +581,109 @@ Act as a strict, senior software engineer obsessed with clean code and the DRY p
 
 **Hand-Edits Required? (Yes/No):**
 * Yes. A small manual edit was made in `game/iteration-9/game.js` to replace payout-specific status text with a neutral status message so the iteration stayed closer to invisible math and logic only. No manual changes were made to the payout calculation itself.
+
+### Iteration 10: Wild and Scatter logic that modifies payline evaluation
+
+Act as a strict, senior software engineer obsessed with clean code and the DRY principle.
+
+      Context:
+      - You are working on a browser-based "Broke College Student Slot Machine."
+      - Use `game/iteration-9/` as the baseline for this iteration.
+      - This prompt is for Iteration 10, and the result must become a new `game/iteration-10/` folder that is a direct continuation of Iteration 9.
+      - Phase 2 is for invisible math and logic only.
+      - Use the project research context from `plan/research-overview.md` and the raw research notes in `plan/raw-research/individual-research/nicole-research.md` as background constraints.
+      - The current Iteration 9 code already has:
+        - a typed `state` object
+        - symbol configuration in `SYMBOLS`
+        - ordered symbol weights in `SYMBOL_WEIGHT_ENTRIES`
+        - a validated weighted RNG layer via `WEIGHTED_SYMBOL_TABLE`
+        - weighted symbol selection helpers
+        - a reel matrix stored as `reelMatrix[reelIndex][slotIndex]`
+        - a clean intermediate spin-result layer
+        - pure helpers that generate per-reel symbol sequences
+        - pure helpers that convert spin results into the final 3x5 reel matrix
+        - a payline-evaluation layer that reads the current matrix and returns structured payline results
+        - a payout-calculation layer that uses bet size and matched paylines to update balance
+      - The current Iteration 9 implementation already preserves the matrix orientation as `reelMatrix[reelIndex][slotIndex]`.
+      - Iteration 10 should introduce Wild and Scatter logic so they properly modify payline evaluation.
+
+      Task:
+      Create `game/iteration-10/` by building directly on top of `game/iteration-9/`.
+
+      Folder requirements:
+      - Treat `game/iteration-9/` as the source of truth.
+      - Create `game/iteration-10/` as a continuation of Iteration 9.
+      - Copy the non-generated files from `game/iteration-9/` into `game/iteration-10/` unchanged unless a minimal change is absolutely required.
+      - This includes the HTML, CSS, JavaScript, lint/config files, and package manifest files already present in Iteration 9.
+      - Do NOT duplicate generated artifacts or dependency directories such as `node_modules`.
+      - Update only `game/iteration-10/game.js` with the Iteration 10 logic changes.
+      - Do NOT rewrite the project from scratch.
+      - Refactor the existing Iteration 9 code in place. Do not replace the current architecture with a new one.
+      - Iteration 10 must preserve the current progress from Iteration 9 and add the Wild/Scatter logic layer on top of it.
+
+      Scope and file constraints:
+      - Do NOT edit HTML or CSS content unless absolutely required, and avoid changing them for this iteration.
+      - Do NOT add external libraries.
+      - Do NOT convert the file to modules or a framework.
+      - Do NOT add import/export statements, test harness code, or a separate headless module.
+      - Preserve the existing browser-script structure.
+      - Preserve unrelated existing functions, top-level constants, and DOM behavior unless a minimal change is required.
+
+      Architecture constraints:
+      - Keep UI-facing spin code thin.
+      - Keep the weighted RNG helpers, spin-result/matrix helpers, payline helpers, and payout helpers from Iterations 6 through 9 and build on top of them instead of replacing them.
+      - Add a pure Wild/Scatter evaluation layer that works with the current `reelMatrix[reelIndex][slotIndex]`.
+      - Keep the new Wild/Scatter helpers pure and reusable where possible.
+      - Do not add new DOM queries, DOM mutations, or UI features beyond the minimal wiring needed to preserve the existing spin flow.
+      - Do NOT implement bonus rounds, autoplay, or animations yet.
+
+      Rules for this iteration:
+      - Wild substitutes for regular symbols during payline evaluation.
+      - Wild does not substitute for Scatter.
+      - Scatter is counted anywhere on the grid, independent of paylines.
+      - Keep the logic explicit and easy to extend later.
+
+      Implementation requirements:
+      - Add pure helper functions for:
+        - evaluating a payline with Wild support
+        - counting Scatter symbols across the full matrix
+        - producing structured Wild/Scatter evaluation results compatible with the existing payline and payout flow
+      - Update the payline evaluation layer so symbol matching now supports Wild substitution.
+      - Keep Scatter handling separate from payline matching.
+      - Do not treat Scatter as a substituting symbol.
+      - Return structured results that clearly describe:
+        - which paylines matched after Wild handling
+        - the effective matched symbol for each winning payline
+        - the match count
+        - the Scatter count across the matrix
+        - any minimal structured fields needed for later payout or bonus expansion
+      - Preserve the current visible behavior temporarily: after a spin, the app should still end up with a valid randomized 3x5 matrix rendered in the same way.
+      - Validate any new Wild/Scatter inputs with clear errors where appropriate.
+      - Use small, well-named functions with no duplicate logic.
+      - Include complete JSDoc type annotations for all inputs and outputs.
+      - Before writing code, explain your Wild and Scatter evaluation logic in a plain text comment.
+
+      Compatibility requirements:
+      - Preserve the existing `state` variable name, state shape, and current field names unless a minimal additive change is clearly necessary.
+      - If a minimal additive field is needed, keep it focused only on storing Wild/Scatter evaluation output or updated payline result information.
+      - Preserve the existing `SYMBOLS` record as the UI metadata source.
+      - Preserve the existing weighted RNG layer, spin-result/matrix generation flow, payline evaluation flow, and payout flow from Iterations 6 through 9.
+      - Keep the payout layer compatible with the updated payline results after Wild handling.
+      - Do not add bonus-state, autoplay, or animation fields yet unless a minimal structural field is clearly necessary for representing Wild/Scatter results.
+      - After making the changes, run `npm run lint:js` from `game/` and fix any issues introduced by Iteration 10 before finishing.
+      - Do not add tests in this iteration unless absolutely required to preserve the existing setup.
+
+      Output rules:
+      - Apply the changes directly in the workspace under `game/iteration-10/`.
+
+**The Result (What happened?):**
+* Codex built `game/iteration-10/` as a continuation of Iteration 9 and preserved the existing browser-script architecture. The substantive iteration change lives in `game/iteration-10/game.js`, where Wild and Scatter handling was added on top of the existing weighted RNG, spin-result, matrix-generation, payline-evaluation, and payout-calculation flow.
+* The new Iteration 10 logic keeps Wild and Scatter handling in pure helper functions rather than DOM code. Payline evaluation now routes through Wild-aware matching, Wild substitutes for regular symbols and does not substitute for Scatter, and Scatter is counted across the full `reelMatrix[reelIndex][slotIndex]` separately from paylines.
+* The implementation preserved the existing `state` variable name and overall state flow while keeping the payout layer compatible with the updated payline results. It did not add bonus rounds, autoplay, animations, new DOM queries, framework changes, or module rewrites.
+* Plan fit: this iteration mostly matches the Iteration 6-10 plan for Phase 2 because it adds invisible math and logic only, keeps the work detached from the UI at the logic level, and extends payline evaluation with Wild and Scatter behavior without rewriting the project structure.
+* Verification: targeted linting for `iteration-10/game.js` passed on the project setup, and the file remained isolated to the Iteration 10 folder. In my environment, `node --check` on the uploaded `game.js` passed, but standalone ESLint could not be fully reproduced because the uploaded file did not include the repo’s `eslint.config.js`. Running the full repo-level JavaScript lint command from `game/` may still fail because there are inherited lint issues in earlier iteration folders, which are baseline issues and not introduced by Iteration 10.
+* What worked: the prompt goal for Wild and Scatter handling was met cleanly. The new helpers are small, clearly named, and reusable, and the payout flow remains compatible because matched paylines still feed into the existing payout calculation path.
+* What didn’t: a few logic-quality issues remained in review. Unmatched evaluations still needed a cleaner `matchedSymbolId: null` contract, all-Wild paylines were semantically ambiguous, and Scatter evaluation included one redundant traversal. These were left as known limitations rather than corrected in this iteration. Scatter was also added to the symbol set without a dedicated CSS class, which is acceptable for Phase 2 but should be documented.
+
+**Hand-Edits Required? (Yes/No):**
+* No. No manual logic changes were made in `game/iteration-10/game.js`. The reviewed limitations were documented rather than corrected in this iteration.
