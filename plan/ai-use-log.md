@@ -287,3 +287,103 @@ Act as a strict, senior software engineer obsessed with clean code and the DRY p
 
 **Hand-Edits Required? (Yes/No):**
 * No. No manual code edits were needed to fix logic. The only follow-up step was running Prettier on `game/iteration-6/game.js` to satisfy formatting checks.
+
+
+### Iteration 7: logic that populates the 3x5 2D array grid based on the RNG spin results
+
+Act as a strict, senior software engineer obsessed with clean code and the DRY principle.
+
+      Context:
+      - You are working on a browser-based "Broke College Student Slot Machine."
+      - Use `game/iteration-6/` as the baseline for this iteration.
+      - This prompt is for Iteration 7, and the result must become a new `game/iteration-7/` folder that is a direct continuation of Iteration 6.
+      - Phase 2 is for invisible math and logic only.
+      - Use the project research context from `plan/research-overview.md` and the raw research notes in `plan/raw-research/individual-research/nicole-research.md` as
+    background
+      constraints.
+      - The current Iteration 6 code already has:
+        - a typed `state` object
+        - symbol configuration in `SYMBOLS`
+        - ordered symbol weights in `SYMBOL_WEIGHT_ENTRIES`
+        - a validated weighted RNG layer via `WEIGHTED_SYMBOL_TABLE`
+        - weighted symbol selection helpers
+        - a temporary spin flow
+        - a reel matrix stored as `reelMatrix[reelIndex][slotIndex]`
+        - 3 outer arrays (reels) and 5 inner entries per reel (slots)
+      - The current Iteration 6 implementation already replaced uniform randomness with weighted symbol selection.
+      - Right now, matrix generation is still too direct because the spin flow jumps straight from “spin” to a finished `reelMatrix`.
+      - Iteration 7 should introduce a clean, reusable logic layer that explicitly models the spin result and then populates the 3x5 reel matrix from that result.
+
+      Task:
+      Create `game/iteration-7/` by building directly on top of `game/iteration-6/`.
+
+      Folder requirements:
+      - Treat `game/iteration-6/` as the source of truth.
+      - Create `game/iteration-7/` as a continuation of Iteration 6.
+      - Copy the non-generated files from `game/iteration-6/` into `game/iteration-7/` unchanged unless a minimal change is absolutely required.
+      - This includes the HTML, CSS, JavaScript, lint/config files, and package manifest files already present in Iteration 6.
+      - Do NOT duplicate generated artifacts or dependency directories such as `node_modules`.
+      - Update only `game/iteration-7/game.js` with the Iteration 7 logic changes.
+      - Do NOT rewrite the project from scratch.
+      - Refactor the existing Iteration 6 code in place. Do not replace the current architecture with a new one.
+      - Iteration 7 must preserve the current progress from Iteration 6 and add the matrix-population refactor on top of it.
+
+      Scope and file constraints:
+      - Do NOT edit HTML or CSS content unless absolutely required, and avoid changing them for this iteration.
+      - Do NOT add external libraries.
+      - Do NOT convert the file to modules or a framework.
+      - Do NOT add import/export statements, test harness code, or a separate headless module.
+      - Preserve the existing browser-script structure.
+      - Preserve unrelated existing functions, top-level constants, and DOM behavior unless a minimal change is required.
+
+      Architecture constraints:
+      - Keep UI-facing spin code thin.
+      - Keep the weighted RNG helpers from Iteration 6 and build on top of them instead of replacing them.
+      - Refactor the current spin path so it first produces an explicit spin-result data structure, then derives `reelMatrix` from that structure through pure helper
+    functions.
+      - Keep the new spin-result and matrix-population helpers pure and reusable.
+      - Do not add new DOM queries, DOM mutations, or UI features beyond the minimal wiring needed to preserve the existing spin flow.
+      - Do NOT implement paylines, payout calculation, win detection, wild substitution behavior, scatter behavior, bonus logic, autoplay, or animations yet.
+
+      Implementation requirements:
+      - Introduce a clean intermediate representation for a spin result.
+      - That spin result must be compatible with the current structure of 3 reels and 5 slots per reel.
+      - Make the relationship explicit between:
+        - weighted symbol selection
+        - per-reel spin results
+        - final `reelMatrix`
+      - Refactor the current matrix generation so `handleSpin` no longer builds the matrix directly from nested random calls.
+      - Add pure helper functions for:
+        - generating the spin result for all reels
+        - generating the symbol sequence for a single reel
+        - converting the spin result into `reelMatrix[reelIndex][slotIndex]`
+      - Preserve the current matrix orientation exactly: `reelMatrix[reelIndex][slotIndex]`.
+      - Preserve the current visible behavior temporarily: after a spin, the app should still end up with a valid randomized 3x5 matrix rendered in the same way.
+      - Validate any new dimensions or spin-result inputs with clear errors where appropriate.
+      - Use small, well-named functions with no duplicate logic.
+      - Include complete JSDoc type annotations for all inputs and outputs.
+      - Before writing code, explain your matrix-population logic in a plain text comment.
+
+      Compatibility requirements:
+      - Preserve the existing `state` variable name, state shape, and current field names unless a minimal additive change is clearly necessary.
+      - Do not add payout, payline, or win-state fields to `state` yet unless a minimal structural field is clearly necessary for representing the spin result.
+      - Preserve the existing `SYMBOLS` record as the UI metadata source.
+      - Preserve the existing weighted RNG layer from Iteration 6 as the source of symbol randomness, including `SYMBOL_WEIGHT_ENTRIES`, `WEIGHTED_SYMBOL_TABLE`, and the
+      weighted symbol selection flow, unless a minimal internal refactor is clearly required.
+      - After making the changes, run `npm run lint:js` from `game/` and fix any issues introduced by Iteration 7 before finishing.
+      - Do not add tests in this iteration unless absolutely required to preserve the existing setup.
+
+      Output rules:
+      - Apply the changes directly in the workspace under `game/iteration-7/`.
+
+**The Result (What happened?):**
+* Codex built `game/iteration-7/` as a continuation of Iteration 6 and preserved the existing browser-script architecture. The substantive iteration change lives in `game/iteration-7/game.js`, where the spin flow was refactored so `handleSpin` no longer jumps straight from the button action to a completed matrix.
+* The new Iteration 7 logic introduces an explicit intermediate `SpinResult` structure, along with `ReelSpinResult`, `createSpinResult`, `createReelSymbolSequence`, and `createReelMatrixFromSpinResult`. This makes the relationship explicit between the weighted RNG layer from Iteration 6, the per-reel spin outcome, and the final `reelMatrix[reelIndex][slotIndex]` consumed by state and rendering.
+* The implementation kept the weighted randomness system intact, including `SYMBOL_WEIGHT_ENTRIES`, `WEIGHTED_SYMBOL_TABLE`, and the weighted symbol selection helpers. It preserved the existing `state` variable name and shape, kept the `SYMBOLS` record as the UI metadata source, and did not add paylines, payout logic, wild/scatter behavior, bonus logic, autoplay, animation, or new DOM features.
+* Validation was added around the new logic layer. The code now checks reel dimensions before generation and validates spin-result structure before converting it into the final matrix, throwing clear errors for invalid dimensions, reel-count mismatches, bad reel indices, wrong symbol counts, and unknown symbol IDs.
+* Verification: `./node_modules/.bin/eslint iteration-7/game.js` from `game/` passed. Running `npm run lint:js` from `game/` did not fully pass because the script lints all iteration folders and there are pre-existing `no-undef` errors in `iteration-4/game.js`, `iteration-5/game.js`, and `iteration-6/game.js`. Those failures were inherited baseline issues, not introduced by Iteration 7.
+* What worked: the prompt goal for Phase 2 invisible math and logic was met cleanly. The UI-facing spin path stayed thin, the helpers are pure and reusable, and the code is set up for later work on paylines, payout calculation, and wild/scatter handling without changing the current rendered behavior.
+* What didn’t: the repo-level lint command requested in the prompt could not be brought to green without changing earlier iterations outside Iteration 7. Also, the first folder copy included `game/iteration-7/node_modules`, which violated the “do not duplicate generated artifacts” rule and had to be removed afterward.
+
+**Hand-Edits Required? (Yes/No):**
+* Yes. A manual cleanup was required to remove the copied `game/iteration-7/node_modules/` directory after the initial Iteration 7 folder creation so the result matched the prompt’s non-generated-file requirement. No manual logic changes were needed in `game/iteration-7/game.js`.
