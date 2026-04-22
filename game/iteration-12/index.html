@@ -11,17 +11,17 @@
   <div class="page-shell">
     <header class="hero panel">
       <p class="eyebrow">Campus Casino Night</p>
-      <h1>Broke College Slot Machine</h1>
+      <h1>Broke College Student Slot Machine</h1>
       <p class="hero-copy">Spin for survival with ramen, textbooks, loose change, and the one diploma that might finally pay off.</p>
     </header>
 
     <main class="layout">
-      <section class="machine panel" aria-label="Slot machine game board">
+      <div class="machine panel" role="group" aria-label="Slot machine game board">
         <div class="machine-topbar">
           <section class="stat-card" aria-label="Current balance">
             <p class="stat-label">Balance</p>
-            <p class="stat-value" aria-live="polite" aria-label="Current balance amount">$12.75</p>
-            <p class="stat-meta" aria-live="polite" aria-label="Current currency mode">Real Currency</p>
+            <p class="stat-value" role="status" aria-live="polite" aria-label="Current balance amount">$12.75</p>
+            <p class="stat-meta" role="status" aria-live="polite" aria-label="Current currency mode">Real Currency</p>
           </section>
 
           <section class="control-card" aria-label="Currency selection">
@@ -34,47 +34,51 @@
 
           <section class="control-card" aria-label="Audio controls">
             <p class="section-label">Audio</p>
-            <button type="button" class="chip chip-wide" aria-label="Mute or unmute machine audio">Mute / Unmute</button>
+            <button type="button" class="chip chip-wide" aria-label="Toggle game sound" aria-pressed="false">Mute / Unmute</button>
           </section>
         </div>
 
-        <section class="machine-body">
-          <section class="reel-frame" aria-label="Slot machine display">
+        <div class="machine-body">
+          <div class="reel-frame" role="group" aria-label="Slot machine display">
             <div class="payline-marker payline-marker-top" aria-hidden="true"></div>
-            <section id="reels" aria-label="Slot machine reels" aria-live="polite">
-              <div class="reel" aria-label="Reel 1">
-                <div class="symbol-slot symbol-ramen" aria-label="Reel 1, slot 1">Ramen</div>
-                <div class="symbol-slot symbol-energy" aria-label="Reel 1, slot 2">Energy</div>
-                <div class="symbol-slot symbol-book" aria-label="Reel 1, slot 3">Textbook</div>
-                <div class="symbol-slot symbol-change" aria-label="Reel 1, slot 4">Change</div>
-                <div class="symbol-slot symbol-wild" aria-label="Reel 1, slot 5">Diploma</div>
-              </div>
+            <div id="reels" role="group" aria-labelledby="reels-heading" aria-live="polite">
+              <h2 id="reels-heading" class="visually-hidden">Slot machine reels</h2>
+              <section class="reel" aria-labelledby="reel-1-heading">
+                <h3 id="reel-1-heading" class="visually-hidden">Reel 1</h3>
+                <div class="symbol-slot symbol-ramen" role="img" aria-label="Reel 1, slot 1">Ramen</div>
+                <div class="symbol-slot symbol-energy" role="img" aria-label="Reel 1, slot 2">Energy</div>
+                <div class="symbol-slot symbol-book" role="img" aria-label="Reel 1, slot 3">Textbook</div>
+                <div class="symbol-slot symbol-change" role="img" aria-label="Reel 1, slot 4">Change</div>
+                <div class="symbol-slot symbol-wild" role="img" aria-label="Reel 1, slot 5">Diploma</div>
+              </section>
 
-              <div class="reel" aria-label="Reel 2">
-                <div class="symbol-slot symbol-change" aria-label="Reel 2, slot 1">Change</div>
-                <div class="symbol-slot symbol-ramen" aria-label="Reel 2, slot 2">Ramen</div>
-                <div class="symbol-slot symbol-wild" aria-label="Reel 2, slot 3">Diploma</div>
-                <div class="symbol-slot symbol-book" aria-label="Reel 2, slot 4">Textbook</div>
-                <div class="symbol-slot symbol-energy" aria-label="Reel 2, slot 5">Energy</div>
-              </div>
+              <section class="reel" aria-labelledby="reel-2-heading">
+                <h3 id="reel-2-heading" class="visually-hidden">Reel 2</h3>
+                <div class="symbol-slot symbol-change" role="img" aria-label="Reel 2, slot 1">Change</div>
+                <div class="symbol-slot symbol-ramen" role="img" aria-label="Reel 2, slot 2">Ramen</div>
+                <div class="symbol-slot symbol-wild" role="img" aria-label="Reel 2, slot 3">Diploma</div>
+                <div class="symbol-slot symbol-book" role="img" aria-label="Reel 2, slot 4">Textbook</div>
+                <div class="symbol-slot symbol-energy" role="img" aria-label="Reel 2, slot 5">Energy</div>
+              </section>
 
-              <div class="reel" aria-label="Reel 3">
-                <div class="symbol-slot symbol-book" aria-label="Reel 3, slot 1">Textbook</div>
-                <div class="symbol-slot symbol-change" aria-label="Reel 3, slot 2">Change</div>
-                <div class="symbol-slot symbol-ramen" aria-label="Reel 3, slot 3">Ramen</div>
-                <div class="symbol-slot symbol-energy" aria-label="Reel 3, slot 4">Energy</div>
-                <div class="symbol-slot symbol-wild" aria-label="Reel 3, slot 5">Diploma</div>
-              </div>
-            </section>
+              <section class="reel" aria-labelledby="reel-3-heading">
+                <h3 id="reel-3-heading" class="visually-hidden">Reel 3</h3>
+                <div class="symbol-slot symbol-book" role="img" aria-label="Reel 3, slot 1">Textbook</div>
+                <div class="symbol-slot symbol-change" role="img" aria-label="Reel 3, slot 2">Change</div>
+                <div class="symbol-slot symbol-ramen" role="img" aria-label="Reel 3, slot 3">Ramen</div>
+                <div class="symbol-slot symbol-energy" role="img" aria-label="Reel 3, slot 4">Energy</div>
+                <div class="symbol-slot symbol-wild" role="img" aria-label="Reel 3, slot 5">Diploma</div>
+              </section>
+            </div>
             <div class="payline-marker payline-marker-bottom" aria-hidden="true"></div>
-          </section>
+          </div>
 
           <aside class="sidebar">
             <section class="panel panel-nested" aria-label="Bet controls">
               <p class="section-label">Bet Size</p>
               <div class="bet-controls" role="group" aria-label="Adjust bet size">
                 <button type="button" class="chip" aria-label="Decrease bet size">-</button>
-                <p class="bet-display" aria-live="polite" aria-label="Current bet size">$1.00</p>
+                <p class="bet-display" role="status" aria-live="polite" aria-label="Current bet size">$1.00</p>
                 <button type="button" class="chip" aria-label="Increase bet size">+</button>
               </div>
               <p class="panel-copy">Swap to Dining Dollars any time to stretch the budget a little further.</p>
@@ -83,10 +87,11 @@
             <section class="panel panel-nested" aria-label="Slot machine controls">
               <p class="section-label">Machine Controls</p>
               <div class="action-stack">
-                <button type="button" class="action-button action-primary" aria-label="Spin reels">Spin</button>
+                <button type="button" class="action-button action-primary" aria-label="Spin the slot machine">Spin</button>
                 <button type="button" class="action-button" aria-label="Reset machine">Reset</button>
               </div>
-              <p class="status-text" aria-live="polite" aria-label="Game status">Ready to play.</p>
+              <p class="status-text" role="status" aria-live="polite" aria-label="Game status">Ready to play.</p>
+              <div id="results-announcer" aria-live="polite" aria-atomic="true"></div>
             </section>
 
             <section class="panel panel-nested" aria-label="Paytable">
@@ -115,8 +120,8 @@
               </div>
             </section>
           </aside>
-        </section>
-      </section>
+        </div>
+      </div>
     </main>
   </div>
   <script src="game.js"></script>
