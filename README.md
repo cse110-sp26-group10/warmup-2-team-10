@@ -1,79 +1,68 @@
-# Task 2 — AI-Assisted Development Plan
+# Tech Warmup II: Generative AI as an Engineering Tool?
 **CSE 110 | Group 10 | Spring 2026**
 
 ## Overview
-This repository contains our team's structured plan for integrating AI tooling into our software engineering project. It documents our research, chosen AI harness, model justification, and a running log of AI usage throughout the project lifecycle.
+This repository documents our team's experiment in using Generative AI as an engineering tool to build a strategic, high-quality slot machine game. We aim to measure the effectiveness of AI in producing software that adheres to strict engineering standards, including comprehensive testing, linting, and accessibility.
 
 ## Repository Structure
 ```
 warmup-2-team-10/
-├── game/
-│   ├── iteration-1/             # AI batch 1 — slot machine source code
-│   ├── iteration-2/             # AI batch 2
-│   ├── iteration-3/             # AI batch 3
-│   ├── iteration-4/             # AI batch 4
+├── game/                        # All source code and test configurations
+│   ├── iteration-1/             # All iterations 
+│   ├── ...         
+│   ├── iteration-20/            
 │   ├── tests/
 │   │   ├── unit/                # Vitest unit tests
 │   │   └── e2e/                 # Playwright end-to-end tests
 │   ├── eslint.config.js         # JS linter (ESLint + JSDoc enforcement)
-│   ├── .stylelintrc.json        # CSS linter
-│   ├── .htmlvalidate.json       # HTML validator
 │   ├── vitest.config.js         # Unit test runner config
 │   ├── playwright.config.js     # E2E test runner config
 │   └── package.json             # npm scripts and dependencies
-├── plan/
-│   ├── raw-research/            # Raw notes and research artifacts
-│   │   ├── individual-research  # Individual contributions
-│   │   ├── personas-and-users   # Persona docs + User stories
-│   │   ├── visuals              # Visuals for reference
-│   ├── research-overview.md     # Summary of research
-│   ├── ai-plan.md               # Tool/model, justification and project features/strategy
-│   └── ai-use-log.md            # Running log of AI interactions
-└── final-report/                # Final deliverable (to be completed)
+├── plan/                        # Required project planning artifacts
+│   ├── raw-research/            # Individual notes, Miro links, and wireframes
+│   │   ├── personas-and-users   # Minimum 2 persona docs + 5 user stories
+│   │   └── visuals/             # Visual theme assets and jargon research
+│   ├── research-overview.md     # Summary of research and team roster
+│   ├── ai-plan.md               # Initial strategy for AI usage (skill files, agents)
+│   └── ai-use-log.md            # Real-time log of AI interactions (min. 20 entries)
+└── final-report/                # Final deliverables (Report + Video + PDF)
 ```
 
+## Engineering Standards
+To ensure software quality, we enforce the following standards throughout the process:
+* **Testing**: Unit tests (Vitest) are required at a minimum; E2E tests (Playwright) are used to verify user flows.
+* **Linting**: Automated checks for HTML validation, CSS usage, and JS style (ESLint with JSDoc).
+* **Documentation**: All JavaScript code uses JSDoc with type annotations for clarity and maintainability.
+* **Clean Code**: We prioritize meaningful names, small functions, and DRY (Don't Repeat Yourself) principles.
+
 ## Running the Linter and Tests
+Run all commands from the `game/` folder.
 
-All tooling lives in the `game/` folder. Run everything from there.
-
-**First-time setup** — install dependencies:
+**First-time setup**:
 ```bash
 cd game
 npm install
 ```
 
-**Run everything at once** (HTML validation + linting + tests):
+**Run all checks** (HTML validation + linting + tests):
 ```bash
 npm run check
 ```
 
-**Run individual tools:**
-```bash
-npm run validate:html   # HTML validator (all iteration-* folders)
-npm run lint:css        # CSS linter (stylelint)
-npm run lint:js         # JS linter with JSDoc enforcement (ESLint)
-npm run lint            # CSS + JS linters together
-npm run test:unit       # Vitest unit tests
-npm run test:e2e        # Playwright E2E tests (requires a server — see below)
-```
-
-**E2E tests** require a local server pointing at whichever iteration you're testing:
-```bash
-npx serve game/iteration-1 -p 3000
-# then in a separate terminal:
-npm run test:e2e
-```
-
-Run `npm run check` after every AI-generated batch to catch issues before they compound.
+**Individual tool commands**:
+* `npm run validate:html`: Validates HTML structure across all iterations.
+* `npm run lint`: Runs both CSS and JS linters.
+* `npm run test:unit`: Executes Vitest unit tests.
+* `npm run test:e2e`: Executes Playwright tests (requires server at port 3000).
 
 ## AI Tooling Decision
-| | |
-|---|---|
-| **Tool** | OpenAI Codex |
+| Component | Choice |
+| :--- | :--- |
+| **Harness** | OpenAI Codex |
 | **Model** | codex-5.4 (medium effort) |
-| **Rationale** | Best balance of reasoning quality and speed for iterative software engineering tasks |
+| **Rationale** | Selected for its balance of reasoning quality and speed in iterative tasks. |
 
-See [plan/ai-plan.md](plan/ai-plan.md) for the full justification.
-
-## Team
-Group 10 — CSE 110, UC San Diego
+## Rules of Engagement
+* **AI-First**: Attempt to correct code via prompting before manually editing.
+* **Human-Verified**: All code must be read and evaluated by the team before committing.
+* **Manual Log**: Every interaction with the AI is documented in `plan/ai-use-log.md`.
