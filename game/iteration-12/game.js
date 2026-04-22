@@ -485,9 +485,9 @@ function getReelSlots() {
   const reels = Array.from(document.querySelectorAll("#reels .reel")).filter(
     /**
      * @param {Element} element Candidate DOM node.
-     * @returns {element is HTMLDivElement} Whether the node is a reel container.
+     * @returns {element is HTMLElement} Whether the node is a reel container.
      */
-    (element) => element instanceof HTMLDivElement
+    (element) => element instanceof HTMLElement
   );
 
   if (reels.length !== INITIAL_REEL_MATRIX.length) {
@@ -496,7 +496,7 @@ function getReelSlots() {
 
   return reels.flatMap(
     /**
-     * @param {HTMLDivElement} reel Reel container element.
+     * @param {HTMLElement} reel Reel container element.
      * @param {number} reelIndex Reel position.
      * @returns {ReelSlotElement[]} Slot metadata for a single reel.
      */
@@ -710,10 +710,7 @@ function renderCurrencyButtons(dom) {
  */
 function renderMuteButton(dom) {
   dom.muteButton.textContent = state.isMuted ? "Unmute" : "Mute";
-  dom.muteButton.setAttribute(
-    "aria-label",
-    state.isMuted ? "Unmute machine audio" : "Mute machine audio"
-  );
+  dom.muteButton.setAttribute("aria-pressed", String(state.isMuted));
 }
 
 /**

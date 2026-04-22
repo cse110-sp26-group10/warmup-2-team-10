@@ -861,3 +861,5 @@ Act as a strict, senior software engineer obsessed with clean code and the DRY p
 * Plan fit: This iteration aligns with the goal for Phase 3 because it increased the accessibility of the game while maintaining the overall plan of the project. 
 * Verification: project specific lint passed, but the repo-wide run still fails because of pre-existing no-undef errors in iteration-4 through iteration-6, not because of Iteration 12. A focused ESLint run against iteration-12/game.js passes cleanly. All the other files matched byte for byte with iteration 11.
 * What worked: The prompt was able to convey the core changes expected for this iteration, code changes look clean and logic checks out. 
+**Hand-Edits Required? (Yes):**
+* Yes. Manual logic changes were made in `game/iteration-11/game.js` to fix validator, linter and test failure problems. 
