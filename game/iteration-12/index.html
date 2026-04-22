@@ -12,7 +12,6 @@
     <header class="hero panel">
       <p class="eyebrow">Campus Casino Night</p>
       <h1>Broke College Student Slot Machine</h1>
-      <h1>Broke College Student Slot Machine</h1>
       <p class="hero-copy">Spin for survival with ramen, textbooks, loose change, and the one diploma that might finally pay off.</p>
     </header>
 
@@ -35,7 +34,6 @@
 
           <section class="control-card" aria-label="Audio controls">
             <p class="section-label">Audio</p>
-            <button type="button" class="chip chip-wide" aria-label="Toggle game sound" aria-pressed="false">Mute / Unmute</button>
             <button type="button" class="chip chip-wide" aria-label="Toggle game sound" aria-pressed="false">Mute / Unmute</button>
           </section>
         </div>
@@ -80,59 +78,55 @@
             </div>
             <div class="payline-marker payline-marker-bottom" aria-hidden="true"></div>
           </div>
+        </div>
+      </div>
+
+      <aside class="sidebar">
+        <section class="panel panel-nested" aria-label="Bet controls">
+          <p class="section-label">Bet Size</p>
+          <div class="bet-controls" role="group" aria-label="Adjust bet size">
+            <button type="button" class="chip" aria-label="Decrease bet size">-</button>
+            <p class="bet-display" aria-live="polite">$1.00</p>
+            <button type="button" class="chip" aria-label="Increase bet size">+</button>
           </div>
+          <p class="panel-copy">Swap to Dining Dollars any time to stretch the budget a little further.</p>
+        </section>
 
-          <aside class="sidebar">
-            <section class="panel panel-nested" aria-label="Bet controls">
-              <p class="section-label">Bet Size</p>
-              <div class="bet-controls" role="group" aria-label="Adjust bet size">
-                <button type="button" class="chip" aria-label="Decrease bet size">-</button>
-                <p class="bet-display" aria-live="polite">$1.00</p>
-                <button type="button" class="chip" aria-label="Increase bet size">+</button>
-              </div>
-              <p class="panel-copy">Swap to Dining Dollars any time to stretch the budget a little further.</p>
-            </section>
+        <section class="panel panel-nested" aria-label="Slot machine controls">
+          <p class="section-label">Machine Controls</p>
+          <div class="action-stack">
+            <button type="button" class="action-button action-primary" aria-label="Spin the slot machine">Spin</button>
+            <button type="button" class="action-button" aria-label="Reset machine">Reset</button>
+          </div>
+          <p id="results-announcer" class="status-text" aria-live="polite" aria-atomic="true">Ready to play.</p>
+        </section>
 
-            <section class="panel panel-nested" aria-label="Slot machine controls">
-              <p class="section-label">Machine Controls</p>
-              <div class="action-stack">
-                <button type="button" class="action-button action-primary" aria-label="Spin the slot machine">Spin</button>
-                <button type="button" class="action-button action-primary" aria-label="Spin the slot machine">Spin</button>
-                <button type="button" class="action-button" aria-label="Reset machine">Reset</button>
-              </div>
-              <p id="results-announcer" class="status-text" aria-live="polite" aria-atomic="true">Ready to play.</p>
-            </section>
-
-            <section class="panel panel-nested" aria-label="Paytable">
-              <p class="section-label">Paytable</p>
-              <div class="paytable">
-                <div class="paytable-row">
-                  <span class="paytable-symbol">3x Ramen</span>
-                  <span class="paytable-payout">2x bet</span>
-                </div>
-                <div class="paytable-row">
-                  <span class="paytable-symbol">3x Energy</span>
-                  <span class="paytable-payout">3x bet</span>
-                </div>
-                <div class="paytable-row">
-                  <span class="paytable-symbol">3x Change</span>
-                  <span class="paytable-payout">4x bet</span>
-                </div>
-                <div class="paytable-row">
-                  <span class="paytable-symbol">3x Textbook</span>
-                  <span class="paytable-payout">6x bet</span>
-                </div>
-                <div class="paytable-row">
-                  <span class="paytable-symbol">Diploma Wild</span>
-                  <span class="paytable-payout">Substitutes all</span>
-                </div>
-              </div>
-            </section>
-          </aside>
-        </div>
-      </div>
-        </div>
-      </div>
+        <section class="panel panel-nested" aria-label="Paytable">
+          <p class="section-label">Paytable</p>
+          <div class="paytable">
+            <div class="paytable-row">
+              <span class="paytable-symbol">3x Ramen</span>
+              <span class="paytable-payout">2x bet</span>
+            </div>
+            <div class="paytable-row">
+              <span class="paytable-symbol">3x Energy</span>
+              <span class="paytable-payout">3x bet</span>
+            </div>
+            <div class="paytable-row">
+              <span class="paytable-symbol">3x Change</span>
+              <span class="paytable-payout">4x bet</span>
+            </div>
+            <div class="paytable-row">
+              <span class="paytable-symbol">3x Textbook</span>
+              <span class="paytable-payout">6x bet</span>
+            </div>
+            <div class="paytable-row">
+              <span class="paytable-symbol">Diploma Wild</span>
+              <span class="paytable-payout">Substitutes all</span>
+            </div>
+          </div>
+        </section>
+      </aside>
     </main>
   </div>
   <script src="game.js"></script>
