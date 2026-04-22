@@ -204,43 +204,86 @@ Constraints:
 **Hand-Edits Required? (Yes/No):**
 * No.
 
-### Iteration 6: Build weighted RNG logic for slot symbols
 
-**The Prompt:**
-> Act as a strict senior software engineer focused on clean code, DRY principles, and maintainability.
-> I am working on Iteration 6 of a slot machine project. Your task is to build only the invisible RNG logic in pure JavaScript, completely detached from the UI.
->
-Goal:
-Implement a weighted random symbol selection algorithm using weighted probability arrays from our slot machine research.
+### Iteration 6: build the RNG algorithm
 
-Requirements:
-- Do not write any DOM, HTML, CSS or UI-related code.
-- Keep everything in the JavaScript model only.
-- Before writing code, briefly explain the weighted probability approach in plain English comments.
-- Use small functions with meaningful names.
-- Include complete JSDoc type annotations for all inputs and outputs.
-- Avoid duplicate logic.
-- Reuse existing symbol definitions if they already exist in the repo. If they do not, create a clean symbol definition structure.
-- Add basic validation for invalid input, such as empty arrays or missing/invalid weights.
-- The output should support later use in generating slot spin results for a 3x5 grid.
-- Export functions cleanly using the project’s existing module style.
-- Do not commit anything.
+Act as a strict, senior software engineer obsessed with clean code and the DRY principle.
 
-Please first inspect the existing repository structure and then implement only the RNG-related code needed for weighted symbol selection. After editing, tell me:
-1. which files you changed,
-2. what functions you added or modified,
-3. any assumptions you made.
+    Context:
+    - You are working on a browser-based "Broke College Student Slot Machine."
+    - Use `game/iteration-5/` as the baseline for this iteration.
+    - This prompt is for Iteration 6, and the result must become a new `game/iteration-6/` folder that is a direct continuation of Iteration 5.
+    - Phase 2 is for invisible math and logic only.
+    - Use the project research context from `plan/research-overview.md` and the raw research notes on weighted randomness as background constraints.
+    - The current code already has:
+      - a typed `state` object
+      - symbol configuration
+      - a temporary spin flow
+      - a reel matrix stored as `reelMatrix[reelIndex][slotIndex]`
+      - 3 outer arrays (reels) and 5 inner entries per reel (slots)
+    - The current random symbol selection is too naive because it uses uniform randomness.
+    - The research requires weighted randomness and provides example weight structures, but it does NOT define final project-specific weights.
+    - You must define clean placeholder weights in code.
+
+    Task:
+    Create `game/iteration-6/` by building directly on top of `game/iteration-5/`.
+
+    Folder requirements:
+    - Treat `game/iteration-5/` as the source of truth.
+    - Copy the non-JavaScript files from `game/iteration-5/` into `game/iteration-6/` unchanged unless a minimal change is absolutely required.
+    - Update only `game/iteration-6/game.js` with the Iteration 6 logic changes.
+    - Do NOT rewrite the project from scratch.
+    - Iteration 6 must preserve the current progress from Iteration 5 and add the weighted RNG refactor on top of it.
+
+    Scope and file constraints:
+    - Do NOT edit HTML or CSS content unless absolutely required, and avoid changing them for this iteration.
+    - Do NOT add external libraries.
+    - Do NOT convert the file to modules or a framework.
+    - Do NOT add import/export statements, test harness code, or a separate headless module.
+    - Preserve the existing browser-script structure.
+    - Preserve unrelated existing functions, top-level constants, and DOM behavior unless a minimal change is required.
+
+    Architecture constraints:
+    - Keep UI-facing spin code thin.
+    - Refactor the existing spin path so randomness is delegated to pure helper functions.
+    - Keep the new RNG helpers pure and reusable, but preserve the existing single-file browser-script architecture.
+    - Do not add new DOM queries, DOM mutations, or UI features beyond the minimal wiring needed to preserve the existing spin flow.
+    - Do NOT implement paylines, payouts, wild substitution behavior, scatter behavior, bonus logic, autoplay, or animations yet.
+
+    Implementation requirements:
+    - Replace uniform symbol selection with weighted symbol selection.
+    - Define a centralized placeholder weight definition for all current symbols:
+      - ramen
+      - energy
+      - book
+      - change
+      - wild
+    - Use non-uniform placeholder values.
+    - Wild must have a low spawn weight, but do NOT implement wild behavior yet.
+    - Define the source weights as an ordered array of entries first, then validate that array, then derive any lookup or cumulative table you need from it.
+    - Every symbol in the existing `SYMBOLS` config must appear exactly once in that ordered weight-entry array.
+    - Throw clear errors for:
+      - missing configured symbols
+      - duplicate symbols
+      - unknown symbols
+      - non-numeric or non-finite weights
+      - zero-or-negative total weight
+    - Before writing code, explain your structural logic in a plain text comment.
+
+    Compatibility requirements:
+    - Keep the current matrix generation behavior temporarily, but ensure symbol selection now flows through the weighted RNG helpers.
+    - Prefer a structure that later iterations can reuse for matrix population, payline evaluation, payout calculation, and wild/scatter handling.
+
+    Output rules:
+    - Apply the changes directly in the workspace under `game/iteration-6/`.
 
 **The Result (What happened?):**
-* Codex inspected the repo and found that Iteration 5 had a monolithic `game.js` with existing `SYMBOLS`, a `state` object, and placeholder uniform-random spin logic. It created a new file, `slot-rng.js`(I replace the name to game.js just like iteration 5), instead of modifying the UI code directly. The new file stayed fully detached from the UI and included weighted symbol definitions, validation helpers, `selectWeightedSymbol()`, and `createWeightedSymbolGrid()` for generating a future 3x5 grid. The code used meaningful names, small helper functions, and JSDoc comments throughout. It did not hallucinate in a way that mattered.
-
-* The main assumption Codex made was the weight distribution, since our research did not specify exact values. It used a clean 100-point distribution: ramen 35, change 30, energy 20, book 10, wild 5. It also preserved the existing symbol IDs from Iteration 5 and assumed the future spin output should be a 3x5 grid.
-
-* Verification: `node --check` passed. ESLint initially could not run because the Iteration 6 workspace did not yet have installed dependencies, so we copied the lint configuration setup into Iteration 6, ran `npm.cmd install`, and then `npx.cmd eslint .` passed successfully. This satisfied the requirement to run linters after the AI batch before moving on.
-
-* What worked: the RNG logic was modular, readable, and fully detached from the UI. The validation and helper structure make it reusable for later iterations.
-
-* What didn’t: the module is not yet integrated into the visible game flow, so the current browser version still uses earlier logic until later iterations connect the new model.
+* Codex built `game/iteration-6/` as a continuation of Iteration 5 and kept the non-JavaScript files unchanged. The only substantive code change for the iteration was in `game/iteration-6/game.js`, where the previous uniform symbol selection was refactored into a weighted RNG flow that still feeds the existing `reelMatrix[reelIndex][slotIndex]` generation path.
+* The new logic added a centralized ordered weight-entry array for all current symbols (`ramen`, `energy`, `book`, `change`, `wild`), used non-uniform placeholder values, and gave `wild` a low spawn weight. It also validated the source weight array before building the cumulative weighted table and throws clear errors for missing configured symbols, duplicate symbols, unknown symbols, invalid weights, and non-positive total weight.
+* The implementation stayed within the existing single-file browser-script architecture. It preserved the typed `state` object, the `SYMBOLS` metadata record, the current temporary spin flow, and the matrix orientation `reelMatrix[reelIndex][slotIndex]`. It did not add paylines, payouts, wild/scatter behavior, autoplay, animations, or new DOM features, so it stayed aligned with the “invisible math and logic only” scope for this iteration.
+* Verification: `node --check game/iteration-6/game.js` passed. After running `npm install` in `game/iteration-6`, `npm run lint` passed. `npm run format:check` initially reported formatting issues in `game.js`, `index.html`, and `style.css`; however, `index.html` and `style.css` were unchanged from Iteration 5, so those warnings were inherited baseline formatting issues rather than Iteration 6 regressions. We then ran `npx prettier game.js --write`, followed by `npm run lint` and `npx prettier game.js --check`, and `game.js` passed both lint and formatting checks.
+* What worked: the weighted RNG refactor matched the Iteration 6 prompt closely, kept UI-facing spin logic thin, and introduced reusable pure helper functions that later iterations can build on for matrix population, payline traversal, payout calculation, and wild/scatter handling.
+* What didn’t: the code is still integrated into the browser script rather than extracted into a separate headless model, so it is not fully “detached from the UI” in a strict architectural sense. That said, the new RNG helpers themselves are pure and reusable, so this did not block the iteration goals.
 
 **Hand-Edits Required? (Yes/No):**
-* No.
+* No. No manual code edits were needed to fix logic. The only follow-up step was running Prettier on `game/iteration-6/game.js` to satisfy formatting checks.
