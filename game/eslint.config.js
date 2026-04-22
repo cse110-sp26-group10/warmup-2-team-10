@@ -3,6 +3,14 @@ import jsdoc from "eslint-plugin-jsdoc";
 export default [
   {
     files: ["iteration-*/**/*.js"],
+    languageOptions: {
+      globals: {
+        document: "readonly",
+        HTMLElement: "readonly",
+        HTMLButtonElement: "readonly",
+        HTMLDivElement: "readonly",
+      },
+    },
     plugins: { jsdoc },
     rules: {
       "no-unused-vars": "warn",

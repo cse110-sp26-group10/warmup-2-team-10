@@ -116,7 +116,7 @@ main {
   }
 }
 
-@media (max-width: 720px) {
+@media (width <= 720px) {
   main {
     grid-template-columns: 1fr;
   }

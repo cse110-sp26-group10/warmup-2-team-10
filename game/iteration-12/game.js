@@ -682,15 +682,7 @@ function render(dom) {
 function renderBalance(dom) {
   const currencyMode = state.currencyMode;
   dom.balanceValue.textContent = formatAmount(state.balances[currencyMode], currencyMode);
-  dom.balanceValue.setAttribute(
-    "aria-label",
-    `Current balance amount ${formatAmount(state.balances[currencyMode], currencyMode)}`
-  );
   dom.balanceMeta.textContent = CURRENCIES[currencyMode].label;
-  dom.balanceMeta.setAttribute(
-    "aria-label",
-    `Current currency mode ${CURRENCIES[currencyMode].label}`
-  );
 }
 
 /**
@@ -710,10 +702,8 @@ function renderCurrencyButtons(dom) {
  */
 function renderMuteButton(dom) {
   dom.muteButton.textContent = state.isMuted ? "Unmute" : "Mute";
-  dom.muteButton.setAttribute(
-    "aria-label",
-    state.isMuted ? "Unmute machine audio" : "Mute machine audio"
-  );
+  dom.muteButton.setAttribute("aria-label", "Toggle game sound");
+  dom.muteButton.setAttribute("aria-pressed", String(state.isMuted));
 }
 
 /**
@@ -725,7 +715,6 @@ function renderBetDisplay(dom) {
   const currencyMode = state.currencyMode;
   const betAmount = formatAmount(state.bets[currencyMode], currencyMode);
   dom.betDisplay.textContent = betAmount;
-  dom.betDisplay.setAttribute("aria-label", `Current bet size ${betAmount}`);
 }
 
 /**
@@ -760,7 +749,6 @@ function renderControls(dom) {
  */
 function renderStatus(dom) {
   dom.statusText.textContent = state.statusMessage;
-  dom.statusText.setAttribute("aria-label", `Game status ${state.statusMessage}`);
 }
 
 /**
@@ -869,7 +857,6 @@ function applyReelSlotRenderInstructions(reelSlotRenderInstructions) {
       resetSymbolClasses(reelSlotRenderInstruction.element);
       reelSlotRenderInstruction.element.classList.add(reelSlotRenderInstruction.symbolClassName);
       reelSlotRenderInstruction.element.textContent = reelSlotRenderInstruction.symbolLabel;
-      reelSlotRenderInstruction.element.setAttribute("aria-label", reelSlotRenderInstruction.ariaLabel);
     }
   );
 }
