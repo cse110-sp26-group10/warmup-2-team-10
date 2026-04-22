@@ -43,7 +43,7 @@ Constraints:
 Output ONLY HTML code.
 
 **The Result (What happened?):**
-* The code compiled successfully. It includes a clean structure, ARIA attributes, and a result region that uses aria-live. An interesting finding is that the reels are hardcoded. This code would not pass linting since it is missing the full HTML boilerplate (<head>, <body>, <html>). It did not hallucinate in a way that mattered. It made minor assumptions, such as not making the reel symbolize flexible or exactly three reels. 
+* The code compiled successfully. It includes a clean structure, ARIA attributes, and a result region that uses aria-live. An interesting finding is that the reels are hardcoded. This code would not pass linting since it is missing the full HTML boilerplate. It did not hallucinate in a way that mattered. It made minor assumptions, such as not making the reel symbolize flexible or exactly three reels. 
 
 The output is a static HTML layout for a slot machine game. It is clean and readable, but not interactive yet. 
 
@@ -53,41 +53,39 @@ The output is a static HTML layout for a slot machine game. It is clean and read
 ### Iteration 2: HTML and CSS Grid implementing a 3×5 reel layout with a high-contrast design.
 
 **The Prompt:**
-> Act as a strict senior software engineer focused on clean code, DRY principles, and accessibility.
+>Act as a strict senior software engineer focused on clean code, DRY principles, and accessibility.
 
 Task: Refactor and extend the existing slot machine UI using semantic HTML + minimalist CSS.
 
-Goal: Create a clean, accessible layout using CSS Grid for a 3x5 slot machine structure.
+Goal: Create a clean, accessible layout using CSS Grid for a 3x5 slot machine structure. The theme is: “Broke College Student Slot Machine.” 
 
 HTML Requirements:
 
-- Use only semantic structure: header, main, section#reels, aside#controls
-- Reels must support a 3-column layout
-- Each reel must contain 5 stacked symbol slots
-- Preserve ARIA attributes including aria-live and aria-labels
-- Do not add JavaScript
+* Use only semantic structure: header, main, section#reels, aside#controls
+* Reels must support a 3-column layout
+* Each reel must contain 5 stacked symbol slots
+* Preserve ARIA attributes including aria-live and aria-labels
+* Do not add JavaScript
 
 CSS Requirements:
 
-- Use CSS Grid for layout:
-  - 3 columns for reels
-  - 5 rows per reel
-- High contrast minimalist design
-- Clear spacing and alignment
-- No animations or transitions
-- No external frameworks
-- Basic responsive behavior allowed
+* Use CSS Grid for layout:
+  * 3 columns for reels
+  * 5 rows per reel
+* High contrast minimalist design
+* Clear spacing and alignment
+* No animations or transitions
+* No external frameworks
+* Basic responsive behavior allowed
 
 Constraints:
 
-- No JavaScript
-- No complex animations
-- Keep code clean, modular, and non-overengineered
+* No JavaScript
+* No complex animations
+* Keep code clean, modular, and non-overengineered
 
 Output Rule:
 Return ONLY updated HTML followed by CSS.
-Feed into a new file
-
 
 **The Result (What happened?):**
 * The code compiled successfully. An interesting finding was that Codex intercepts “high-contrast” styling as a black background and white outlines. Personally, I interpret “high-constrast” as bright colors on the opposite sides of the color wheel. It would pass linting, but there may be minor warnings, such as redundant attributes. It did not hallucinate in a way that matters. Similar to Iteration 1, it showcases minor assumptions such as styling details.
