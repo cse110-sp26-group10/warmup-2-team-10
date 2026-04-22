@@ -2,7 +2,7 @@ import { test, expect } from '@playwright/test';
 
 test.describe('Slot Machine UI', () => {
   test.beforeEach(async ({ page }) => {
-    await page.goto('/');
+    await page.goto("/");
   });
 
   test('should have the correct title', async ({ page }) => {

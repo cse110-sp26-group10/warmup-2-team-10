@@ -3,37 +3,43 @@
 </header>
 
 <main>
-  <section id="reels-container" aria-labelledby="reels-heading" aria-live="polite">
-    <h2 id="reels-heading">Broke College Student Slot Machine Reels</h2>
-    <div class="reel" role="group" aria-label="Reel 1">
+  <section id="reels" aria-labelledby="reels-heading" aria-live="polite">
+    <h2 id="reels-heading" class="visually-hidden">Slot machine reels</h2>
+
+    <section class="reel" aria-labelledby="reel-1-heading">
+      <h3 id="reel-1-heading" class="visually-hidden">Reel 1</h3>
       <div class="symbol-slot">RAMEN</div>
       <div class="symbol-slot">COFFEE</div>
       <div class="symbol-slot">RENT</div>
       <div class="symbol-slot">NOODLES</div>
       <div class="symbol-slot">TUITION</div>
-    </div>
+    </section>
 
-    <div class="reel" role="group" aria-label="Reel 2">
+    <section class="reel" aria-labelledby="reel-2-heading">
+      <h3 id="reel-2-heading" class="visually-hidden">Reel 2</h3>
       <div class="symbol-slot">WIFI</div>
       <div class="symbol-slot">RAMEN</div>
       <div class="symbol-slot">COUPON</div>
       <div class="symbol-slot">TEXTBOOK</div>
       <div class="symbol-slot">RENT</div>
-    </div>
+    </section>
 
-    <div class="reel" role="group" aria-label="Reel 3">
+    <section class="reel" aria-labelledby="reel-3-heading">
+      <h3 id="reel-3-heading" class="visually-hidden">Reel 3</h3>
       <div class="symbol-slot">TUITION</div>
       <div class="symbol-slot">BUS PASS</div>
       <div class="symbol-slot">RAMEN</div>
       <div class="symbol-slot">WIFI</div>
       <div class="symbol-slot">COFFEE</div>
-    </div>
+    </section>
   </section>
 
   <aside id="controls" aria-labelledby="controls-heading">
-    <h2 id="controls-heading" class="visually-hidden">Controls</h2>
-    <button type="button" aria-label="Spin reels">Spin</button>
-    <button type="button" aria-label="Reset machine">Reset</button>
-    <p aria-live="polite">Budget status: one meal away from overdraft.</p>
+    <h2 id="controls-heading" class="visually-hidden">Slot machine controls</h2>
+    <button type="button" aria-label="Spin the slot machine">Spin</button>
+    <button type="button" aria-label="Toggle game sound" aria-pressed="false">Mute</button>
+    <p id="results-announcer" aria-live="polite" aria-atomic="true">
+      Budget status: one meal away from overdraft.
+    </p>
   </aside>
 </main>
