@@ -2054,4 +2054,407 @@ Create `game/iteration-20/` by building directly on top of `game/iteration-19/`.
 ## Hand-Edits Required? (Yes/No):
 **No. The implementation correctly extended the existing architecture and integrated seamlessly without requiring manual fixes.**
 
+### Iteration 21:
 
+Act as a strict, senior software engineer obsessed with clean code and the DRY principle.
+
+---
+
+## Context:
+- You are working on a browser-based "Broke College Student Slot Machine."
+- Use `game/iteration-20/` as the baseline for this iteration.
+- This prompt is for Iteration 21, and the result must become a new `game/iteration-21/` folder that is a direct continuation of Iteration 20.
+- This iteration focuses on implementing an **Autoplay** feature that integrates cleanly into the existing spin loop and game state.
+- Use the project research context from `plan/research-overview.md` and the raw research notes in `plan/raw-research/individual-research/nicole-research.md` as background constraints.
+
+- The current Iteration 20 code already has:
+  - a typed `state` object (including Free Spins state)
+  - symbol configuration in `SYMBOLS`
+  - a validated weighted RNG layer and reel matrix generation
+  - payline-evaluation and payout-calculation layers
+  - DOM manipulation and responsive spin + bet wager mechanics
+  - keyboard bindings, ARIA live regions, and audio cues
+  - Win Feedback Suite (coin shower, slot pulse, and win overlay)
+  - Free Spins mechanic with counter + UI integration
+  - accessibility support for prefers-reduced-motion
+
+---
+
+## Task:
+Create `game/iteration-21/` by building directly on top of `game/iteration-20/`.
+
+---
+
+## Folder requirements:
+- Treat `game/iteration-20/` as the source of truth.
+- Create `game/iteration-21/` as a continuation of Iteration 20.
+- Copy all non-generated files unchanged unless absolutely required.
+- Do NOT copy `node_modules` or generated artifacts.
+- Modify ONLY `game/iteration-21/game.js` (and `index.html` / `style.css` only if UI hooks are missing).
+- Do NOT rewrite architecture or restructure the project.
+- Preserve all iteration-20 systems (RNG, paylines, payout, DOM, Win Feedback, Free Spins, ARIA system, Audio).
+
+---
+
+## Scope constraints:
+- Do NOT use external libraries.
+- Do NOT convert into modules or frameworks.
+- Do NOT add imports/exports.
+- Keep logic explicit, minimal, and maintainable.
+- Keep UI rendering separate from game logic.
+
+---
+
+## Rules for this iteration:
+
+## 1. Autoplay Mechanic (New Feature)
+- Add an Autoplay system that allows the user to select:
+  - **5 spins**
+  - **10 spins**
+  - **25 spins**
+- Once started:
+  - Spins automatically execute using the current bet
+  - A short delay must exist between spins (to preserve animations and UX)
+- Add state:
+  - `isAutoplay` (boolean)
+  - `autoplaySpinsRemaining` (number)
+
+### Autoplay Behavior:
+- Decrement `autoplaySpinsRemaining` after each completed spin
+- Stop autoplay automatically when:
+  - `autoplaySpinsRemaining === 0`
+  - balance < `currentBet`
+  - Free Spins are triggered (`isFreeSpinMode === true`)
+- Autoplay must NEVER override Free Spins:
+  - Free Spins take priority and pause/terminate autoplay cleanly
+
+---
+
+## 2. Autoplay UI & Controls
+- Add UI controls:
+  - Buttons for selecting autoplay count (5 / 10 / 25)
+  - A visible **Stop Autoplay** button
+- Behavior:
+  - Starting autoplay disables manual spin button
+  - Stop button immediately cancels autoplay
+- Optional (only if minimal UI changes required):
+  - Display remaining autoplay spins
+
+---
+
+## 3. Integration with Existing Systems
+- Autoplay must:
+  - Use the existing spin pipeline (no duplicate logic)
+  - Respect all animation timing (coin shower, overlays, etc.)
+  - Respect Free Spins logic
+- Ensure:
+  - No race conditions between:
+    - autoplay loop
+    - animation completion
+    - state updates
+
+---
+
+## Implementation requirements:
+- Preserve all animations and win feedback from Iteration 20
+- Ensure autoplay waits for spin completion before triggering the next spin
+- Prevent overlapping spins or state corruption
+- Use small, well-named functions (DRY principle)
+- Include full JSDoc annotations for all functions
+- Before writing code, explain function logic in plain text comments
+
+---
+
+## Compatibility requirements:
+- Extend `state` object with:
+  - `isAutoplay`
+  - `autoplaySpinsRemaining`
+- Preserve:
+  - Free Spins system (must interrupt autoplay correctly)
+  - `SYMBOLS`
+  - weighted RNG pipeline
+  - payline evaluation + payout logic
+- Preserve all:
+  - audio systems
+  - accessibility features (ARIA, reduced motion)
+
+---
+
+## Output rules:
+- Apply all changes directly in `game/iteration-21/`
+- Do not create additional folders or files outside iteration-21
+
+---
+
+## Static Analysis (Linters & Validators)
+1. HTML Validation:
+   - `npx html-validate "iteration-21/*.html"`
+
+2. CSS Linting:
+   - `npx stylelint "iteration-21/**/*.css"`
+
+3. JavaScript Linting:
+   - `npx eslint "iteration-21/**/*.js"`
+
+4. Full Lint Check:
+   - Run all linters together and fix issues before proceeding
+
+---
+
+## Logic Testing (Unit Tests)
+- Run: `npm run test:unit`
+- Validate:
+  - Autoplay starts and decrements correctly
+  - Autoplay stops at zero spins
+  - Autoplay stops when balance is insufficient
+  - Autoplay stops when Free Spins trigger
+  - No balance deduction issues occur
+
+---
+
+## UI Testing (End-to-End Tests)
+- Ensure server is running:
+  - `npx serve iteration-21 -p 3000`
+- Run:
+  - `npm run test:e2e`
+- Verify:
+  - Autoplay buttons trigger correct number of spins
+  - Spins run automatically with delay
+  - Stop button cancels autoplay immediately
+  - Free Spins interrupt autoplay correctly
+  - UI updates reflect autoplay state
+
+---
+
+## Final "Safe to Commit" Check
+- All lint checks pass
+- All unit tests pass
+- All E2E tests pass
+- No architecture changes introduced
+- Autoplay integrates cleanly with Free Spins and existing systems
+- No regressions in RNG, payout, or win feedback systems
+
+---
+
+## The Result (What happened?):
+
+**Iteration 21 successfully implemented the Autoplay feature, integrating it seamlessly into the existing spin loop and state management system. The system allows users to select a predefined number of spins, which execute automatically with proper delays, preserving all animations and UX flow.**
+
+**The implementation carefully handled edge cases, ensuring autoplay stops when the balance is insufficient or when Free Spins are triggered. Free Spins correctly take priority over autoplay, preventing conflicting states. A stop button provides immediate user control, and UI state updates reflect autoplay activity accurately.**
+
+**All tests passed, confirming correct spin sequencing, state transitions, and clean interruption behavior.**
+
+---
+
+## Hand-Edits Required? (Yes/No):
+**No. The implementation followed the existing architecture and integrated without requiring manual fixes.**
+
+### Iteration 22:
+
+Act as a strict, senior software engineer obsessed with clean code and the DRY principle.
+
+---
+
+## Context:
+- You are working on a browser-based "Broke College Student Slot Machine."
+- Use `game/iteration-21/` as the baseline for this iteration.
+- This prompt is for Iteration 22, and the result must become a new `game/iteration-22/` folder that is a direct continuation of Iteration 21.
+- This iteration focuses on **accessibility polish** and replacing the static paytable with a dynamic, data-driven modal.
+- Use the project research context from `plan/research-overview.md` and the raw research notes in `plan/raw-research/individual-research/nicole-research.md` as background constraints.
+
+- The current Iteration 21 code already has:
+  - a typed `state` object (including Free Spins and Autoplay)
+  - symbol configuration in `SYMBOLS`
+  - a validated weighted RNG layer and reel matrix generation
+  - payline-evaluation and payout-calculation layers
+  - DOM manipulation and responsive spin + bet wager mechanics
+  - keyboard bindings and ARIA live regions
+  - audio cues and Win Feedback Suite (coin shower, slot pulse, win overlay)
+  - Free Spins mechanic
+  - Autoplay system
+  - accessibility support for prefers-reduced-motion (partial)
+
+---
+
+## Task:
+Create `game/iteration-22/` by building directly on top of `game/iteration-21/`.
+
+---
+
+## Folder requirements:
+- Treat `game/iteration-21/` as the source of truth.
+- Create `game/iteration-22/` as a continuation of Iteration 21.
+- Copy all non-generated files unchanged unless absolutely required.
+- Do NOT copy `node_modules` or generated artifacts.
+- Modify ONLY `game/iteration-22/game.js` (and `index.html` / `style.css` where required for modal + accessibility hooks).
+- Do NOT rewrite architecture or restructure the project.
+- Preserve all iteration-21 systems (RNG, paylines, payout, DOM, Win Feedback, Free Spins, Autoplay, ARIA system, Audio).
+
+---
+
+## Scope constraints:
+- Do NOT use external libraries.
+- Do NOT convert into modules or frameworks.
+- Do NOT add imports/exports.
+- Keep logic explicit, minimal, and maintainable.
+- Keep UI rendering separate from game logic.
+
+---
+
+## Rules for this iteration:
+
+## 1. Keyboard Accessibility for Bet Controls
+- Add **arrow key support** for bet adjustments:
+  - **ArrowUp → increment bet**
+  - **ArrowDown → decrement bet**
+- Behavior:
+  - Works when focus is on:
+    - bet display
+    - increment (+) button
+    - decrement (–) button
+  - Must match existing +/- button logic exactly
+- Ensure:
+  - No duplicate logic (reuse existing bet adjustment helpers)
+  - ARIA updates still announce bet changes correctly
+
+---
+
+## 2. Reduced Motion Compliance Audit
+- Audit ALL animations introduced in Iterations **16–18** (and any carried forward):
+  - coin shower
+  - slot pulse
+  - win overlay transitions
+  - any CSS/JS animations
+- Requirement:
+  - When `prefers-reduced-motion: reduce` is active:
+    - **NO animations should run**
+    - No transitions, no motion effects, no delayed animation loops
+- Ensure:
+  - Behavior is consistent across:
+    - CSS animations
+    - JavaScript-triggered animations
+- Do NOT remove features — only suppress motion safely
+
+---
+
+## 3. Dynamic Paytable Modal (Replace Static HTML)
+- Remove existing **hardcoded paytable HTML**
+- Replace with a **JavaScript-generated modal**
+
+### Trigger:
+- A **"Paytable" button** opens the modal
+
+### Modal Content:
+- Dynamically render:
+  - All symbols from `SYMBOLS`
+  - Symbol images/icons
+  - Corresponding payout multipliers
+- Data must come **directly from `SYMBOLS` config**
+- No duplicated or hardcoded payout data allowed
+
+### Modal Behavior:
+- Opens on button click
+- Closes when:
+  - **Escape key is pressed**
+  - **Backdrop is clicked**
+- Accessibility:
+  - Focus moves into modal on open
+  - Focus returns to trigger button on close
+  - Modal must be keyboard navigable
+  - Use proper ARIA roles (`dialog`, `aria-modal`, etc.)
+
+---
+
+## Implementation requirements:
+- Preserve all animations and systems from Iteration 21 (only suppress when required)
+- Ensure modal rendering is fully dynamic and reusable
+- Avoid duplication between UI and config data (DRY principle)
+- Use small, well-named functions
+- Include full JSDoc annotations for all functions
+- Before writing code, explain function logic in plain text comments
+
+---
+
+## Compatibility requirements:
+- Preserve:
+  - `state` object (no required additions for this iteration)
+  - Free Spins system
+  - Autoplay system
+  - `SYMBOLS` as the single source of truth
+  - weighted RNG pipeline
+  - payline evaluation + payout logic
+- Preserve all:
+  - audio systems
+  - ARIA announcements
+  - keyboard navigation patterns
+
+---
+
+## Output rules:
+- Apply all changes directly in `game/iteration-22/`
+- Do not create additional folders or files outside iteration-22
+
+---
+
+## Static Analysis (Linters & Validators)
+1. HTML Validation:
+   - `npx html-validate "iteration-22/*.html"`
+
+2. CSS Linting:
+   - `npx stylelint "iteration-22/**/*.css"`
+
+3. JavaScript Linting:
+   - `npx eslint "iteration-22/**/*.js"`
+
+4. Full Lint Check:
+   - Run all linters together and fix issues before proceeding
+
+---
+
+## Logic Testing (Unit Tests)
+- Run: `npm run test:unit`
+- Validate:
+  - Bet adjustments via arrow keys work correctly
+  - No regressions in spin, payout, or state logic
+  - SYMBOLS-driven paytable renders correct data
+
+---
+
+## UI Testing (End-to-End Tests)
+- Ensure server is running:
+  - `npx serve iteration-22 -p 3000`
+- Run:
+  - `npm run test:e2e`
+- Verify:
+  - Arrow keys adjust bet correctly when focused
+  - All animations are suppressed under reduced motion
+  - Paytable modal opens, renders correctly, and closes properly
+  - Focus management behaves correctly (open/close cycle)
+  - Escape key and backdrop click close modal
+
+---
+
+## Final "Safe to Commit" Check
+- All lint checks pass
+- All unit tests pass
+- All E2E tests pass
+- No architecture changes introduced
+- Accessibility improvements are fully integrated
+- No regressions in gameplay, RNG, or UI systems
+
+---
+
+## The Result (What happened?):
+
+**Iteration 22 successfully improved accessibility and replaced the static paytable with a fully dynamic, data-driven modal. Arrow key support was added to bet controls, ensuring keyboard users have full control parity with mouse interactions.**
+
+**All animations from earlier iterations were audited and properly suppressed under `prefers-reduced-motion`, ensuring compliance with accessibility standards without removing visual features for other users.**
+
+**The paytable modal was implemented using the `SYMBOLS` configuration as the single source of truth, eliminating duplication and improving maintainability. The modal includes full keyboard accessibility, proper ARIA roles, and correct focus management.**
+
+**All tests passed, confirming no regressions and proper integration with existing systems.**
+
+---
+
+## Hand-Edits Required? (Yes/No):
+**No. The implementation followed the architecture constraints and integrated cleanly without requiring manual fixes.**
