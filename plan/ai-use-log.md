@@ -1447,7 +1447,7 @@ Create `game/iteration-17/` by building directly on top of `game/iteration-16/`.
 
 ## Folder requirements:
 - Treat `game/iteration-16/` as the source of truth.
-- Create `game/iteration-17/` as a continuation of Iteration 15.
+- Create `game/iteration-17/` as a continuation of Iteration 16.
 - Copy all non-generated files unchanged unless absolutely required.
 - Do NOT copy `node_modules` or generated artifacts.
 - Modify ONLY `game/iteration-17/game.js`.
@@ -1559,3 +1559,157 @@ Create `game/iteration-17/` by building directly on top of `game/iteration-16/`.
 
 **Hand-Edits Required? (Yes/No):**
 * No. No manual logic changes were made in `game/iteration-17/game.js`.
+
+
+### Iteration 18:
+
+Act as a strict, senior software engineer obsessed with clean code and the DRY principle.
+
+---
+
+## Context:
+- You are working on a browser-based "Broke College Student Slot Machine."
+- Use `game/iteration-17/` as the baseline for this iteration.
+- This prompt is for Iteration 18, and the result must become a new `game/iteration-18/` folder that is a direct continuation of Iteration 17.
+- Phase 3 is for connecting the work done in Phase 1 (UI) and Phase 2 (Logic) to create a playable game.
+- Use the project research context from `plan/research-overview.md` and the raw research notes in `plan/raw-research/individual-research/nicole-research.md` as background constraints.
+
+- The current Iteration 17 code already has:
+  - a typed `state` object
+  - symbol configuration in `SYMBOLS`
+  - ordered symbol weights in `SYMBOL_WEIGHT_ENTRIES`
+  - a validated weighted RNG layer via `WEIGHTED_SYMBOL_TABLE`
+  - weighted symbol selection helpers
+  - a reel matrix stored as `reelMatrix[reelIndex][slotIndex]`
+  - a clean intermediate spin-result layer
+  - pure helpers that generate per-reel symbol sequences
+  - pure helpers that convert spin results into the final 3x5 reel matrix
+  - a payline-evaluation layer that reads the current matrix and returns structured payline results
+  - a payout-calculation layer that uses bet size and matched paylines to update balance
+  - Wild and Scatter logic helper functions
+  - DOM manipulation functions that connect the HTML grid and JS 2D array
+  - responsive spin + bet wager mechanics
+  - keyboard bindings to spin mechanism
+  - visual indicators for game outcomes via CSS state changes, and icons for each of the spins
+  - ARIA live region updates for accessibility (“You won 50 credits”, etc.)
+  - payline highlighting with a neon red border for winning combinations
+
+---
+
+## Task:
+Create `game/iteration-18/` by building directly on top of `game/iteration-17/`.
+
+---
+
+## Folder requirements:
+- Treat `game/iteration-17/` as the source of truth.
+- Create `game/iteration-18/` as a continuation of Iteration 17.
+- Copy all non-generated files unchanged unless absolutely required.
+- Do NOT copy `node_modules` or generated artifacts.
+- Modify ONLY `game/iteration-18/game.js`.
+- Do NOT rewrite architecture or restructure the project.
+- Preserve all iteration-17 systems (RNG, paylines, payout, DOM, Wild/Scatter, keyboard controls, ARIA system).
+
+---
+
+## Scope constraints:
+- Do NOT use external libraries.
+- Do NOT convert into modules or frameworks.
+- Do NOT add imports/exports.
+- Do NOT modify HTML/CSS unless absolutely necessary.
+- Keep logic explicit, minimal, and maintainable.
+- Keep UI rendering separate from game logic.
+
+---
+
+## Rules for this iteration:
+
+## 1. Audio (New Feature)
+- Implement the Web Audio API, which works with the current mute button and isMuted state.
+- Add 4 sounds generated procedurally with AudioContext: a mechanical clink on bet placement, a short ascending tone on a small win, a longer cascading coin sound on a big win, and a neutral tick on a loss
+- All sounds must check isMuted before playing
+
+---
+
+## Implementation requirements:
+- Preserve ARIA live region behavior from Iteration 16.
+- Ensure symbol rendering changes do not break accessibility.
+- Use JavaScript to dynamically render SVG/image-based symbols.
+- Validate helper functions with clear error handling.
+- Use small, well-named functions (DRY principle).
+- Include full JSDoc annotations for all functions.
+- Before writing code, explain function logic in a plain text comment.
+
+---
+
+## Compatibility requirements:
+- Preserve `state` object unless minimally extended:
+  - Only allowed additions:
+    - `announcementsEnabled` (if needed)
+- Preserve `SYMBOLS` as the UI metadata source.
+- Preserve weighted RNG + spin pipeline unchanged.
+- Preserve payline evaluation, payout, Wild/Scatter logic unchanged.
+- Preserve DOM structure and keyboard interactions from Iterations 6–17.
+
+---
+
+## Output rules:
+- Apply all changes directly in `game/iteration-18/`.
+- Do not create additional folders or files outside iteration-18.
+
+---
+
+## Static Analysis (Linters & Validators)
+1. HTML Validation:
+   - `npx html-validate "iteration-18/*.html"`
+
+2. CSS Linting:
+   - `npx stylelint "iteration-18/**/*.css"`
+
+3. JavaScript Linting:
+   - `npx eslint "iteration-18/**/*.js"`
+
+4. Full Lint Check:
+   - Run all linters together and fix issues before proceeding.
+
+---
+
+## Logic Testing (Unit Tests)
+- Run: `npm run test:unit`
+- Validate:
+  - Symbols still match HTML definitions
+  - RNG output remains consistent
+- Update tests if symbol system changes require it
+
+---
+
+## UI Testing (End-to-End Tests)
+- Ensure server is running:
+  - `npx kill-port 3000`
+  - `npx serve iteration-18 -p 3000`
+- Run:
+  - `npm run test:e2e`
+- Verify:
+  - Spin works correctly
+  - SVG icons render properly
+  - Paylines highlight correctly
+  - ARIA announcements still fire correctly
+
+---
+
+## Final "Safe to Commit" Check
+- All lint checks pass
+- All unit tests pass
+- All E2E tests pass
+- No architecture changes introduced
+- Only Iteration 18 logic added
+- No regressions from Iteration 17
+
+---
+
+## The Result (What happened?):
+
+**Iteration 18 successfully added the audio to the game, with full functionality and compatibility with the mute button. The only minor thing is there's no sound of cascading coins, instead replaced with a fancier beep sequence. The model was able to implement the feature without any holdups or reprompting. Nothing else was touched or changed that was irrelevant to adding audio functionality to the slot machine.**
+
+**Hand-Edits Required? (Yes/No):**
+* No. No manual logic changes were made in `game/iteration-18/game.js`.
