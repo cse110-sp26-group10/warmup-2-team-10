@@ -90,6 +90,13 @@
                 <button type="button" class="action-button action-primary" aria-label="Spin the slot machine">Spin</button>
                 <button type="button" class="action-button" aria-label="Reset machine">Reset</button>
               </div>
+              <div class="autoplay-controls" role="group" aria-label="Autoplay controls">
+                <button type="button" class="chip autoplay-button" aria-label="Start autoplay for 5 spins">Auto 5</button>
+                <button type="button" class="chip autoplay-button" aria-label="Start autoplay for 10 spins">Auto 10</button>
+                <button type="button" class="chip autoplay-button" aria-label="Start autoplay for 25 spins">Auto 25</button>
+                <button type="button" class="action-button autoplay-stop-button" aria-label="Stop autoplay">Stop Autoplay</button>
+              </div>
+              <p class="autoplay-display" role="status" aria-live="polite" aria-label="Autoplay spins remaining">Autoplay: Off</p>
               <p class="free-spin-display" role="status" aria-live="polite" aria-label="Free spins remaining">Free Spins: 0</p>
               <p class="status-text" role="status" aria-live="polite" aria-label="Game status">Ready to play.</p>
               <div id="results-announcer" aria-live="polite" aria-atomic="true"></div>

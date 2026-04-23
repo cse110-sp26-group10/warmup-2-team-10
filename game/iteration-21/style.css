@@ -106,6 +106,7 @@ button {
 
 .hero-copy,
 .panel-copy,
+.autoplay-display,
 .free-spin-display,
 .status-text,
 .stat-meta {
@@ -146,6 +147,7 @@ button {
 }
 
 .segmented-control,
+.autoplay-controls,
 .bet-controls,
 .action-stack,
 .sidebar {
@@ -284,6 +286,15 @@ button {
   font: 800 1.1rem/1 var(--font-display);
 }
 
+.autoplay-controls {
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+}
+
+.autoplay-stop-button {
+  grid-column: 1 / -1;
+}
+
+.autoplay-display,
 .free-spin-display {
   display: grid;
   place-items: center;
@@ -295,6 +306,12 @@ button {
   font: 800 1rem/1.1 var(--font-display);
   letter-spacing: 0.04em;
   text-transform: uppercase;
+}
+
+.machine.is-autoplay-mode .autoplay-display {
+  color: #fff4c2;
+  border-color: rgb(255 216 132 / 45%);
+  background: rgb(255 216 132 / 14%);
 }
 
 .action-stack {

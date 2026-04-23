@@ -53,6 +53,8 @@
  * @property {boolean} isSpinning Whether a spin is in progress.
  * @property {boolean} isFreeSpinMode Whether the free-spin bonus loop is active.
  * @property {number} freeSpinsRemaining Number of queued free spins left to play.
+ * @property {boolean} isAutoplay Whether the autoplay loop is active.
+ * @property {number} autoplaySpinsRemaining Number of queued autoplay spins left to play.
  * @property {string} statusMessage Current status text.
  * @property {SymbolId[][]} reelMatrix Current 3x5 symbol matrix.
  * @property {PaylineEvaluationSummary} paylineResults Current invisible payline evaluation output.
@@ -86,6 +88,7 @@
  * @property {HTMLElement} balanceValue Balance text node.
  * @property {HTMLElement} balanceMeta Currency mode text node.
  * @property {HTMLElement} betDisplay Bet text node.
+ * @property {HTMLElement} autoplayDisplay Autoplay counter text node.
  * @property {HTMLElement} freeSpinDisplay Free-spin counter text node.
  * @property {HTMLElement} statusText Status text node.
  * @property {HTMLElement} resultsAnnouncer Live region used for announcing spin outcomes.
@@ -97,6 +100,8 @@
  * @property {HTMLButtonElement} decreaseBetButton Bet decrement button.
  * @property {HTMLButtonElement} increaseBetButton Bet increment button.
  * @property {HTMLButtonElement} spinButton Spin action button.
+ * @property {HTMLButtonElement[]} autoplayButtons Autoplay preset buttons.
+ * @property {HTMLButtonElement} stopAutoplayButton Button that cancels autoplay.
  * @property {HTMLButtonElement} resetButton Reset action button.
  * @property {ReelSlotElement[]} reelSlots Flattened reel slot list in DOM order.
  */
@@ -230,6 +235,7 @@
  * @property {number} betAmount Bet amount configured for the spin.
  * @property {number} wagerCost Actual balance cost applied before payout.
  * @property {boolean} isFreeSpin Whether the spin was played inside the free-spin bonus.
+ * @property {boolean} isAutoplaySpin Whether the spin was started by the autoplay loop.
  * @property {number} balanceBeforeSpin Balance before the wager was deducted.
  * @property {number} balanceAfterBet Balance immediately after any wager cost and before payout.
  * @property {number} updatedBalance Final balance after applying payout to the wagered balance.
@@ -251,6 +257,7 @@
  * @property {Set<string>} scatterCoordinateKeys Coordinate keys containing Scatter symbols.
  * @property {number[]} winningReelIndexes Reel indexes that contain winning payline symbols.
  * @property {boolean} isFreeSpinMode Whether the bonus state is active.
+ * @property {boolean} isAutoplay Whether autoplay is active.
  * @property {boolean} shouldAnimateWinFeedback Whether the celebratory visual suite should run.
  * @property {string} winAmountText Formatted payout amount shown in the visual overlay.
  * @property {string} announcementMessage Accessible summary for the live results region.
@@ -343,13 +350,13 @@ const WEIGHTED_SYMBOL_TABLE = createWeightedSymbolTable(SYMBOL_WEIGHT_ENTRIES, S
 
 const REEL_COUNT = INITIAL_REEL_MATRIX.length;
 const SLOTS_PER_REEL = INITIAL_REEL_MATRIX[0].length;
-const REACTIVE_STYLE_ELEMENT_ID = "iteration-20-reactive-styles";
+const REACTIVE_STYLE_ELEMENT_ID = "iteration-21-reactive-styles";
 const MATCHED_SLOT_CLASS_NAME = "is-payline-match";
 const WILD_MATCH_SLOT_CLASS_NAME = "is-wild-match";
 const SCATTER_SLOT_CLASS_NAME = "is-scatter-hit";
 const SLOT_WIN_HIGHLIGHT_CLASS_NAME = "slot-win-highlight";
-const WIN_AMOUNT_OVERLAY_ID = "iteration-20-win-amount-overlay";
-const COIN_SHOWER_LAYER_ID = "iteration-20-coin-shower-layer";
+const WIN_AMOUNT_OVERLAY_ID = "iteration-21-win-amount-overlay";
+const COIN_SHOWER_LAYER_ID = "iteration-21-coin-shower-layer";
 const LIVE_REGION_RESET_DELAY_MS = 40;
 const SPIN_REEL_ANIMATION_DURATION_MS = 360;
 const SPIN_REEL_STAGGER_MS = 80;
@@ -360,12 +367,17 @@ const COIN_PARTICLES_PER_REEL = 10;
 const FREE_SPIN_AWARD_COUNT = 10;
 const FREE_SPIN_TRIGGER_SCATTER_COUNT = 3;
 const AUTO_FREE_SPIN_DELAY_MS = 650;
+const AUTOPLAY_SPIN_DELAY_MS = 650;
+const AUTOPLAY_OPTIONS = Object.freeze([5, 10, 25]);
 
 /** @type {WeakMap<HTMLElement, number>} */
 const liveRegionTimeoutByElement = new WeakMap();
 
 /** @type {number | null} */
 let queuedFreeSpinTimeoutId = null;
+
+/** @type {number | null} */
+let queuedAutoplayTimeoutId = null;
 
 /** @type {Readonly<PaylineDefinition[]>} */
 const PAYLINES = createPaylineDefinitions([
@@ -422,6 +434,8 @@ function createInitialState() {
     isSpinning: false,
     isFreeSpinMode: false,
     freeSpinsRemaining: 0,
+    isAutoplay: false,
+    autoplaySpinsRemaining: 0,
     statusMessage: "Ready to play.",
     reelMatrix: cloneMatrix(INITIAL_REEL_MATRIX),
     paylineResults: evaluateAllPaylines(INITIAL_REEL_MATRIX, PAYLINES),
@@ -819,6 +833,7 @@ function getDomCache() {
   const balanceValue = getRequiredElement(".stat-value", HTMLElement, statCard);
   const balanceMeta = getRequiredElement(".stat-meta", HTMLElement, statCard);
   const betDisplay = getRequiredElement(".bet-display", HTMLElement);
+  const autoplayDisplay = getRequiredElement(".autoplay-display", HTMLElement);
   const freeSpinDisplay = getRequiredElement(".free-spin-display", HTMLElement);
   const statusText = getRequiredElement(".status-text", HTMLElement);
   const resultsAnnouncer = getRequiredElement("#results-announcer", HTMLElement);
@@ -837,6 +852,11 @@ function getDomCache() {
   const actionButtons = getButtonGroup(".action-stack .action-button", 2);
   const spinButton = actionButtons[0];
   const resetButton = actionButtons[1];
+  const autoplayButtons = getButtonGroup(".autoplay-controls .autoplay-button", 3);
+  const stopAutoplayButton = getRequiredElement(
+    ".autoplay-stop-button",
+    HTMLButtonElement
+  );
 
   const reelSlots = getReelSlots();
 
@@ -847,6 +867,7 @@ function getDomCache() {
     balanceValue,
     balanceMeta,
     betDisplay,
+    autoplayDisplay,
     freeSpinDisplay,
     statusText,
     resultsAnnouncer,
@@ -858,6 +879,8 @@ function getDomCache() {
     decreaseBetButton,
     increaseBetButton,
     spinButton,
+    autoplayButtons,
+    stopAutoplayButton,
     resetButton,
     reelSlots
   };
@@ -1016,6 +1039,10 @@ function bindEvents(dom) {
   dom.decreaseBetButton.addEventListener("click", handleBetAdjustment.bind(null, dom, -1));
   dom.increaseBetButton.addEventListener("click", handleBetAdjustment.bind(null, dom, 1));
   dom.spinButton.addEventListener("click", handleSpin.bind(null, dom));
+  dom.autoplayButtons[0].addEventListener("click", handleAutoplayStart.bind(null, dom, 5));
+  dom.autoplayButtons[1].addEventListener("click", handleAutoplayStart.bind(null, dom, 10));
+  dom.autoplayButtons[2].addEventListener("click", handleAutoplayStart.bind(null, dom, 25));
+  dom.stopAutoplayButton.addEventListener("click", handleAutoplayStop.bind(null, dom, true));
   dom.resetButton.addEventListener("click", handleReset.bind(null, dom));
   bindSpinShortcutEvents(dom);
 }
@@ -1088,7 +1115,7 @@ function isInteractiveShortcutTarget(target) {
  * @returns {void}
  */
 function handleCurrencyChange(dom, currencyMode) {
-  if (state.isSpinning || state.isFreeSpinMode || state.currencyMode === currencyMode) {
+  if (state.isSpinning || state.isFreeSpinMode || state.isAutoplay || state.currencyMode === currencyMode) {
     return;
   }
 
@@ -1104,7 +1131,7 @@ function handleCurrencyChange(dom, currencyMode) {
  * @returns {void}
  */
 function handleBetAdjustment(dom, direction) {
-  if (state.isSpinning || state.isFreeSpinMode) {
+  if (state.isSpinning || state.isFreeSpinMode || state.isAutoplay) {
     return;
   }
 
@@ -1140,6 +1167,66 @@ function handleMuteToggle(dom) {
   render(dom);
 }
 
+// Autoplay-start logic: the preset buttons only seed state and queue the first automatic spin so autoplay
+// still flows through the same settled-spin path as manual and free-spin rounds.
+
+/**
+ * Starts autoplay with one validated preset spin count.
+ * @param {DomCache} dom Cached DOM references.
+ * @param {number} spinCount Number of autoplay spins requested.
+ * @returns {void}
+ */
+function handleAutoplayStart(dom, spinCount) {
+  if (state.isSpinning || state.isFreeSpinMode || state.isAutoplay) {
+    return;
+  }
+
+  validateAutoplaySpinCount(spinCount);
+  const activeWager = resolveActiveWager(state.currencyMode, state.balances, state.bets, CURRENCIES);
+
+  if (!canAffordWager(activeWager.balanceAmount, activeWager.betAmount)) {
+    state.statusMessage = `Not enough ${activeWager.currencyConfig.label.toLowerCase()} for that bet.`;
+    render(dom);
+    return;
+  }
+
+  clearQueuedAutoplay();
+  state.isAutoplay = true;
+  state.autoplaySpinsRemaining = spinCount;
+  state.statusMessage = `Autoplay started for ${String(spinCount)} spins.`;
+  render(dom);
+  queueNextAutoplaySpinIfNeeded(dom);
+}
+
+// Autoplay-stop logic: stopping autoplay clears any queued timer immediately and zeroes the remaining
+// counter so no later render can accidentally schedule another automatic paid spin.
+
+/**
+ * Stops autoplay immediately and optionally updates the visible status.
+ * @param {DomCache} dom Cached DOM references.
+ * @param {boolean} shouldUpdateStatus Whether the stop action should replace the current status text.
+ * @returns {void}
+ */
+function handleAutoplayStop(dom, shouldUpdateStatus) {
+  if (typeof shouldUpdateStatus !== "boolean") {
+    throw new Error("Autoplay stop handling requires a boolean status-update flag.");
+  }
+
+  if (!state.isAutoplay && state.autoplaySpinsRemaining === 0 && queuedAutoplayTimeoutId === null) {
+    return;
+  }
+
+  clearQueuedAutoplay();
+  state.isAutoplay = false;
+  state.autoplaySpinsRemaining = 0;
+
+  if (shouldUpdateStatus) {
+    state.statusMessage = state.isSpinning ? "Autoplay stopped after the current spin." : "Autoplay stopped.";
+  }
+
+  render(dom);
+}
+
 // Spin animation logic: a spin still settles through the existing pure math pipeline first, but the DOM does
 // not commit the final matrix until a short reel-by-reel transition completes. That keeps RNG, paylines, and
 // payouts deterministic while limiting animation code to a thin UI-only wrapper.
@@ -1157,6 +1244,7 @@ function handleSpin(dom) {
   primeAudioContextForInteraction();
   const activeWager = resolveActiveWager(state.currencyMode, state.balances, state.bets, CURRENCIES);
   const shouldUseFreeSpin = state.isFreeSpinMode && state.freeSpinsRemaining > 0;
+  const shouldUseAutoplaySpin = state.isAutoplay && !shouldUseFreeSpin;
 
   if (!shouldUseFreeSpin && !canAffordWager(activeWager.balanceAmount, activeWager.betAmount)) {
     state.statusMessage = `Not enough ${activeWager.currencyConfig.label.toLowerCase()} for that bet.`;
@@ -1165,11 +1253,12 @@ function handleSpin(dom) {
   }
 
   clearQueuedFreeSpin();
+  clearQueuedAutoplay();
   state.isSpinning = true;
   renderControls(dom);
   clearWinFeedback(dom);
   clearSlotHighlightState(dom.reelSlots);
-  void performSpinWithAnimation(dom, activeWager, shouldUseFreeSpin);
+  void performSpinWithAnimation(dom, activeWager, shouldUseFreeSpin, shouldUseAutoplaySpin);
 }
 
 // Bonus-spin orchestration logic: the existing spin animation path stays intact, while one boolean flag
@@ -1180,9 +1269,10 @@ function handleSpin(dom) {
  * @param {DomCache} dom Cached DOM references.
  * @param {ActiveWager} activeWager Validated active wager for the spin.
  * @param {boolean} shouldUseFreeSpin Whether the spin should consume a queued free spin instead of balance.
+ * @param {boolean} shouldUseAutoplaySpin Whether the spin should count against autoplay.
  * @returns {Promise<void>} Promise resolved once the spin result has been rendered.
  */
-async function performSpinWithAnimation(dom, activeWager, shouldUseFreeSpin) {
+async function performSpinWithAnimation(dom, activeWager, shouldUseFreeSpin, shouldUseAutoplaySpin) {
   const spinPlayResult = executeSpinPlay(
     activeWager.balanceAmount,
     activeWager.betAmount,
@@ -1190,7 +1280,8 @@ async function performSpinWithAnimation(dom, activeWager, shouldUseFreeSpin) {
     SLOTS_PER_REEL,
     PAYLINES,
     SYMBOL_PAYOUT_MULTIPLIERS,
-    shouldUseFreeSpin
+    shouldUseFreeSpin,
+    shouldUseAutoplaySpin
   );
 
   try {
@@ -1200,7 +1291,7 @@ async function performSpinWithAnimation(dom, activeWager, shouldUseFreeSpin) {
   } finally {
     applySpinPlayResult(activeWager.currencyMode, spinPlayResult);
     render(dom);
-    queueNextFreeSpinIfNeeded(dom);
+    queueNextAutomaticSpinIfNeeded(dom);
   }
 }
 
@@ -1216,11 +1307,20 @@ async function performSpinWithAnimation(dom, activeWager, shouldUseFreeSpin) {
 function applySpinPlayResult(currencyMode, spinPlayResult) {
   validateSpinPlayResult(spinPlayResult);
   const freeSpinAwardCount = resolveFreeSpinAwardCount(spinPlayResult.paylineResults.scatterCount);
+  const shouldStopAutoplay =
+    freeSpinAwardCount > 0 ||
+    (spinPlayResult.isAutoplaySpin && !canAffordWager(spinPlayResult.updatedBalance, spinPlayResult.betAmount));
   const freeSpinState = resolveNextFreeSpinState(
     state.isFreeSpinMode,
     state.freeSpinsRemaining,
     spinPlayResult.isFreeSpin,
     freeSpinAwardCount
+  );
+  const autoplayState = resolveNextAutoplayState(
+    state.isAutoplay,
+    state.autoplaySpinsRemaining,
+    spinPlayResult.isAutoplaySpin,
+    shouldStopAutoplay
   );
   state.reelMatrix = spinPlayResult.reelMatrix;
   state.paylineResults = spinPlayResult.paylineResults;
@@ -1236,6 +1336,8 @@ function applySpinPlayResult(currencyMode, spinPlayResult) {
   );
   state.isFreeSpinMode = freeSpinState.isFreeSpinMode;
   state.freeSpinsRemaining = freeSpinState.freeSpinsRemaining;
+  state.isAutoplay = autoplayState.isAutoplay;
+  state.autoplaySpinsRemaining = autoplayState.autoplaySpinsRemaining;
   state.isSpinning = false;
   playSpinOutcomeSound(spinPlayResult);
 
@@ -1252,6 +1354,7 @@ function applySpinPlayResult(currencyMode, spinPlayResult) {
 function handleReset(dom) {
   const initialState = createInitialState();
   clearQueuedFreeSpin();
+  clearQueuedAutoplay();
   state.currencyMode = initialState.currencyMode;
   state.balances = initialState.balances;
   state.bets = initialState.bets;
@@ -1259,6 +1362,8 @@ function handleReset(dom) {
   state.isSpinning = initialState.isSpinning;
   state.isFreeSpinMode = initialState.isFreeSpinMode;
   state.freeSpinsRemaining = initialState.freeSpinsRemaining;
+  state.isAutoplay = initialState.isAutoplay;
+  state.autoplaySpinsRemaining = initialState.autoplaySpinsRemaining;
   state.statusMessage = "Machine reset. Ready to play.";
   state.reelMatrix = initialState.reelMatrix;
   state.paylineResults = initialState.paylineResults;
@@ -1276,6 +1381,7 @@ function render(dom) {
   renderCurrencyButtons(dom);
   renderMuteButton(dom);
   renderBetDisplay(dom);
+  renderAutoplayDisplay(dom);
   renderFreeSpinDisplay(dom);
   renderReels(dom);
   renderControls(dom);
@@ -1332,6 +1438,28 @@ function renderBetDisplay(dom) {
   const betAmount = formatAmount(state.bets[currencyMode], currencyMode);
   dom.betDisplay.textContent = betAmount;
   dom.betDisplay.setAttribute("aria-label", `Current bet size ${betAmount}`);
+}
+
+// Counter-rendering logic: autoplay keeps its own readout so the player can track queued automatic paid
+// spins independently from the existing free-spin counter and status message.
+
+/**
+ * Renders the current autoplay counter.
+ * @param {DomCache} dom Cached DOM references.
+ * @returns {void}
+ */
+function renderAutoplayDisplay(dom) {
+  const autoplayLabel =
+    state.isAutoplay && state.autoplaySpinsRemaining > 0
+      ? `Autoplay: ${String(state.autoplaySpinsRemaining)}`
+      : "Autoplay: Off";
+  dom.autoplayDisplay.textContent = autoplayLabel;
+  dom.autoplayDisplay.setAttribute(
+    "aria-label",
+    state.isAutoplay && state.autoplaySpinsRemaining > 0
+      ? `Autoplay spins remaining ${String(state.autoplaySpinsRemaining)}`
+      : "Autoplay off"
+  );
 }
 
 // Counter-rendering logic: the visible free-spin count stays independent from the status message so bonus
@@ -1400,15 +1528,37 @@ function renderControls(dom) {
   const canAffordPaidSpin = state.balances[state.currencyMode] >= state.bets[state.currencyMode];
   const isAutoFreeSpinSequenceActive =
     state.isFreeSpinMode && (state.isSpinning || state.freeSpinsRemaining > 0);
+  const isAutoplaySequenceActive = state.isAutoplay || queuedAutoplayTimeoutId !== null;
 
   dom.spinButton.disabled =
-    state.isSpinning || isAutoFreeSpinSequenceActive || (!state.isFreeSpinMode && !canAffordPaidSpin);
-  dom.spinButton.textContent = isAutoFreeSpinSequenceActive ? "Free Spins Running" : "Spin";
-  dom.decreaseBetButton.disabled = state.isSpinning || state.isFreeSpinMode;
-  dom.increaseBetButton.disabled = state.isSpinning || state.isFreeSpinMode;
-  dom.realCurrencyButton.disabled = state.isSpinning || state.isFreeSpinMode;
-  dom.diningCurrencyButton.disabled = state.isSpinning || state.isFreeSpinMode;
-  dom.resetButton.disabled = state.isSpinning || state.isFreeSpinMode;
+    state.isSpinning ||
+    isAutoFreeSpinSequenceActive ||
+    isAutoplaySequenceActive ||
+    (!state.isFreeSpinMode && !canAffordPaidSpin);
+  dom.spinButton.textContent = isAutoFreeSpinSequenceActive
+    ? "Free Spins Running"
+    : isAutoplaySequenceActive
+      ? "Autoplay Running"
+      : "Spin";
+  dom.autoplayButtons.forEach(
+    /**
+     * @param {HTMLButtonElement} autoplayButton Autoplay preset button.
+     * @returns {void}
+     */
+    (autoplayButton) => {
+      autoplayButton.disabled =
+        state.isSpinning ||
+        state.isFreeSpinMode ||
+        state.isAutoplay ||
+        !canAffordPaidSpin;
+    }
+  );
+  dom.stopAutoplayButton.disabled = !state.isAutoplay;
+  dom.decreaseBetButton.disabled = state.isSpinning || state.isFreeSpinMode || state.isAutoplay;
+  dom.increaseBetButton.disabled = state.isSpinning || state.isFreeSpinMode || state.isAutoplay;
+  dom.realCurrencyButton.disabled = state.isSpinning || state.isFreeSpinMode || state.isAutoplay;
+  dom.diningCurrencyButton.disabled = state.isSpinning || state.isFreeSpinMode || state.isAutoplay;
+  dom.resetButton.disabled = state.isSpinning || state.isFreeSpinMode || state.isAutoplay;
 }
 
 /**
@@ -2059,6 +2209,7 @@ function createReactiveVisualState(gameState) {
     ),
     winningReelIndexes: createWinningReelIndexes(gameState.paylineResults.matches),
     isFreeSpinMode: gameState.isFreeSpinMode,
+    isAutoplay: gameState.isAutoplay,
     shouldAnimateWinFeedback,
     winAmountText: shouldAnimateWinFeedback
       ? formatAmount(payoutAmount, gameState.currencyMode)
@@ -2112,6 +2263,7 @@ function applyMachineVisualState(dom, reactiveVisualState) {
   dom.machine.dataset.muted = String(reactiveVisualState.isMuted);
   dom.reelFrame.dataset.visualTone = reactiveVisualState.tone;
   dom.machine.classList.toggle("is-free-spin-mode", reactiveVisualState.isFreeSpinMode);
+  dom.machine.classList.toggle("is-autoplay-mode", reactiveVisualState.isAutoplay);
 }
 
 /**
@@ -2581,6 +2733,64 @@ function resolveNextFreeSpinState(
   };
 }
 
+// Autoplay-counter math: each autoplay-paid spin consumes one queued count, and any stop condition zeros
+// the autoplay state immediately so the scheduler cannot enqueue another paid spin.
+
+/**
+ * Resolves the next autoplay state after one spin settles.
+ * @param {boolean} isAutoplay Whether autoplay was active before the spin settled.
+ * @param {number} autoplaySpinsRemaining Number of queued autoplay spins before settlement.
+ * @param {boolean} wasAutoplaySpin Whether the completed spin was started by autoplay.
+ * @param {boolean} shouldStopAutoplay Whether autoplay should terminate immediately after this result.
+ * @returns {{ isAutoplay: boolean, autoplaySpinsRemaining: number }} Updated autoplay state.
+ */
+function resolveNextAutoplayState(
+  isAutoplay,
+  autoplaySpinsRemaining,
+  wasAutoplaySpin,
+  shouldStopAutoplay
+) {
+  if (typeof isAutoplay !== "boolean") {
+    throw new Error("Autoplay mode flag must be a boolean.");
+  }
+
+  if (!Number.isInteger(autoplaySpinsRemaining) || autoplaySpinsRemaining < 0) {
+    throw new Error(`Autoplay spins remaining must be a non-negative integer: ${String(autoplaySpinsRemaining)}.`);
+  }
+
+  if (typeof wasAutoplaySpin !== "boolean" || typeof shouldStopAutoplay !== "boolean") {
+    throw new Error("Autoplay state resolution requires boolean control flags.");
+  }
+
+  const spinsAfterConsumption =
+    wasAutoplaySpin ? Math.max(autoplaySpinsRemaining - 1, 0) : autoplaySpinsRemaining;
+  const nextIsAutoplay = isAutoplay && !shouldStopAutoplay && spinsAfterConsumption > 0;
+
+  return {
+    isAutoplay: nextIsAutoplay,
+    autoplaySpinsRemaining: nextIsAutoplay ? spinsAfterConsumption : 0
+  };
+}
+
+// Automatic-spin scheduling logic: the post-spin scheduler always gives free spins first priority, then
+// falls back to autoplay only when no bonus spins are waiting.
+
+/**
+ * Queues the next eligible automatic spin after a result render completes.
+ * @param {DomCache} dom Cached DOM references.
+ * @returns {void}
+ */
+function queueNextAutomaticSpinIfNeeded(dom) {
+  if (state.isFreeSpinMode && state.freeSpinsRemaining > 0) {
+    clearQueuedAutoplay();
+    queueNextFreeSpinIfNeeded(dom);
+    return;
+  }
+
+  clearQueuedFreeSpin();
+  queueNextAutoplaySpinIfNeeded(dom);
+}
+
 // Auto-bonus scheduling logic: free spins should continue without another click, so one queued timeout
 // starts the next spin after the current result has rendered and announced itself.
 
@@ -2608,6 +2818,33 @@ function queueNextFreeSpinIfNeeded(dom) {
   );
 }
 
+// Autoplay scheduling logic: autoplay uses the same delayed queue pattern as free spins, but it only
+// schedules another paid spin when autoplay is still active and no higher-priority free-spin mode exists.
+
+/**
+ * Queues the next automatic paid spin when autoplay should continue.
+ * @param {DomCache} dom Cached DOM references.
+ * @returns {void}
+ */
+function queueNextAutoplaySpinIfNeeded(dom) {
+  if (!state.isAutoplay || state.autoplaySpinsRemaining <= 0 || state.isFreeSpinMode) {
+    clearQueuedAutoplay();
+    return;
+  }
+
+  clearQueuedAutoplay();
+  queuedAutoplayTimeoutId = globalThis.setTimeout(
+    /**
+     * @returns {void}
+     */
+    () => {
+      queuedAutoplayTimeoutId = null;
+      handleSpin(dom);
+    },
+    AUTOPLAY_SPIN_DELAY_MS
+  );
+}
+
 // Timeout cleanup logic: reset and new manual spins both clear any queued automatic bonus spin so stale
 // timers never fire against a newer machine state.
 
@@ -2622,6 +2859,22 @@ function clearQueuedFreeSpin() {
 
   globalThis.clearTimeout(queuedFreeSpinTimeoutId);
   queuedFreeSpinTimeoutId = null;
+}
+
+// Timer cleanup logic: autoplay uses its own queue so stopping autoplay or switching to free spins can
+// cancel only the pending paid-spin timer without disturbing the bonus-spin queue.
+
+/**
+ * Clears any queued autoplay timeout.
+ * @returns {void}
+ */
+function clearQueuedAutoplay() {
+  if (queuedAutoplayTimeoutId === null) {
+    return;
+  }
+
+  globalThis.clearTimeout(queuedAutoplayTimeoutId);
+  queuedAutoplayTimeoutId = null;
 }
 
 /**
@@ -3137,6 +3390,7 @@ function canAffordWager(balanceAmount, betAmount) {
  * @param {readonly PaylineDefinition[]} paylines Paylines used to evaluate the final matrix.
  * @param {Readonly<Record<SymbolId, number>>} payoutMultipliers Payout multiplier lookup by symbol.
  * @param {boolean} [isFreeSpin=false] Whether the spin should skip deducting the wager from the balance.
+ * @param {boolean} [isAutoplaySpin=false] Whether the spin should count against autoplay.
  * @returns {SpinPlayResult} Pure spin settlement output.
  * @throws {Error} Throws when the balance, bet, reel dimensions, paylines, or payout configuration is invalid.
  */
@@ -3147,7 +3401,8 @@ function executeSpinPlay(
   slotsPerReel,
   paylines,
   payoutMultipliers,
-  isFreeSpin = false
+  isFreeSpin = false,
+  isAutoplaySpin = false
 ) {
   validateBalanceAmount(currentBalance);
   validatePayoutBetAmount(betAmount);
@@ -3155,8 +3410,8 @@ function executeSpinPlay(
   validatePaylineDefinitions(paylines, reelCount, slotsPerReel);
   validatePayoutMultipliers(payoutMultipliers);
 
-  if (typeof isFreeSpin !== "boolean") {
-    throw new Error("Spin execution requires a boolean free-spin flag.");
+  if (typeof isFreeSpin !== "boolean" || typeof isAutoplaySpin !== "boolean") {
+    throw new Error("Spin execution requires boolean free-spin and autoplay flags.");
   }
 
   if (!isFreeSpin && !canAffordWager(currentBalance, betAmount)) {
@@ -3181,6 +3436,7 @@ function executeSpinPlay(
     betAmount,
     wagerCost,
     isFreeSpin,
+    isAutoplaySpin,
     balanceBeforeSpin: currentBalance,
     balanceAfterBet,
     updatedBalance: payoutResults.updatedBalance,
@@ -3247,6 +3503,20 @@ function createSpinStatusMessage(
   }
 
   return payoutMessage;
+}
+
+// Preset validation logic: autoplay only supports the three requested counts, so one helper keeps button
+// handlers and future callers aligned on the same allowed values.
+
+/**
+ * Validates one autoplay preset count.
+ * @param {number} spinCount Autoplay preset count to validate.
+ * @returns {void}
+ */
+function validateAutoplaySpinCount(spinCount) {
+  if (!Number.isInteger(spinCount) || !AUTOPLAY_OPTIONS.includes(spinCount)) {
+    throw new Error(`Autoplay spin count must be one of ${AUTOPLAY_OPTIONS.join(", ")}: ${String(spinCount)}.`);
+  }
 }
 
 /**
