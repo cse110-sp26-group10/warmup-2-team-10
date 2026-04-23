@@ -1103,3 +1103,123 @@ Make changes solely to the html, css and js in iteration 14 to fix the failures.
 * What didn't work: CSS state changes really only exist for the win and nothing else. 
 **Hand-Edits Required? (No):**
 * No. No manual logic changes were made in `game/iteration-14/game.js`
+
+### Iteration 15:
+
+Act as a strict, senior software engineer obsessed with clean code and the DRY principle.
+
+      Context:
+      - You are working on a browser-based "Broke College Student Slot Machine."
+      - Use `game/iteration-14/` as the baseline for this iteration.
+      - This prompt is for Iteration 15, and the result must become a new `game/iteration-15/` folder that is a direct continuation of Iteration 14.
+      - Phase 3 is for connecting the work done in Phase 1 (UI) and Phase 2 (Logic) to create a playable game.
+      - Use the project research context from `plan/research-overview.md` and the raw research notes in `plan/raw-research/individual-research/nicole-research.md` as background constraints.
+      - The current Iteration 14 code already has:
+        - a typed `state` object
+        - symbol configuration in `SYMBOLS`
+        - ordered symbol weights in `SYMBOL_WEIGHT_ENTRIES`
+        - a validated weighted RNG layer via `WEIGHTED_SYMBOL_TABLE`
+        - weighted symbol selection helpers
+        - a reel matrix stored as `reelMatrix[reelIndex][slotIndex]`
+        - a clean intermediate spin-result layer
+        - pure helpers that generate per-reel symbol sequences
+        - pure helpers that convert spin results into the final 3x5 reel matrix
+        - a payline-evaluation layer that reads the current matrix and returns structured payline results
+        - a payout-calculation layer that uses bet size and matched paylines to update balance
+        - Wild and Scatter logic helper functions that modify payline evaluation
+        - DOM manipulation functions that connect the HTML grid and the JavaScript 2D array
+        - responsive connections between spin and bet wager mechanics
+        - keyboard bindings to spin mechanism
+        - visual indicators to the slot machine by taking in data from game outcomes and modifying the css state
+      - Iteration 15 adds ARIA live region updates (screen reader announcements) and highlights matched paylines with a neon red border while keeping a minimalist design.
+
+      Task:
+      Create `game/iteration-15/` by building directly on top of `game/iteration-14/`.
+
+      Folder requirements:
+      - Treat `game/iteration-14/` as the source of truth.
+      - Create `game/iteration-15/` as a continuation of Iteration 14.
+      - Copy the non-generated files from `game/iteration-14/` into `game/iteration-15/` unchanged unless absolutely required.
+      - This includes HTML, CSS, JS, lint/config files, and package manifests.
+      - Do NOT copy `node_modules` or generated artifacts.
+      - Modify ONLY `game/iteration-15/game.js`.
+      - Do NOT rewrite architecture or refactor the project structure.
+      - Preserve Iteration 14 systems (RNG, paylines, payout, DOM, Wild/Scatter, keyboard controls).
+
+      Scope constraints:
+      - Do NOT use external libraries.
+      - Do NOT convert to modules or frameworks.
+      - Do NOT add imports/exports.
+      - Do NOT modify HTML/CSS unless absolutely necessary.
+      - Keep logic minimal, explicit, and maintainable.
+      - Keep UI code thin and separated from logic layers.
+
+      Rules for this iteration:
+      - Implement ARIA live region updates that announce game results (e.g., “You won 50 credits”, “Try again”).
+      - Live region must be visually hidden but accessible (NOT display: none).
+      - Add optional toggle in state to enable/disable announcements.
+      - Highlight winning paylines using a neon red border with minimal CSS state toggles.
+      - Ensure updates are triggered only when game state changes.
+      - Keep accessibility logic separate from game logic.
+
+      Implementation requirements:
+      - Write code that implements ARIA live region updates in response to game outcomes.
+      - Use JavaScript to dynamically update the live region content.
+      - Use helper functions only if necessary.
+      - Validate helper functions with clear error handling.
+      - Use small, well-named functions (DRY principle).
+      - Include full JSDoc annotations for all functions.
+      - Before writing code, explain function logic in a plain text comment.
+
+      Compatibility requirements:
+      - Preserve `state` object structure unless minimally extended:
+        - Allowed additions: `announcementsEnabled`
+      - Preserve `SYMBOLS` unchanged.
+      - Preserve weighted RNG system unchanged.
+      - Preserve spin → evaluation → payout pipeline unchanged.
+      - Preserve DOM mapping structure unchanged.
+      - Preserve Wild/Scatter logic unchanged.
+
+      Output rules:
+      - Apply all changes directly in `game/iteration-15/`.
+      - Do not create extra files outside iteration-15.
+
+1. Static Analysis (Linters & Validators)
+
+HTML Validation: Run npx html-validate "iteration-15/*.html" to check for aria-label-misuse, whitespace in IDs, and structural errors.
+CSS Linting: Run npx stylelint "iteration-15/**/*.css" to ensure modern CSS conventions.
+JavaScript Linting: Run npx eslint "iteration-15/**/*.js" to ensure code quality and JSDoc correctness.
+Full Lint Check: Run all linters together.
+
+2. Logic Testing (Unit Tests)
+
+Run Unit Tests: Execute npm run test:unit.
+Validate Symbols: Ensure VALID_SYMBOLS matches HTML symbols exactly.
+Update tests if iteration changes require it.
+
+3. UI Testing (End-to-End Tests)
+
+Ensure Local Server is available: run npx kill-port 3000.
+Start Server: npx serve iteration-15 -p 3000.
+Run E2E Tests: npm run test:e2e.
+Verify:
+- Spin works
+- Paylines highlight correctly
+- ARIA announcements trigger correctly
+
+4. Final "Safe to Commit" Check
+
+Run All-in-One Checker:
+- HTML validation
+- CSS lint
+- JS lint
+- Unit tests
+- E2E tests
+
+If any step fails, fix before proceeding.
+
+---
+
+## The Result (What happened?):
+
+**Iteration 15 successfully adds ARIA live region accessibility support and enhanced winning payline visualization using a neon red border, while preserving the existing slot machine architecture. The game now provides both visual and screen-reader feedback for outcomes, improving accessibility without increasing UI complexity.**
