@@ -42,7 +42,10 @@ Run all commands from the `game/` folder.
 ```bash
 cd game
 npm install
+npx playwright install
 ```
+
+> `npm install` installs all Node dependencies. `npx playwright install` downloads the browser binaries (Chromium etc.) that Playwright needs to run E2E tests — this is a separate step that must be run once per machine. If you skip it, `npm run test:e2e` will fail with a "browser not found" error.
 
 **Run all checks** (HTML validation + linting + tests):
 ```bash
@@ -53,7 +56,7 @@ npm run check
 * `npm run validate:html`: Validates HTML structure across all iterations.
 * `npm run lint`: Runs both CSS and JS linters.
 * `npm run test:unit`: Executes Vitest unit tests.
-* `npm run test:e2e`: Executes Playwright tests (requires server at port 3000).
+* `npm run test:e2e`: Executes Playwright E2E tests (requires `npx playwright install` on first run).
 
 ## AI Tooling Decision
 | Component | Choice |
