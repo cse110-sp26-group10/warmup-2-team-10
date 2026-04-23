@@ -1,6 +1,18 @@
+# Dependencies
 node_modules/
+game/iteration-*/node_modules/
+
+# Test artifacts
 coverage/
 playwright-report/
 test-results/
 .playwright/
+game/test-results/
+game/playwright-report/
+
+# OS files
 .DS_Store
+**/.DS_Store
+
+# Editor / tool config
+.claude/
