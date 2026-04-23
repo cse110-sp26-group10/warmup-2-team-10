@@ -198,9 +198,12 @@ Constraints:
 
 **The Result (What happened?):**
 * The code compiled successfully. Four new files (ci.yml, .prettierrc.json, eslint.config.js, package.json) were created. The new files passed linting. It did not hallucinate in a way that matters.
+* However, the CI/CD setup did not actually work on GitHub. The AI placed the `ci.yml` workflow file inside `game/iteration-5/.github/workflows/`, but GitHub Actions only reads workflows from `.github/workflows/` at the **root of the repository**. As a result, GitHub never saw or executed the workflow — no checks ran on any push or pull request.
+* The same mistake was repeated for every subsequent iteration that included a `ci.yml` (iterations 6–14), all of which are also buried inside their respective iteration folders and are invisible to GitHub.
+* The fix was to create a single `.github/workflows/ci.yml` at the repo root that runs `npm run validate:html`, `npm run lint:css`, `npm run lint:js`, and `npm run test:unit` from the `game/` directory, using the `iteration-*` glob patterns already defined in `game/package.json`. This single workflow covers all iterations automatically as new ones are added.
 
 **Hand-Edits Required? (Yes/No):**
-* No.
+* Yes. A root-level `.github/workflows/ci.yml` had to be manually created after the fact because the AI placed all workflow files inside iteration subfolders, where GitHub Actions cannot find them. No changes were needed to the iteration-level files themselves.
 
 
 ### Iteration 6: build the RNG algorithm

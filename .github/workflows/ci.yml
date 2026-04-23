@@ -1,0 +1,42 @@
+name: CI
+
+on:
+  push:
+    branches: ["**"]
+  pull_request:
+
+jobs:
+  quality:
+    name: HTML · CSS · JS · Unit Tests
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+          cache-dependency-path: game/package-lock.json
+
+      - name: Install dependencies
+        working-directory: game
+        run: npm ci
+
+      - name: Validate HTML (all iterations)
+        working-directory: game
+        run: npm run validate:html
+
+      - name: Lint CSS (all iterations)
+        working-directory: game
+        run: npm run lint:css
+
+      - name: Lint JS (all iterations)
+        working-directory: game
+        run: npm run lint:js
+
+      - name: Unit tests
+        working-directory: game
+        run: npm run test:unit
