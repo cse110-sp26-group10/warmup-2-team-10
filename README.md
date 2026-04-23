@@ -56,7 +56,7 @@ npm run check
 * `npm run validate:html`: Validates HTML structure across all iterations.
 * `npm run lint`: Runs both CSS and JS linters.
 * `npm run test:unit`: Executes Vitest unit tests.
-* `npm run test:e2e`: Executes Playwright E2E tests (requires `npx playwright install` on first run).
+* `npm run test:e2e`: Executes Playwright E2E tests. The config auto-starts a Vite server on port 3000 — no manual server needed. If port 3000 is already in use, run `npx kill-port 3000` first, then retry.
 
 ## AI Tooling Decision
 | Component | Choice |
