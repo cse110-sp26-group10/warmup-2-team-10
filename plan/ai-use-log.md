@@ -785,7 +785,7 @@ Act as a strict, senior software engineer obsessed with clean code and the DRY p
 **Hand-Edits Required? (Yes/No):**
 * No. No manual logic changes were made in `game/iteration-11/game.js`. The reviewed limitations were documented rather than corrected in this iteration.
 
-### Iteration 12: 
+### Iteration 12: Connect Spin Button and Bet Mechanic
 
 Act as a strict, senior software engineer obsessed with clean code and the DRY principle.
 
@@ -872,7 +872,7 @@ Act as a strict, senior software engineer obsessed with clean code and the DRY p
 **Hand-Edits Required? (Yes):**
 * Yes. Manual logic changes were made in `game/iteration-12/game.js` to fix validator, linter and test failure problems. 
 
-### Iteration 13: 
+### Iteration 13: Bind Spacebar and Enter Keys to Spin Mechanism
 
 Act as a strict, senior software engineer obsessed with clean code and the DRY principle.
 
@@ -989,7 +989,7 @@ Make changes solely to the html, css and js in iteration 13 to fix the failures.
 **Hand-Edits Required? (No):**
 * No. No manual logic changes were made in `game/iteration-13/game.js`
 
-### Iteration 14: 
+### Iteration 14: Reactive CSS State Changes for Game Outcomes
 
 Act as a strict, senior software engineer obsessed with clean code and the DRY principle.
 
@@ -1109,7 +1109,7 @@ Make changes solely to the html, css and js in iteration 14 to fix the failures.
 **Hand-Edits Required? (No):**
 * No. No manual logic changes were made in `game/iteration-14/game.js`
 
-### Iteration 15:
+### Iteration 15: ARIA Live Region Updates and Payline Highlighting
 
 Act as a strict, senior software engineer obsessed with clean code and the DRY principle.
 
@@ -1232,7 +1232,7 @@ If any step fails, fix before proceeding.
 **Hand-Edits Required? (Yes/No):**
 * No. No manual logic changes were made in `game/iteration-15/game.js`. The reviewed limitations were documented rather than corrected in this iteration.
 
-### Iteration 16:
+### Iteration 16: Replace Text Symbols with SVG Icon Visuals
 
 Act as a strict, senior software engineer obsessed with clean code and the DRY principle.
 
@@ -1410,7 +1410,7 @@ Create `game/iteration-16/` by building directly on top of `game/iteration-15/`.
 **Hand-Edits Required? (Yes/No):**
 * No. No manual logic changes were made in `game/iteration-16/game.js`. The reviewed limitations were documented rather than corrected in this iteration.
 
-### Iteration 17:
+### Iteration 17: Reel Spin Animation with Staggered Symbol Scrolling
 
 Act as a strict, senior software engineer obsessed with clean code and the DRY principle.
 
@@ -1566,7 +1566,7 @@ Create `game/iteration-17/` by building directly on top of `game/iteration-16/`.
 * No. No manual logic changes were made in `game/iteration-17/game.js`.
 
 
-### Iteration 18:
+### Iteration 18: Web Audio API Integration (Procedural Sound Effects)
 
 Act as a strict, senior software engineer obsessed with clean code and the DRY principle.
 
@@ -1719,7 +1719,7 @@ Create `game/iteration-18/` by building directly on top of `game/iteration-17/`.
 **Hand-Edits Required? (Yes/No):**
 * No. No manual logic changes were made in `game/iteration-18/game.js`.
 
-### Iteration 19:
+### Iteration 19: Win Feedback Suite (Coin Shower, Slot Pulse, Win Overlay)
 
 Act as a strict, senior software engineer obsessed with clean code and the DRY principle.
 
@@ -1878,7 +1878,7 @@ Suppress all three of these new features when prefers-reduced-motion is active.
 * Yes. The .coin-shower-layer.is-visible property opacity was changed from 0 to 1.
 
 
-### Iteration 20:
+### Iteration 20: Free Spins Bonus Mechanic (Scatter Trigger)
 
 Act as a strict, senior software engineer obsessed with clean code and the DRY principle.
 
@@ -2054,7 +2054,7 @@ Create `game/iteration-20/` by building directly on top of `game/iteration-19/`.
 ## Hand-Edits Required? (Yes/No):
 **No. The implementation correctly extended the existing architecture and integrated seamlessly without requiring manual fixes.**
 
-### Iteration 21:
+### Iteration 21: Autoplay Feature (5, 10, or 25 Consecutive Spins)
 
 Act as a strict, senior software engineer obsessed with clean code and the DRY principle.
 
@@ -2249,7 +2249,7 @@ Create `game/iteration-21/` by building directly on top of `game/iteration-20/`.
 ## Hand-Edits Required? (Yes/No):
 **No. The implementation followed the existing architecture and integrated without requiring manual fixes.**
 
-### Iteration 22:
+### Iteration 22: Dynamic Paytable Modal, Arrow Key Bet Controls, and Reduced-Motion Accessibility
 
 Act as a strict, senior software engineer obsessed with clean code and the DRY principle.
 
