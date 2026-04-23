@@ -13,6 +13,3 @@ game/playwright-report/
 # OS files
 .DS_Store
 **/.DS_Store
-
-# Editor / tool config
-.claude/
