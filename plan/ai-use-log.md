@@ -1718,3 +1718,161 @@ Create `game/iteration-18/` by building directly on top of `game/iteration-17/`.
 
 **Hand-Edits Required? (Yes/No):**
 * No. No manual logic changes were made in `game/iteration-18/game.js`.
+
+### Iteration 19:
+
+Act as a strict, senior software engineer obsessed with clean code and the DRY principle.
+
+---
+
+## Context:
+- You are working on a browser-based "Broke College Student Slot Machine."
+- Use `game/iteration-18/` as the baseline for this iteration.
+- This prompt is for Iteration 19, and the result must become a new `game/iteration-19/` folder that is a direct continuation of Iteration 18.
+- Phase 3 is for connecting the work done in Phase 1 (UI) and Phase 2 (Logic) to create a playable game.
+- Use the project research context from `plan/research-overview.md` and the raw research notes in `plan/raw-research/individual-research/nicole-research.md` as background constraints.
+
+- The current Iteration 18 code already has:
+  - a typed `state` object
+  - symbol configuration in `SYMBOLS`
+  - ordered symbol weights in `SYMBOL_WEIGHT_ENTRIES`
+  - a validated weighted RNG layer via `WEIGHTED_SYMBOL_TABLE`
+  - weighted symbol selection helpers
+  - a reel matrix stored as `reelMatrix[reelIndex][slotIndex]`
+  - a clean intermediate spin-result layer
+  - pure helpers that generate per-reel symbol sequences
+  - pure helpers that convert spin results into the final 3x5 reel matrix
+  - a payline-evaluation layer that reads the current matrix and returns structured payline results
+  - a payout-calculation layer that uses bet size and matched paylines to update balance
+  - Wild and Scatter logic helper functions
+  - DOM manipulation functions that connect the HTML grid and JS 2D array
+  - responsive spin + bet wager mechanics
+  - keyboard bindings to spin mechanism
+  - visual indicators for game outcomes via CSS state changes, and icons for each of the spins
+  - ARIA live region updates for accessibility (“You won 50 credits”, etc.)
+  - payline highlighting with a neon red border for winning combinations
+  - audio cues that respond to buttons pressed and the state of the slot machine
+
+---
+
+## Task:
+Create `game/iteration-19/` by building directly on top of `game/iteration-18/`.
+
+---
+
+## Folder requirements:
+- Treat `game/iteration-18/` as the source of truth.
+- Create `game/iteration-19/` as a continuation of Iteration 18.
+- Copy all non-generated files unchanged unless absolutely required.
+- Do NOT copy `node_modules` or generated artifacts.
+- Modify ONLY `game/iteration-19/game.js`.
+- Do NOT rewrite architecture or restructure the project.
+- Preserve all iteration-18 systems (RNG, paylines, payout, DOM, Wild/Scatter, keyboard controls, ARIA system, Audio).
+
+---
+
+## Scope constraints:
+- Do NOT use external libraries.
+- Do NOT convert into modules or frameworks.
+- Do NOT add imports/exports.
+- Do NOT modify HTML/CSS unless absolutely necessary.
+- Keep logic explicit, minimal, and maintainable.
+- Keep UI rendering separate from game logic.
+
+---
+
+## Rules for this iteration:
+
+## 1. Win Feedback Suite (New Feature)
+- Add an animation of a coin shower using JavaScript over any of the reels that are winning
+- Add a pulse to each symbol slot on the winning payline through .slot-win-highlight
+- Add an overlay that fades in over the reels showing how much money was won, and clears before the next spin
+
+### Accessiblity Requirements:
+Suppress all three of these new features when prefers-reduced-motion is active.
+
+---
+
+## Implementation requirements:
+- Preserve ARIA live region behavior from Iteration 18.
+- Ensure symbol rendering changes do not break accessibility.
+- Use JavaScript to dynamically render SVG/image-based symbols.
+- Validate helper functions with clear error handling.
+- Use small, well-named functions (DRY principle).
+- Include full JSDoc annotations for all functions.
+- Before writing code, explain function logic in a plain text comment.
+
+---
+
+## Compatibility requirements:
+- Preserve `state` object unless minimally extended:
+  - Only allowed additions:
+    - `announcementsEnabled` (if needed)
+- Preserve `SYMBOLS` as the UI metadata source.
+- Preserve weighted RNG + spin pipeline unchanged.
+- Preserve payline evaluation, payout, Wild/Scatter logic unchanged.
+- Preserve DOM structure and keyboard interactions from Iterations 6–18.
+- Preserve all audio elements
+
+---
+
+## Output rules:
+- Apply all changes directly in `game/iteration-19/`.
+- Do not create additional folders or files outside iteration-19.
+
+---
+
+## Static Analysis (Linters & Validators)
+1. HTML Validation:
+   - `npx html-validate "iteration-19/*.html"`
+
+2. CSS Linting:
+   - `npx stylelint "iteration-19/**/*.css"`
+
+3. JavaScript Linting:
+   - `npx eslint "iteration-19/**/*.js"`
+
+4. Full Lint Check:
+   - Run all linters together and fix issues before proceeding.
+
+---
+
+## Logic Testing (Unit Tests)
+- Run: `npm run test:unit`
+- Validate:
+  - Symbols still match HTML definitions
+  - RNG output remains consistent
+- Update tests if symbol system changes require it
+
+---
+
+## UI Testing (End-to-End Tests)
+- Ensure server is running:
+  - `npx kill-port 3000`
+  - `npx serve iteration-19 -p 3000`
+- Run:
+  - `npm run test:e2e`
+- Verify:
+  - Spin works correctly
+  - SVG icons render properly
+  - Paylines highlight correctly
+  - ARIA announcements still fire correctly
+
+---
+
+## Final "Safe to Commit" Check
+- All lint checks pass
+- All unit tests pass
+- All E2E tests pass
+- No architecture changes introduced
+- Only Iteration 19 logic added
+- No regressions from Iteration 18
+
+---
+
+## The Result (What happened?):
+
+**Iteration 19 successfully implemented the bells and whistles with full functionality, interfacing with the already existing code and changing nothing else. It added a coin shower animation, a win text, and a pulsing animation over the slot machine on every win. The model did as expected, except that it set the opacity of the coin particles to 0. Some of the sizes of the elements got slightly changed to fit the animations but everything still fits nicely.**
+
+**Hand-Edits Required? (Yes/No):**
+* Yes. The .coin-shower-layer.is-visible property opacity was changed from 0 to 1.
