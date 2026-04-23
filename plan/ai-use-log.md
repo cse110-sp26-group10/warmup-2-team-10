@@ -48,7 +48,7 @@ Output ONLY HTML code.
 The output is a static, plain HTML layout for a slot machine game. It is clean and readable, but not interactive. 
 
 **Hand-Edits Required? (Yes/No):**
-* No
+* AI kept generating aria-label attributes that failed the test cases, so I manually fixed the code by removing repeated or unnecessary attributes on lines 8, 11-19, 21-23, 27-28, 35, 45, and 47. 
 
 ### Iteration 2: HTML and CSS Grid implementing a 3×5 reel layout with a high-contrast design.
 
