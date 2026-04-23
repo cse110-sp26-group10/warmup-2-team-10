@@ -1876,3 +1876,182 @@ Suppress all three of these new features when prefers-reduced-motion is active.
 
 **Hand-Edits Required? (Yes/No):**
 * Yes. The .coin-shower-layer.is-visible property opacity was changed from 0 to 1.
+
+
+### Iteration 20:
+
+Act as a strict, senior software engineer obsessed with clean code and the DRY principle.
+
+---
+
+## Context:
+- You are working on a browser-based "Broke College Student Slot Machine."
+- Use `game/iteration-19/` as the baseline for this iteration.
+- This prompt is for Iteration 20, and the result must become a new `game/iteration-20/` folder that is a direct continuation of Iteration 19.
+- This iteration focuses on implementing the Free Spins bonus mechanic and integrating it into the existing spin loop and game state.
+- Use the project research context from `plan/research-overview.md` and the raw research notes in `plan/raw-research/individual-research/nicole-research.md` as background constraints.
+
+- The current Iteration 19 code already has:
+  - a typed `state` object
+  - symbol configuration in `SYMBOLS` (including Scatter)
+  - a validated weighted RNG layer and reel matrix generation
+  - payline-evaluation and payout-calculation layers
+  - DOM manipulation and responsive spin + bet wager mechanics
+  - keyboard bindings, ARIA live regions, and audio cues
+  - Win Feedback Suite (coin shower, slot pulse, and win overlay)
+  - accessibility support for prefers-reduced-motion
+
+---
+
+## Task:
+Create `game/iteration-20/` by building directly on top of `game/iteration-19/`.
+
+---
+
+## Folder requirements:
+- Treat `game/iteration-19/` as the source of truth.
+- Create `game/iteration-20/` as a continuation of Iteration 19.
+- Copy all non-generated files unchanged unless absolutely required.
+- Do NOT copy `node_modules` or generated artifacts.
+- Modify ONLY `game/iteration-20/game.js` (and `index.html` / `style.css` only if UI hooks are missing).
+- Do NOT rewrite architecture or restructure the project.
+- Preserve all iteration-19 systems (RNG, paylines, payout, DOM, Win Feedback, ARIA system, Audio).
+
+---
+
+## Scope constraints:
+- Do NOT use external libraries.
+- Do NOT convert into modules or frameworks.
+- Do NOT add imports/exports.
+- Keep logic explicit, minimal, and maintainable.
+- Keep UI rendering separate from game logic.
+
+---
+
+## Rules for this iteration:
+
+## 1. Free Spins Mechanic (New Feature)
+- Trigger: Detect when **3 or more Scatter symbols** land anywhere on the grid.
+- Award: Grant exactly **10 Free Spins** when triggered.
+- Logic: During Free Spins, the `currentBet` must **not** be deducted from the balance.
+- State Management:
+  - Add `isFreeSpinMode` (boolean)
+  - Add `freeSpinsRemaining` (number)
+- Flow:
+  - Decrement `freeSpinsRemaining` after each spin
+  - When it reaches **0**, automatically:
+    - set `isFreeSpinMode` to `false`
+    - return to normal gameplay
+
+---
+
+## 2. Free Spin UI & Feedback
+- Counter:
+  - Add a visible **"Free Spins: X"** counter
+  - Must update in real-time
+- Visual Distinction:
+  - Apply a subtle CSS class to the game container when `isFreeSpinMode` is active
+- Audio / ARIA:
+  - Trigger a **distinct audio cue** when Free Spins are awarded
+  - Announce via ARIA live region:
+    - `"10 Free Spins Awarded!"`
+
+---
+
+## Implementation requirements:
+- Preserve all animations and win feedback from Iteration 19
+- Ensure spin logic correctly handles:
+  - normal spins (costly)
+  - free spins (cost-free, automatic progression)
+- Prevent conflicts between:
+  - win overlay
+  - coin shower
+  - free spin UI (handle layering via CSS if needed)
+- Use small, well-named functions (DRY principle)
+- Include full JSDoc annotations for all functions
+- Before writing code, explain function logic in plain text comments
+
+---
+
+## Compatibility requirements:
+- Extend `state` object with:
+  - `isFreeSpinMode`
+  - `freeSpinsRemaining`
+- Preserve:
+  - `SYMBOLS`
+  - weighted RNG pipeline
+  - payline evaluation + payout logic
+  - (payouts must still increase balance during free spins)
+- Preserve all:
+  - audio systems
+  - accessibility features (ARIA, reduced motion)
+
+---
+
+## Output rules:
+- Apply all changes directly in `game/iteration-20/`
+- Do not create additional folders or files outside iteration-20
+
+---
+
+## Static Analysis (Linters & Validators)
+1. HTML Validation:
+   - `npx html-validate "iteration-20/*.html"`
+
+2. CSS Linting:
+   - `npx stylelint "iteration-20/**/*.css"`
+
+3. JavaScript Linting:
+   - `npx eslint "iteration-20/**/*.js"`
+
+4. Full Lint Check:
+   - Run all linters together and fix issues before proceeding
+
+---
+
+## Logic Testing (Unit Tests)
+- Run: `npm run test:unit`
+- Validate:
+  - Scatter detection correctly triggers free spins
+  - Balance does NOT decrease during free spins
+  - `freeSpinsRemaining` decrements correctly
+
+---
+
+## UI Testing (End-to-End Tests)
+- Ensure server is running:
+  - `npx serve iteration-20 -p 3000`
+- Run:
+  - `npm run test:e2e`
+- Verify:
+  - Free spin counter appears and updates correctly
+  - Free spins trigger visually and audibly
+  - Normal play resumes after final free spin
+  - ARIA announcement fires when bonus is awarded
+
+---
+
+## Final "Safe to Commit" Check
+- All lint checks pass
+- All unit tests pass
+- All E2E tests pass
+- No architecture changes introduced
+- Free spin logic integrates cleanly with existing systems
+- No regressions in RNG, payout, or win feedback systems
+
+---
+
+## The Result (What happened?):
+
+**Iteration 20 successfully implemented the Free Spins mechanic and integrated it cleanly into the existing game loop and state system. The state object was extended without breaking prior logic, and scatter detection correctly triggers the bonus. A real-time free spins counter was added to the UI, along with a visual indicator for bonus mode.**
+
+**The spin logic was carefully updated to bypass balance deduction during free spins while still allowing payouts to accumulate. Special attention was given to UI layering to prevent overlap issues between the win feedback suite (coin shower, overlay) and the free spins display, which was resolved via proper z-index management.**
+
+**All unit tests for scatter detection and state transitions passed, and end-to-end tests confirmed smooth automatic progression through free spins and a correct return to normal gameplay once the counter reached zero.**
+
+---
+
+## Hand-Edits Required? (Yes/No):
+**No. The implementation correctly extended the existing architecture and integrated seamlessly without requiring manual fixes.**
+
+
